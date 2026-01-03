@@ -1,0 +1,512 @@
+{
+  "database_info": {
+    "name": "Vietnam_Comprehensive_Calendar_2026_Final",
+    "description": "Tổng hợp toàn diện ngày lễ, kỷ niệm ngành, nhân vật lịch sử và các sự kiện cách mạng tiêu biểu Việt Nam năm 2026",
+    "last_updated": "2026-01-02",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "data": [
+    {
+      "category": "PUBLIC_HOLIDAYS",
+      "items": [
+        {
+          "id": "PH_NEW_YEAR",
+          "name": "Tết Dương lịch 2026",
+          "start_time": "2026-01-01T00:00:00",
+          "end_time": "2026-01-01T23:59:59",
+          "total_days": 1,
+          "description": "Nghỉ chính thức 1 ngày."
+        },
+        {
+          "id": "PH_LUNAR_NEW_YEAR",
+          "name": "Tết Nguyên đán Bính Ngọ",
+          "start_time": "2026-02-14T00:00:00",
+          "end_time": "2026-02-22T23:59:59",
+          "total_days": 9,
+          "description": "Nghỉ 9 ngày liên tục (27 tháng Chạp năm Ất Tỵ đến hết mùng 5 tháng Giêng năm Bính Ngọ)."
+        },
+        {
+          "id": "PH_HUNG_KING",
+          "name": "Giỗ Tổ Hùng Vương (10/3 Âm lịch)",
+          "start_time": "2026-04-25T00:00:00",
+          "end_time": "2026-04-27T23:59:59",
+          "total_days": 3,
+          "description": "Nghỉ bù thứ Hai do mùng 10/3 rơi vào Chủ nhật."
+        },
+        {
+          "id": "PH_REUNIFICATION_LABOR",
+          "name": "Ngày Giải phóng & Quốc tế Lao động",
+          "start_time": "2026-04-30T00:00:00",
+          "end_time": "2026-05-03T23:59:59",
+          "total_days": 4,
+          "description": "Nghỉ từ thứ Năm (30/4) đến hết Chủ nhật (3/5)."
+        },
+        {
+          "id": "PH_NATIONAL_DAY",
+          "name": "Lễ Quốc khánh 2/9",
+          "start_time": "2026-08-29T00:00:00",
+          "end_time": "2026-09-02T23:59:59",
+          "total_days": 5,
+          "description": "Nghỉ 5 ngày liên tục nhờ hoán đổi ngày làm việc thứ Hai (31/8)."
+        }
+      ]
+    },
+    {
+      "category": "REVOLUTIONARY_ANNIVERSARIES",
+      "items": [
+        {
+          "id": "RA_DONG_KHOI",
+          "name": "Ngày Bến Tre Đồng khởi",
+          "date": "01-17",
+          "description": "Phong trào Đồng khởi tại Bến Tre (1960).",
+          "start_time": "2026-01-17T00:00:00",
+          "end_time": "2026-01-17T23:59:59"
+        },
+        {
+          "id": "RA_PARIS_ACCORDS",
+          "name": "Ngày ký Hiệp định Paris",
+          "date": "01-27",
+          "description": "Ký kết Hiệp định Paris về chấm dứt chiến tranh, lập lại hòa bình ở Việt Nam (1973).",
+          "start_time": "2026-01-27T00:00:00",
+          "end_time": "2026-01-27T23:59:59"
+        },
+        {
+          "id": "RA_MAU_THAN_1968",
+          "name": "Ngày Tổng tiến công và nổi dậy Tết Mậu Thân",
+          "date": "01-30",
+          "description": "Cuộc Tổng tiến công và nổi dậy Xuân Mậu Thân 1968.",
+          "start_time": "2026-01-30T00:00:00",
+          "end_time": "2026-01-30T23:59:59"
+        },
+        {
+          "id": "RA_CPV",
+          "name": "Ngày thành lập Đảng Cộng sản Việt Nam",
+          "date": "02-03",
+          "description": "Thành lập Đảng Cộng sản Việt Nam (1930).",
+          "start_time": "2026-02-03T00:00:00",
+          "end_time": "2026-02-03T23:59:59"
+        },
+        {
+          "id": "RA_DA_NANG_LIBERATION",
+          "name": "Ngày Giải phóng Đà Nẵng",
+          "date": "03-29",
+          "description": "Giải phóng thành phố Đà Nẵng (1975).",
+          "start_time": "2026-03-29T00:00:00",
+          "end_time": "2026-03-29T23:59:59"
+        },
+        {
+          "id": "RA_DIEN_BIEN_PHU",
+          "name": "Ngày Chiến thắng Điện Biên Phủ",
+          "date": "05-07",
+          "description": "Chiến thắng Điện Biên Phủ lừng lẫy năm châu, chấn động địa cầu (1954).",
+          "start_time": "2026-05-07T00:00:00",
+          "end_time": "2026-05-07T23:59:59"
+        },
+        {
+          "id": "RA_PRG_RSV",
+          "name": "Ngày thành lập Chính phủ Cách mạng lâm thời Cộng hòa miền Nam Việt Nam",
+          "date": "06-06",
+          "description": "Thành lập Chính phủ Cách mạng lâm thời (1969).",
+          "start_time": "2026-06-06T00:00:00",
+          "end_time": "2026-06-06T23:59:59"
+        },
+        {
+          "id": "RA_GENEVA_ACCORDS",
+          "name": "Ngày ký Hiệp định Genève",
+          "date": "07-20",
+          "description": "Ký kết Hiệp định Genève về đình chỉ chiến sự ở Việt Nam (1954).",
+          "start_time": "2026-07-20T00:00:00",
+          "end_time": "2026-07-20T23:59:59"
+        },
+        {
+          "id": "RA_AUGUST_REVOLUTION",
+          "name": "Ngày Cách mạng tháng Tám thành công",
+          "date": "08-19",
+          "description": "Thắng lợi của Cách mạng tháng Tám (1945).",
+          "start_time": "2026-08-19T00:00:00",
+          "end_time": "2026-08-19T23:59:59"
+        },
+        {
+          "id": "RA_NAM_BO_RESISTANCE",
+          "name": "Ngày Nam Bộ Kháng chiến",
+          "date": "09-23",
+          "description": "Ngày Nam Bộ bắt đầu cuộc kháng chiến chống thực dân Pháp xâm lược (1945).",
+          "start_time": "2026-09-23T00:00:00",
+          "end_time": "2026-09-23T23:59:59"
+        },
+        {
+          "id": "RA_HANOI_LIBERATION",
+          "name": "Ngày Giải phóng Thủ đô",
+          "date": "10-10",
+          "description": "Quân đội nhân dân Việt Nam tiếp quản Thủ đô (1954).",
+          "start_time": "2026-10-10T00:00:00",
+          "end_time": "2026-10-10T23:59:59"
+        },
+        {
+          "id": "RA_HO_CHI_MINH_SEA_TRAIL",
+          "name": "Ngày truyền thống Đường Hồ Chí Minh trên biển",
+          "date": "10-23",
+          "description": "Ngày thành lập Đoàn 759, tiền thân của Lữ đoàn 125 Hải quân (1961).",
+          "start_time": "2026-10-23T00:00:00",
+          "end_time": "2026-10-23T23:59:59"
+        },
+        {
+          "id": "RA_NAM_KY_UPRISING",
+          "name": "Ngày Nam Kỳ Khởi nghĩa",
+          "date": "11-23",
+          "description": "Cuộc khởi nghĩa Nam Kỳ (1940).",
+          "start_time": "2026-11-23T00:00:00",
+          "end_time": "2026-11-23T23:59:59"
+        },
+        {
+          "id": "RA_NATIONAL_RESISTANCE",
+          "name": "Ngày Toàn quốc Kháng chiến",
+          "date": "12-19",
+          "description": "Chủ tịch Hồ Chí Minh ra Lời kêu gọi toàn quốc kháng chiến (1946).",
+          "start_time": "2026-12-19T00:00:00",
+          "end_time": "2026-12-19T23:59:59"
+        },
+        {
+          "id": "RA_NLF",
+          "name": "Ngày thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+          "date": "12-20",
+          "description": "Thành lập Mặt trận Dân tộc Giải phóng miền Nam (1960).",
+          "start_time": "2026-12-20T00:00:00",
+          "end_time": "2026-12-20T23:59:59"
+        },
+        {
+          "id": "RA_HANOI_DIEN_BIEN_PHU_AIR",
+          "name": "Ngày Chiến thắng Hà Nội - Điện Biên Phủ trên không",
+          "date": "12-30",
+          "description": "Kết thúc 12 ngày đêm chiến đấu chống tập kích đường không của Mỹ (1972).",
+          "start_time": "2026-12-30T00:00:00",
+          "end_time": "2026-12-30T23:59:59"
+        }
+      ]
+    },
+    {
+      "category": "HISTORICAL_FIGURES",
+      "items": [
+        {
+          "id": "HF_VO_THI_SAU_DEATH",
+          "name": "Ngày mất Anh hùng Võ Thị Sáu",
+          "date": "01-23",
+          "description": "Ngày hy sinh của nữ anh hùng Võ Thị Sáu tại Côn Đảo (1952).",
+          "start_time": "2026-01-23T00:00:00",
+          "end_time": "2026-01-23T23:59:59"
+        },
+        {
+          "id": "HF_KIM_DONG_DEATH",
+          "name": "Ngày mất Anh hùng Kim Đồng",
+          "date": "02-15",
+          "description": "Ngày hy sinh của người đội trưởng đầu tiên của Đội Nhi đồng Cứu quốc (1943).",
+          "start_time": "2026-02-15T00:00:00",
+          "end_time": "2026-02-15T23:59:59"
+        },
+        {
+          "id": "HF_PHAN_CHU_TRINH_DEATH",
+          "name": "Ngày mất Phan Chu Trinh",
+          "date": "03-24",
+          "description": "Nhà yêu nước, nhà văn hóa lớn của Việt Nam (1926).",
+          "start_time": "2026-03-24T00:00:00",
+          "end_time": "2026-03-24T23:59:59"
+        },
+        {
+          "id": "HF_HO_CHI_MINH_BIRTH",
+          "name": "Ngày sinh Chủ tịch Hồ Chí Minh",
+          "date": "05-19",
+          "description": "Ngày sinh của Lãnh tụ vĩ đại của dân tộc Việt Nam (1890).",
+          "start_time": "2026-05-19T00:00:00",
+          "end_time": "2026-05-19T23:59:59"
+        },
+        {
+          "id": "HF_VO_NGUYEN_GIAP_BIRTH",
+          "name": "Ngày sinh Đại tướng Võ Nguyên Giáp",
+          "date": "08-25",
+          "description": "Ngày sinh của vị Đại tướng huyền thoại (1911).",
+          "start_time": "2026-08-25T00:00:00",
+          "end_time": "2026-08-25T23:59:59"
+        },
+        {
+          "id": "HF_NGUYEN_TRAI_DEATH",
+          "name": "Ngày mất Nguyễn Trãi (16/8 Âm lịch)",
+          "date": "09-26",
+          "description": "Ngày mất của Danh nhân văn hóa thế giới Nguyễn Trãi (1442). Năm 2026 rơi vào 26/09.",
+          "start_time": "2026-09-26T00:00:00",
+          "end_time": "2026-09-26T23:59:59"
+        },
+        {
+          "id": "HF_VO_NGUYEN_GIAP_DEATH",
+          "name": "Ngày mất Đại tướng Võ Nguyên Giáp",
+          "date": "10-04",
+          "description": "Ngày mất của Đại tướng Võ Nguyên Giáp (2013).",
+          "start_time": "2026-10-04T00:00:00",
+          "end_time": "2026-10-04T23:59:59"
+        },
+        {
+          "id": "HF_NGUYEN_TRUNG_TRUC_DEATH",
+          "name": "Ngày mất Anh hùng Nguyễn Trung Trực",
+          "date": "10-27",
+          "description": "Ngày hy sinh của vị anh hùng dân tộc với câu nói bất hủ (1868).",
+          "start_time": "2026-10-27T00:00:00",
+          "end_time": "2026-10-27T23:59:59"
+        },
+        {
+          "id": "HF_PHAN_BOI_CHAU_DEATH",
+          "name": "Ngày mất Phan Bội Châu",
+          "date": "10-29",
+          "description": "Nhà cách mạng, chí sĩ yêu nước (1940).",
+          "start_time": "2026-10-29T00:00:00",
+          "end_time": "2026-10-29T23:59:59"
+        },
+        {
+          "id": "HF_PHAN_BOI_CHAU_BIRTH",
+          "name": "Ngày sinh Phan Bội Châu",
+          "date": "12-26",
+          "description": "Ngày sinh của nhà cách mạng Phan Bội Châu (1867).",
+          "start_time": "2026-12-26T00:00:00",
+          "end_time": "2026-12-26T23:59:59"
+        }
+      ]
+    },
+    {
+      "category": "SECTOR_ANNIVERSARIES",
+      "items": [
+        {
+          "id": "SA_STUDENT",
+          "name": "Ngày Học sinh, Sinh viên",
+          "date": "01-09",
+          "start_time": "2026-01-09T00:00:00",
+          "end_time": "2026-01-09T23:59:59"
+        },
+        {
+          "id": "SA_DOCTOR",
+          "name": "Ngày Thầy thuốc Việt Nam",
+          "date": "02-27",
+          "start_time": "2026-02-27T00:00:00",
+          "end_time": "2026-02-27T23:59:59"
+        },
+        {
+          "id": "SA_BORDER_GUARD",
+          "name": "Ngày Biên phòng toàn dân",
+          "date": "03-03",
+          "start_time": "2026-03-03T00:00:00",
+          "end_time": "2026-03-03T23:59:59"
+        },
+        {
+          "id": "SA_YOUTH_UNION",
+          "name": "Ngày thành lập Đoàn TNCS Hồ Chí Minh",
+          "date": "03-26",
+          "start_time": "2026-03-26T00:00:00",
+          "end_time": "2026-03-26T23:59:59"
+        },
+        {
+          "id": "SA_MILITIA",
+          "name": "Ngày truyền thống Dân quân tự vệ",
+          "date": "03-28",
+          "start_time": "2026-03-28T00:00:00",
+          "end_time": "2026-03-28T23:59:59"
+        },
+        {
+          "id": "SA_BOOK_DAY",
+          "name": "Ngày Sách Việt Nam",
+          "date": "04-21",
+          "start_time": "2026-04-21T00:00:00",
+          "end_time": "2026-04-21T23:59:59"
+        },
+        {
+          "id": "SA_STATISTICS",
+          "name": "Ngày Thống kê Việt Nam",
+          "date": "05-06",
+          "start_time": "2026-05-06T00:00:00",
+          "end_time": "2026-05-06T23:59:59"
+        },
+        {
+          "id": "SA_YOUNG_PIONEERS",
+          "name": "Ngày thành lập Đội TNTP Hồ Chí Minh",
+          "date": "05-15",
+          "start_time": "2026-05-15T00:00:00",
+          "end_time": "2026-05-15T23:59:59"
+        },
+        {
+          "id": "SA_TRUONG_SON_ARMY",
+          "name": "Ngày truyền thống Bộ đội Trường Sơn",
+          "date": "05-19",
+          "start_time": "2026-05-19T00:00:00",
+          "end_time": "2026-05-19T23:59:59"
+        },
+        {
+          "id": "SA_PRESS",
+          "name": "Ngày Báo chí Cách mạng Việt Nam",
+          "date": "06-21",
+          "start_time": "2026-06-21T00:00:00",
+          "end_time": "2026-06-21T23:59:59"
+        },
+        {
+          "id": "SA_FAMILY",
+          "name": "Ngày Gia đình Việt Nam",
+          "date": "06-28",
+          "start_time": "2026-06-28T00:00:00",
+          "end_time": "2026-06-28T23:59:59"
+        },
+        {
+          "id": "SA_HEALTH_INSURANCE",
+          "name": "Ngày Bảo hiểm Y tế Việt Nam",
+          "date": "07-01",
+          "start_time": "2026-07-01T00:00:00",
+          "end_time": "2026-07-01T23:59:59"
+        },
+        {
+          "id": "SA_INVALIDS_MARTYRS",
+          "name": "Ngày Thương binh - Liệt sĩ",
+          "date": "07-27",
+          "start_time": "2026-07-27T00:00:00",
+          "end_time": "2026-07-27T23:59:59"
+        },
+        {
+          "id": "SA_TRADE_UNION",
+          "name": "Ngày thành lập Công đoàn Việt Nam",
+          "date": "07-28",
+          "start_time": "2026-07-28T00:00:00",
+          "end_time": "2026-07-28T23:59:59"
+        },
+        {
+          "id": "SA_SECURITY",
+          "name": "Ngày truyền thống Công an nhân dân",
+          "date": "08-19",
+          "start_time": "2026-08-19T00:00:00",
+          "end_time": "2026-08-19T23:59:59"
+        },
+        {
+          "id": "SA_VFF",
+          "name": "Ngày thành lập Mặt trận Tổ quốc Việt Nam",
+          "date": "09-10",
+          "start_time": "2026-09-10T00:00:00",
+          "end_time": "2026-09-10T23:59:59"
+        },
+        {
+          "id": "SA_TAX_CUSTOMS",
+          "name": "Ngày truyền thống ngành Thuế & Hải quan",
+          "date": "09-10",
+          "start_time": "2026-09-10T00:00:00",
+          "end_time": "2026-09-10T23:59:59"
+        },
+        {
+          "id": "SA_COURT",
+          "name": "Ngày truyền thống Tòa án nhân dân",
+          "date": "09-13",
+          "start_time": "2026-09-13T00:00:00",
+          "end_time": "2026-09-13T23:59:59"
+        },
+        {
+          "id": "SA_LAWYER_PRINTER",
+          "name": "Ngày truyền thống Luật sư & Ngành In",
+          "date": "10-10",
+          "start_time": "2026-10-10T00:00:00",
+          "end_time": "2026-10-10T23:59:59"
+        },
+        {
+          "id": "SA_BUSINESSMAN",
+          "name": "Ngày Doanh nhân Việt Nam",
+          "date": "10-13",
+          "start_time": "2026-10-13T00:00:00",
+          "end_time": "2026-10-13T23:59:59"
+        },
+        {
+          "id": "SA_FARMER",
+          "name": "Ngày Hội Nông dân Việt Nam",
+          "date": "10-14",
+          "start_time": "2026-10-14T00:00:00",
+          "end_time": "2026-10-14T23:59:59"
+        },
+        {
+          "id": "SA_WOMEN",
+          "name": "Ngày Phụ nữ Việt Nam",
+          "date": "10-20",
+          "start_time": "2026-10-20T00:00:00",
+          "end_time": "2026-10-20T23:59:59"
+        },
+        {
+          "id": "SA_LAW_DAY",
+          "name": "Ngày Pháp luật Việt Nam",
+          "date": "11-09",
+          "start_time": "2026-11-09T00:00:00",
+          "end_time": "2026-11-09T23:59:59"
+        },
+        {
+          "id": "SA_TEACHER",
+          "name": "Ngày Nhà giáo Việt Nam",
+          "date": "11-20",
+          "start_time": "2026-11-20T00:00:00",
+          "end_time": "2026-11-20T23:59:59"
+        },
+        {
+          "id": "SA_HERITAGE",
+          "name": "Ngày Di sản Văn hóa Việt Nam",
+          "date": "11-23",
+          "start_time": "2026-11-23T00:00:00",
+          "end_time": "2026-11-23T23:59:59"
+        },
+        {
+          "id": "SA_ARMY",
+          "name": "Ngày thành lập Quân đội nhân dân",
+          "date": "12-22",
+          "start_time": "2026-12-22T00:00:00",
+          "end_time": "2026-12-22T23:59:59"
+        }
+      ]
+    },
+    {
+      "category": "CULTURAL_ETHNIC_FESTIVALS",
+      "items": [
+        {
+          "id": "CF_CHUA_HUONG",
+          "name": "Lễ hội Chùa Hương (Khai hội)",
+          "location": "Hà Nội",
+          "start_time": "2026-02-22T00:00:00",
+          "end_time": "2026-05-16T23:59:59",
+          "description": "Lễ hội tâm linh dài nhất miền Bắc."
+        },
+        {
+          "id": "CF_LIM",
+          "name": "Hội Lim",
+          "location": "Bắc Ninh",
+          "start_time": "2026-03-01T00:00:00",
+          "end_time": "2026-03-02T23:59:59",
+          "description": "Lễ hội Quan họ truyền thống (13 tháng Giêng)."
+        },
+        {
+          "id": "CF_ELEPHANT_RACING",
+          "name": "Lễ hội Đua Voi Tây Nguyên",
+          "location": "Đắk Lắk",
+          "start_time": "2026-03-15T00:00:00",
+          "end_time": "2026-03-17T23:59:59",
+          "description": "Lễ hội truyền thống của đồng bào dân tộc tại Buôn Đôn."
+        },
+        {
+          "id": "CF_VU_LAN",
+          "name": "Lễ Vu Lan (Rằm tháng 7)",
+          "start_time": "2026-08-27T00:00:00",
+          "end_time": "2026-08-27T23:59:59",
+          "description": "Ngày lễ báo hiếu."
+        },
+        {
+          "id": "CF_KATE",
+          "name": "Lễ hội Kate (Người Chăm)",
+          "location": "Ninh Thuận",
+          "start_time": "2026-10-10T00:00:00",
+          "end_time": "2026-10-12T23:59:59",
+          "description": "Lễ hội lớn nhất của người Chăm Bàlamôn."
+        },
+        {
+          "id": "CF_OK_OM_BOK",
+          "name": "Lễ hội Ok Om Bok (Người Khmer)",
+          "location": "Sóc Trăng/Trà Vinh",
+          "start_time": "2026-11-23T00:00:00",
+          "end_time": "2026-11-24T23:59:59",
+          "description": "Lễ cúng trăng và đua ghe Ngo."
+        }
+      ]
+    }
+  ]
+}

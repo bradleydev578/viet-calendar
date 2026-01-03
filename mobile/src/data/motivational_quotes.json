@@ -1,0 +1,4009 @@
+{
+  "metadata": {
+    "title": "1000 Câu Nói Truyền Động Lực Tiếng Việt",
+    "max_length": 18,
+    "language": "vi"
+  },
+  "quotes": [
+    {
+      "id": 1,
+      "text": "Thành công sẽ đến với những ai biết tin tưởng tự tin."
+    },
+    {
+      "id": 2,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 3,
+      "text": "Mục tiêu sẽ đến với những ai biết giữ vững mạnh mẽ."
+    },
+    {
+      "id": 4,
+      "text": "Hãy vượt qua quyết tâm để đạt được hạnh phúc."
+    },
+    {
+      "id": 5,
+      "text": "Thành công sẽ đến với những ai biết cố gắng luôn luôn."
+    },
+    {
+      "id": 6,
+      "text": "Hãy học hỏi tự tin để đạt được giá trị."
+    },
+    {
+      "id": 7,
+      "text": "Hãy hành động luôn luôn để đạt được giá trị."
+    },
+    {
+      "id": 8,
+      "text": "Tương lai sẽ đến với những ai biết vượt qua hết mình."
+    },
+    {
+      "id": 9,
+      "text": "Giá trị sẽ đến với những ai biết thay đổi một cách thông minh."
+    },
+    {
+      "id": 10,
+      "text": "Cuộc sống sẽ đến với những ai biết cố gắng hết mình."
+    },
+    {
+      "id": 11,
+      "text": "Hãy tập trung vào mục tiêu của bạn."
+    },
+    {
+      "id": 12,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 13,
+      "text": "Niềm tin sẽ đến với những ai biết nỗ lực quyết tâm."
+    },
+    {
+      "id": 14,
+      "text": "Đừng bao giờ ngừng hy vọng."
+    },
+    {
+      "id": 15,
+      "text": "Thành công là một hành trình, không phải đích đến."
+    },
+    {
+      "id": 16,
+      "text": "Thất bại là cơ hội để bắt đầu lại thông minh hơn."
+    },
+    {
+      "id": 17,
+      "text": "Hãy hành động mỗi ngày để đạt được niềm tin."
+    },
+    {
+      "id": 18,
+      "text": "Cuộc sống sẽ đến với những ai biết vượt qua luôn luôn."
+    },
+    {
+      "id": 19,
+      "text": "Đừng để ý kiến của người khác định nghĩa bạn."
+    },
+    {
+      "id": 20,
+      "text": "Hãy cố gắng mỗi ngày để đạt được bản thân."
+    },
+    {
+      "id": 21,
+      "text": "Hãy khám phá kiên định để đạt được ngày mai."
+    },
+    {
+      "id": 22,
+      "text": "Hãy cố gắng hết mình để đạt được giá trị."
+    },
+    {
+      "id": 23,
+      "text": "Sức mạnh không đến từ thể chất, nó đến từ ý chí."
+    },
+    {
+      "id": 24,
+      "text": "Hãy cố gắng mạnh mẽ để đạt được hy vọng."
+    },
+    {
+      "id": 25,
+      "text": "Tri thức sẽ đến với những ai biết vượt qua tự tin."
+    },
+    {
+      "id": 26,
+      "text": "Ánh sáng luôn ở cuối đường hầm."
+    },
+    {
+      "id": 27,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 28,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 29,
+      "text": "Hãy sáng tạo kiên định để đạt được thành công."
+    },
+    {
+      "id": 30,
+      "text": "Hy vọng sẽ đến với những ai biết cống hiến một cách thông minh."
+    },
+    {
+      "id": 31,
+      "text": "Tương lai sẽ đến với những ai biết theo đuổi mạnh mẽ."
+    },
+    {
+      "id": 32,
+      "text": "Hy vọng sẽ đến với những ai biết sáng tạo kiên định."
+    },
+    {
+      "id": 33,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi giá trị."
+    },
+    {
+      "id": 34,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 35,
+      "text": "Hãy thay đổi mạnh mẽ để đạt được đam mê."
+    },
+    {
+      "id": 36,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 37,
+      "text": "Ngày mai sẽ đến với những ai biết hành động không ngừng."
+    },
+    {
+      "id": 38,
+      "text": "Không bao giờ là quá muộn để bắt đầu."
+    },
+    {
+      "id": 39,
+      "text": "Thành công sẽ đến với những ai biết nỗ lực thật sự."
+    },
+    {
+      "id": 40,
+      "text": "Cuộc sống sẽ đến với những ai biết sáng tạo mỗi ngày."
+    },
+    {
+      "id": 41,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 42,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 43,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 44,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 45,
+      "text": "Hãy tin tưởng tự tin để đạt được chính mình."
+    },
+    {
+      "id": 46,
+      "text": "Đam mê sẽ đến với những ai biết giữ vững kiên định."
+    },
+    {
+      "id": 47,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 48,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 49,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 50,
+      "text": "Chính mình sẽ đến với những ai biết kiên trì kiên định."
+    },
+    {
+      "id": 51,
+      "text": "Hãy thay đổi tự tin để đạt được đam mê."
+    },
+    {
+      "id": 52,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 53,
+      "text": "Hãy cống hiến tự tin để đạt được cuộc sống."
+    },
+    {
+      "id": 54,
+      "text": "Mỗi ngày là một cơ hội mới."
+    },
+    {
+      "id": 55,
+      "text": "Bản thân sẽ đến với những ai biết vượt qua tự tin."
+    },
+    {
+      "id": 56,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 57,
+      "text": "Hãy khám phá kiên định để đạt được thành công."
+    },
+    {
+      "id": 58,
+      "text": "Hãy tin tưởng luôn luôn để đạt được vinh quang."
+    },
+    {
+      "id": 59,
+      "text": "Mục tiêu sẽ đến với những ai biết nỗ lực tự tin."
+    },
+    {
+      "id": 60,
+      "text": "Vinh quang sẽ đến với những ai biết vươn lên kiên định."
+    },
+    {
+      "id": 61,
+      "text": "Hãy cống hiến kiên định để đạt được giá trị."
+    },
+    {
+      "id": 62,
+      "text": "Hy vọng sẽ đến với những ai biết giữ vững thật sự."
+    },
+    {
+      "id": 63,
+      "text": "Hãy học hỏi quyết tâm để đạt được mục tiêu."
+    },
+    {
+      "id": 64,
+      "text": "Hãy tin tưởng mạnh mẽ để đạt được thành công."
+    },
+    {
+      "id": 65,
+      "text": "Tương lai sẽ đến với những ai biết rèn luyện tự tin."
+    },
+    {
+      "id": 66,
+      "text": "Ước mơ sẽ đến với những ai biết giữ vững thật sự."
+    },
+    {
+      "id": 67,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 68,
+      "text": "Giá trị sẽ đến với những ai biết nỗ lực luôn luôn."
+    },
+    {
+      "id": 69,
+      "text": "Hãy tin tưởng không ngừng để đạt được tương lai."
+    },
+    {
+      "id": 70,
+      "text": "Vinh quang sẽ đến với những ai biết tin tưởng kiên định."
+    },
+    {
+      "id": 71,
+      "text": "Hãy thay đổi tự tin để đạt được giá trị."
+    },
+    {
+      "id": 72,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi ước mơ."
+    },
+    {
+      "id": 73,
+      "text": "Hãy học hỏi tự tin để đạt được hạnh phúc."
+    },
+    {
+      "id": 74,
+      "text": "Hãy giữ vững luôn luôn để đạt được vinh quang."
+    },
+    {
+      "id": 75,
+      "text": "Hãy kiên trì không ngừng để đạt được ngày mai."
+    },
+    {
+      "id": 76,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 77,
+      "text": "Hãy cố gắng luôn luôn để đạt được hy vọng."
+    },
+    {
+      "id": 78,
+      "text": "Hành động là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 79,
+      "text": "Hãy thay đổi mỗi ngày để đạt được giá trị."
+    },
+    {
+      "id": 80,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 81,
+      "text": "Ước mơ sẽ đến với những ai biết học hỏi luôn luôn."
+    },
+    {
+      "id": 82,
+      "text": "Giá trị sẽ đến với những ai biết cố gắng tự tin."
+    },
+    {
+      "id": 83,
+      "text": "Ngày mai sẽ đến với những ai biết vượt qua thật sự."
+    },
+    {
+      "id": 84,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 85,
+      "text": "Hãy nỗ lực mạnh mẽ để đạt được vinh quang."
+    },
+    {
+      "id": 86,
+      "text": "Ngày mai sẽ đến với những ai biết rèn luyện luôn luôn."
+    },
+    {
+      "id": 87,
+      "text": "Thành công sẽ đến với những ai biết nỗ lực luôn luôn."
+    },
+    {
+      "id": 88,
+      "text": "Hãy nỗ lực không ngừng để đạt được bản thân."
+    },
+    {
+      "id": 89,
+      "text": "Thành công sẽ đến với những ai biết nỗ lực mạnh mẽ."
+    },
+    {
+      "id": 90,
+      "text": "Hãy tin tưởng thật sự để đạt được vinh quang."
+    },
+    {
+      "id": 91,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 92,
+      "text": "Đam mê sẽ đến với những ai biết thay đổi mạnh mẽ."
+    },
+    {
+      "id": 93,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 94,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 95,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 96,
+      "text": "Hãy vươn lên mạnh mẽ để đạt được vinh quang."
+    },
+    {
+      "id": 97,
+      "text": "Hãy cố gắng một cách thông minh để đạt được hy vọng."
+    },
+    {
+      "id": 98,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi chính mình."
+    },
+    {
+      "id": 99,
+      "text": "Hạnh phúc sẽ đến với những ai biết vươn lên tự tin."
+    },
+    {
+      "id": 100,
+      "text": "Hãy khám phá quyết tâm để đạt được niềm tin."
+    },
+    {
+      "id": 101,
+      "text": "Hãy theo đuổi không ngừng để đạt được vinh quang."
+    },
+    {
+      "id": 102,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 103,
+      "text": "Sự khác biệt giữa người thành công và người thất bại là ý chí."
+    },
+    {
+      "id": 104,
+      "text": "Hãy cố gắng không ngừng để đạt được niềm tin."
+    },
+    {
+      "id": 105,
+      "text": "Hạnh phúc sẽ đến với những ai biết rèn luyện hết mình."
+    },
+    {
+      "id": 106,
+      "text": "Hãy kiên trì quyết tâm để đạt được bản thân."
+    },
+    {
+      "id": 107,
+      "text": "Thành công sẽ đến với những ai biết vươn lên quyết tâm."
+    },
+    {
+      "id": 108,
+      "text": "Cuộc sống sẽ đến với những ai biết rèn luyện thật sự."
+    },
+    {
+      "id": 109,
+      "text": "Hãy tin tưởng quyết tâm để đạt được hạnh phúc."
+    },
+    {
+      "id": 110,
+      "text": "Hãy theo đuổi một cách thông minh để đạt được tương lai."
+    },
+    {
+      "id": 111,
+      "text": "Vinh quang sẽ đến với những ai biết học hỏi luôn luôn."
+    },
+    {
+      "id": 112,
+      "text": "Sự tử tế không bao giờ là lãng phí."
+    },
+    {
+      "id": 113,
+      "text": "Niềm tin sẽ đến với những ai biết học hỏi luôn luôn."
+    },
+    {
+      "id": 114,
+      "text": "Hãy rèn luyện thật sự để đạt được chính mình."
+    },
+    {
+      "id": 115,
+      "text": "Mục tiêu sẽ đến với những ai biết kiên trì mỗi ngày."
+    },
+    {
+      "id": 116,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 117,
+      "text": "Hãy khám phá kiên định để đạt được hạnh phúc."
+    },
+    {
+      "id": 118,
+      "text": "Hãy nỗ lực không ngừng để đạt được giá trị."
+    },
+    {
+      "id": 119,
+      "text": "Hãy vượt qua hết mình để đạt được ngày mai."
+    },
+    {
+      "id": 120,
+      "text": "Cuộc sống sẽ đến với những ai biết vươn lên quyết tâm."
+    },
+    {
+      "id": 121,
+      "text": "Đam mê sẽ đến với những ai biết nỗ lực quyết tâm."
+    },
+    {
+      "id": 122,
+      "text": "Bản thân sẽ đến với những ai biết thay đổi tự tin."
+    },
+    {
+      "id": 123,
+      "text": "Hãy hành động hết mình để đạt được tri thức."
+    },
+    {
+      "id": 124,
+      "text": "Tương lai sẽ đến với những ai biết học hỏi tự tin."
+    },
+    {
+      "id": 125,
+      "text": "Hãy học hỏi hết mình để đạt được hy vọng."
+    },
+    {
+      "id": 126,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 127,
+      "text": "Vinh quang sẽ đến với những ai biết nỗ lực một cách thông minh."
+    },
+    {
+      "id": 128,
+      "text": "Chỉ cần bạn cố gắng, không khó khăn nào không vượt qua."
+    },
+    {
+      "id": 129,
+      "text": "Tri thức sẽ đến với những ai biết theo đuổi quyết tâm."
+    },
+    {
+      "id": 130,
+      "text": "Cuộc sống sẽ đến với những ai biết khám phá mạnh mẽ."
+    },
+    {
+      "id": 131,
+      "text": "Hãy làm việc chăm chỉ trong im lặng."
+    },
+    {
+      "id": 132,
+      "text": "Hãy thay đổi không ngừng để đạt được bản thân."
+    },
+    {
+      "id": 133,
+      "text": "Cuộc sống sẽ đến với những ai biết cống hiến kiên định."
+    },
+    {
+      "id": 134,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 135,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 136,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi đam mê."
+    },
+    {
+      "id": 137,
+      "text": "Mục tiêu sẽ đến với những ai biết rèn luyện thật sự."
+    },
+    {
+      "id": 138,
+      "text": "Hãy cống hiến quyết tâm để đạt được mục tiêu."
+    },
+    {
+      "id": 139,
+      "text": "Hãy tin vào phép màu của cuộc sống."
+    },
+    {
+      "id": 140,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 141,
+      "text": "Hãy tin tưởng luôn luôn để đạt được hạnh phúc."
+    },
+    {
+      "id": 142,
+      "text": "Hãy khám phá một cách thông minh để đạt được thành công."
+    },
+    {
+      "id": 143,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi bản thân."
+    },
+    {
+      "id": 144,
+      "text": "Hãy hành động kiên định để đạt được thành công."
+    },
+    {
+      "id": 145,
+      "text": "Hãy cố gắng mỗi ngày để đạt được cuộc sống."
+    },
+    {
+      "id": 146,
+      "text": "Thành công sẽ đến với những ai biết vươn lên mạnh mẽ."
+    },
+    {
+      "id": 147,
+      "text": "Cuộc sống sẽ đến với những ai biết tin tưởng hết mình."
+    },
+    {
+      "id": 148,
+      "text": "Hãy giữ vững quyết tâm để đạt được ngày mai."
+    },
+    {
+      "id": 149,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 150,
+      "text": "Hãy giữ vững quyết tâm để đạt được đam mê."
+    },
+    {
+      "id": 151,
+      "text": "Hãy thay đổi luôn luôn để đạt được giá trị."
+    },
+    {
+      "id": 152,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 153,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 154,
+      "text": "Đừng bao giờ nói không thể."
+    },
+    {
+      "id": 155,
+      "text": "Hãy vươn lên không ngừng để đạt được bản thân."
+    },
+    {
+      "id": 156,
+      "text": "Hạnh phúc sẽ đến với những ai biết học hỏi thật sự."
+    },
+    {
+      "id": 157,
+      "text": "Hãy thay đổi không ngừng để đạt được ngày mai."
+    },
+    {
+      "id": 158,
+      "text": "Hãy rèn luyện không ngừng để đạt được mục tiêu."
+    },
+    {
+      "id": 159,
+      "text": "Hãy học hỏi tự tin để đạt được tương lai."
+    },
+    {
+      "id": 160,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 161,
+      "text": "Hãy thay đổi thật sự để đạt được ước mơ."
+    },
+    {
+      "id": 162,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi hy vọng."
+    },
+    {
+      "id": 163,
+      "text": "Tương lai sẽ đến với những ai biết theo đuổi hết mình."
+    },
+    {
+      "id": 164,
+      "text": "Hãy kiên trì tự tin để đạt được giá trị."
+    },
+    {
+      "id": 165,
+      "text": "Cuộc sống sẽ đến với những ai biết nỗ lực kiên định."
+    },
+    {
+      "id": 166,
+      "text": "Hãy cố gắng luôn luôn để đạt được bản thân."
+    },
+    {
+      "id": 167,
+      "text": "Hãy khám phá hết mình để đạt được cuộc sống."
+    },
+    {
+      "id": 168,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 169,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 170,
+      "text": "Nụ cười là liều thuốc tốt nhất."
+    },
+    {
+      "id": 171,
+      "text": "Hãy tin tưởng không ngừng để đạt được chính mình."
+    },
+    {
+      "id": 172,
+      "text": "Hãy tin tưởng hết mình để đạt được giá trị."
+    },
+    {
+      "id": 173,
+      "text": "Hãy kiên trì tự tin để đạt được thành công."
+    },
+    {
+      "id": 174,
+      "text": "Hãy vượt qua kiên định để đạt được hạnh phúc."
+    },
+    {
+      "id": 175,
+      "text": "Hãy làm việc bằng cả trái tim."
+    },
+    {
+      "id": 176,
+      "text": "Cuộc sống sẽ đến với những ai biết tin tưởng mạnh mẽ."
+    },
+    {
+      "id": 177,
+      "text": "Hãy giữ vững không ngừng để đạt được hy vọng."
+    },
+    {
+      "id": 178,
+      "text": "Mục tiêu sẽ đến với những ai biết thay đổi một cách thông minh."
+    },
+    {
+      "id": 179,
+      "text": "Hãy hành động một cách thông minh để đạt được tri thức."
+    },
+    {
+      "id": 180,
+      "text": "Hãy kiên trì luôn luôn để đạt được hạnh phúc."
+    },
+    {
+      "id": 181,
+      "text": "Hãy vươn lên thật sự để đạt được hạnh phúc."
+    },
+    {
+      "id": 182,
+      "text": "Hãy vươn lên quyết tâm để đạt được thành công."
+    },
+    {
+      "id": 183,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 184,
+      "text": "Hạnh phúc sẽ đến với những ai biết cống hiến luôn luôn."
+    },
+    {
+      "id": 185,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 186,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 187,
+      "text": "Hãy dũng cảm đối mặt với thử thách."
+    },
+    {
+      "id": 188,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 189,
+      "text": "Hạnh phúc sẽ đến với những ai biết cố gắng quyết tâm."
+    },
+    {
+      "id": 190,
+      "text": "Hãy tin tưởng quyết tâm để đạt được vinh quang."
+    },
+    {
+      "id": 191,
+      "text": "Cách duy nhất để làm tốt một việc là yêu việc đó."
+    },
+    {
+      "id": 192,
+      "text": "Hãy vươn lên thật sự để đạt được tương lai."
+    },
+    {
+      "id": 193,
+      "text": "Hãy luôn giữ lửa đam mê."
+    },
+    {
+      "id": 194,
+      "text": "Hãy cố gắng thật sự để đạt được mục tiêu."
+    },
+    {
+      "id": 195,
+      "text": "Hãy học hỏi quyết tâm để đạt được ngày mai."
+    },
+    {
+      "id": 196,
+      "text": "Hãy theo đuổi thật sự để đạt được giá trị."
+    },
+    {
+      "id": 197,
+      "text": "Hãy cố gắng thật sự để đạt được hạnh phúc."
+    },
+    {
+      "id": 198,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 199,
+      "text": "Hãy cống hiến mỗi ngày để đạt được cuộc sống."
+    },
+    {
+      "id": 200,
+      "text": "Nếu bạn không tự xây ước mơ, người khác sẽ thuê bạn."
+    },
+    {
+      "id": 201,
+      "text": "Hãy cống hiến quyết tâm để đạt được vinh quang."
+    },
+    {
+      "id": 202,
+      "text": "Hãy sáng tạo thật sự để đạt được hạnh phúc."
+    },
+    {
+      "id": 203,
+      "text": "Giá trị sẽ đến với những ai biết rèn luyện kiên định."
+    },
+    {
+      "id": 204,
+      "text": "Tri thức sẽ đến với những ai biết thay đổi mỗi ngày."
+    },
+    {
+      "id": 205,
+      "text": "Hãy rèn luyện kiên định để đạt được bản thân."
+    },
+    {
+      "id": 206,
+      "text": "Hãy cố gắng kiên định để đạt được ngày mai."
+    },
+    {
+      "id": 207,
+      "text": "Vinh quang sẽ đến với những ai biết vươn lên không ngừng."
+    },
+    {
+      "id": 208,
+      "text": "Nếu bạn có đủ can đảm để theo đuổi chúng."
+    },
+    {
+      "id": 209,
+      "text": "Hãy kiên trì không ngừng để đạt được hy vọng."
+    },
+    {
+      "id": 210,
+      "text": "Bản thân sẽ đến với những ai biết học hỏi hết mình."
+    },
+    {
+      "id": 211,
+      "text": "Hãy thay đổi mạnh mẽ để đạt được tri thức."
+    },
+    {
+      "id": 212,
+      "text": "Tương lai sẽ đến với những ai biết tin tưởng mỗi ngày."
+    },
+    {
+      "id": 213,
+      "text": "Ngày mai sẽ đến với những ai biết theo đuổi luôn luôn."
+    },
+    {
+      "id": 214,
+      "text": "Tri thức sẽ đến với những ai biết vượt qua mạnh mẽ."
+    },
+    {
+      "id": 215,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 216,
+      "text": "Hãy vươn lên không ngừng để đạt được tri thức."
+    },
+    {
+      "id": 217,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 218,
+      "text": "Niềm tin sẽ đến với những ai biết hành động mạnh mẽ."
+    },
+    {
+      "id": 219,
+      "text": "Cuộc sống sẽ đến với những ai biết tin tưởng mỗi ngày."
+    },
+    {
+      "id": 220,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 221,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi đam mê."
+    },
+    {
+      "id": 222,
+      "text": "Chính mình sẽ đến với những ai biết sáng tạo luôn luôn."
+    },
+    {
+      "id": 223,
+      "text": "Ngày mai sẽ đến với những ai biết thay đổi mỗi ngày."
+    },
+    {
+      "id": 224,
+      "text": "Hãy kiên trì mỗi ngày để đạt được bản thân."
+    },
+    {
+      "id": 225,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 226,
+      "text": "Hãy tin tưởng mỗi ngày để đạt được cuộc sống."
+    },
+    {
+      "id": 227,
+      "text": "Hãy cố gắng quyết tâm để đạt được ước mơ."
+    },
+    {
+      "id": 228,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 229,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi hy vọng."
+    },
+    {
+      "id": 230,
+      "text": "Hãy luôn lạc quan trong mọi hoàn cảnh."
+    },
+    {
+      "id": 231,
+      "text": "Hãy cố gắng quyết tâm để đạt được ngày mai."
+    },
+    {
+      "id": 232,
+      "text": "Hãy vượt qua mỗi ngày để đạt được niềm tin."
+    },
+    {
+      "id": 233,
+      "text": "Hãy thay đổi không ngừng để đạt được hy vọng."
+    },
+    {
+      "id": 234,
+      "text": "Ngày mai sẽ đến với những ai biết giữ vững hết mình."
+    },
+    {
+      "id": 235,
+      "text": "Hãy học hỏi quyết tâm để đạt được niềm tin."
+    },
+    {
+      "id": 236,
+      "text": "Giá trị sẽ đến với những ai biết cống hiến hết mình."
+    },
+    {
+      "id": 237,
+      "text": "Hãy vượt qua luôn luôn để đạt được cuộc sống."
+    },
+    {
+      "id": 238,
+      "text": "Hy vọng sẽ đến với những ai biết học hỏi kiên định."
+    },
+    {
+      "id": 239,
+      "text": "Hãy cố gắng luôn luôn để đạt được tương lai."
+    },
+    {
+      "id": 240,
+      "text": "Thành công không phải là cuối cùng, thất bại không phải là chết chóc."
+    },
+    {
+      "id": 241,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 242,
+      "text": "Chính mình sẽ đến với những ai biết vượt qua mỗi ngày."
+    },
+    {
+      "id": 243,
+      "text": "Đam mê sẽ đến với những ai biết kiên trì kiên định."
+    },
+    {
+      "id": 244,
+      "text": "Tương lai sẽ đến với những ai biết rèn luyện kiên định."
+    },
+    {
+      "id": 245,
+      "text": "Hãy rèn luyện hết mình để đạt được tri thức."
+    },
+    {
+      "id": 246,
+      "text": "Hãy giữ vững luôn luôn để đạt được chính mình."
+    },
+    {
+      "id": 247,
+      "text": "Mục tiêu sẽ đến với những ai biết cống hiến mạnh mẽ."
+    },
+    {
+      "id": 248,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 249,
+      "text": "Đừng để những thất bại nhỏ chặn đứng ước mơ lớn của bạn."
+    },
+    {
+      "id": 250,
+      "text": "Thành công sẽ đến với những ai biết thay đổi kiên định."
+    },
+    {
+      "id": 251,
+      "text": "Hãy khám phá không ngừng để đạt được tương lai."
+    },
+    {
+      "id": 252,
+      "text": "Hãy sống như thể hôm nay là ngày cuối cùng."
+    },
+    {
+      "id": 253,
+      "text": "Hãy vượt qua kiên định để đạt được tri thức."
+    },
+    {
+      "id": 254,
+      "text": "Mọi giấc mơ đều có thể thành hiện thực."
+    },
+    {
+      "id": 255,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 256,
+      "text": "Đam mê sẽ đến với những ai biết khám phá một cách thông minh."
+    },
+    {
+      "id": 257,
+      "text": "Hãy vượt qua kiên định để đạt được cuộc sống."
+    },
+    {
+      "id": 258,
+      "text": "Hãy rèn luyện thật sự để đạt được niềm tin."
+    },
+    {
+      "id": 259,
+      "text": "Hãy vươn lên mạnh mẽ để đạt được thành công."
+    },
+    {
+      "id": 260,
+      "text": "Hạnh phúc sẽ đến với những ai biết khám phá tự tin."
+    },
+    {
+      "id": 261,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 262,
+      "text": "Hãy vươn lên mạnh mẽ để đạt được hy vọng."
+    },
+    {
+      "id": 263,
+      "text": "Hãy vượt qua không ngừng để đạt được tương lai."
+    },
+    {
+      "id": 264,
+      "text": "Vinh quang sẽ đến với những ai biết tin tưởng một cách thông minh."
+    },
+    {
+      "id": 265,
+      "text": "Cuộc sống sẽ đến với những ai biết hành động tự tin."
+    },
+    {
+      "id": 266,
+      "text": "Đừng sợ sai lầm, miễn là đừng mắc cùng một lỗi."
+    },
+    {
+      "id": 267,
+      "text": "Tri thức sẽ đến với những ai biết sáng tạo quyết tâm."
+    },
+    {
+      "id": 268,
+      "text": "Hãy luôn là chính mình."
+    },
+    {
+      "id": 269,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 270,
+      "text": "Mục tiêu sẽ đến với những ai biết vượt qua thật sự."
+    },
+    {
+      "id": 271,
+      "text": "Hãy hành động luôn luôn để đạt được bản thân."
+    },
+    {
+      "id": 272,
+      "text": "Đừng xấu hổ khi không biết, chỉ xấu hổ khi không học."
+    },
+    {
+      "id": 273,
+      "text": "Mỗi khó khăn là một cơ hội để trưởng thành."
+    },
+    {
+      "id": 274,
+      "text": "Hãy rèn luyện mạnh mẽ để đạt được tương lai."
+    },
+    {
+      "id": 275,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 276,
+      "text": "Tương lai sẽ đến với những ai biết kiên trì mỗi ngày."
+    },
+    {
+      "id": 277,
+      "text": "Hãy hướng về phía trước."
+    },
+    {
+      "id": 278,
+      "text": "Bắt đầu từ những việc nhỏ nhất."
+    },
+    {
+      "id": 279,
+      "text": "Hãy rèn luyện luôn luôn để đạt được ước mơ."
+    },
+    {
+      "id": 280,
+      "text": "Hãy hành động một cách thông minh để đạt được vinh quang."
+    },
+    {
+      "id": 281,
+      "text": "Hãy giữ vững tự tin để đạt được ngày mai."
+    },
+    {
+      "id": 282,
+      "text": "Hãy biết ơn vì những gì mình đang có."
+    },
+    {
+      "id": 283,
+      "text": "Con thuyền trong giông tố tiến lên."
+    },
+    {
+      "id": 284,
+      "text": "Thành công sẽ đến với những ai biết kiên trì tự tin."
+    },
+    {
+      "id": 285,
+      "text": "Đừng quá khắt khe với bản thân."
+    },
+    {
+      "id": 286,
+      "text": "Đam mê sẽ đến với những ai biết thay đổi mỗi ngày."
+    },
+    {
+      "id": 287,
+      "text": "Giá trị sẽ đến với những ai biết thay đổi không ngừng."
+    },
+    {
+      "id": 288,
+      "text": "Hãy vượt qua mạnh mẽ để đạt được ngày mai."
+    },
+    {
+      "id": 289,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 290,
+      "text": "Tôi sẽ ngày một trưởng thành hơn."
+    },
+    {
+      "id": 291,
+      "text": "Hãy sáng tạo một cách thông minh để đạt được đam mê."
+    },
+    {
+      "id": 292,
+      "text": "Hãy giữ vững mỗi ngày để đạt được hạnh phúc."
+    },
+    {
+      "id": 293,
+      "text": "Giá trị sẽ đến với những ai biết vượt qua một cách thông minh."
+    },
+    {
+      "id": 294,
+      "text": "Đừng lãng phí thời gian vào những việc vô ích."
+    },
+    {
+      "id": 295,
+      "text": "Hãy cống hiến mỗi ngày để đạt được bản thân."
+    },
+    {
+      "id": 296,
+      "text": "Hãy tin tưởng luôn luôn để đạt được cuộc sống."
+    },
+    {
+      "id": 297,
+      "text": "Hy vọng sẽ đến với những ai biết giữ vững mỗi ngày."
+    },
+    {
+      "id": 298,
+      "text": "Tri thức sẽ đến với những ai biết cố gắng hết mình."
+    },
+    {
+      "id": 299,
+      "text": "Hãy khám phá thật sự để đạt được đam mê."
+    },
+    {
+      "id": 300,
+      "text": "Hãy thay đổi thật sự để đạt được đam mê."
+    },
+    {
+      "id": 301,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 302,
+      "text": "Hãy theo đuổi tự tin để đạt được tri thức."
+    },
+    {
+      "id": 303,
+      "text": "Hãy kiên trì hết mình để đạt được chính mình."
+    },
+    {
+      "id": 304,
+      "text": "Thành công nằm trong tầm tay bạn."
+    },
+    {
+      "id": 305,
+      "text": "Hãy cống hiến kiên định để đạt được hạnh phúc."
+    },
+    {
+      "id": 306,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi hạnh phúc."
+    },
+    {
+      "id": 307,
+      "text": "Hãy thay đổi mỗi ngày để đạt được mục tiêu."
+    },
+    {
+      "id": 308,
+      "text": "Ước mơ sẽ đến với những ai biết nỗ lực không ngừng."
+    },
+    {
+      "id": 309,
+      "text": "Chính mình sẽ đến với những ai biết hành động hết mình."
+    },
+    {
+      "id": 310,
+      "text": "Hãy thay đổi mạnh mẽ để đạt được chính mình."
+    },
+    {
+      "id": 311,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi hạnh phúc."
+    },
+    {
+      "id": 312,
+      "text": "Hãy theo đuổi hết mình để đạt được tương lai."
+    },
+    {
+      "id": 313,
+      "text": "Hãy rèn luyện mạnh mẽ để đạt được chính mình."
+    },
+    {
+      "id": 314,
+      "text": "Hãy khám phá kiên định để đạt được niềm tin."
+    },
+    {
+      "id": 315,
+      "text": "Hạnh phúc sẽ đến với những ai biết học hỏi quyết tâm."
+    },
+    {
+      "id": 316,
+      "text": "Hãy học hỏi một cách thông minh để đạt được mục tiêu."
+    },
+    {
+      "id": 317,
+      "text": "Hãy cống hiến quyết tâm để đạt được hạnh phúc."
+    },
+    {
+      "id": 318,
+      "text": "Vinh quang sẽ đến với những ai biết cố gắng mạnh mẽ."
+    },
+    {
+      "id": 319,
+      "text": "Hãy tin tưởng tự tin để đạt được bản thân."
+    },
+    {
+      "id": 320,
+      "text": "Cố gắng thêm một chút nữa thôi."
+    },
+    {
+      "id": 321,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 322,
+      "text": "Vinh quang sẽ đến với những ai biết hành động quyết tâm."
+    },
+    {
+      "id": 323,
+      "text": "Hãy giữ vững hết mình để đạt được thành công."
+    },
+    {
+      "id": 324,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 325,
+      "text": "Hãy cống hiến mỗi ngày để đạt được ước mơ."
+    },
+    {
+      "id": 326,
+      "text": "Hãy hành động mỗi ngày để đạt được tri thức."
+    },
+    {
+      "id": 327,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 328,
+      "text": "Hãy vượt qua kiên định để đạt được mục tiêu."
+    },
+    {
+      "id": 329,
+      "text": "Điều quan trọng nhất là đừng nhìn vào phong cảnh."
+    },
+    {
+      "id": 330,
+      "text": "Hãy theo đuổi kiên định để đạt được đam mê."
+    },
+    {
+      "id": 331,
+      "text": "Tri thức sẽ đến với những ai biết rèn luyện mỗi ngày."
+    },
+    {
+      "id": 332,
+      "text": "Hãy tự viết nên câu chuyện của đời mình."
+    },
+    {
+      "id": 333,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 334,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 335,
+      "text": "Hành động là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 336,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi ngày mai."
+    },
+    {
+      "id": 337,
+      "text": "Mọi nỗ lực đều sẽ được đền đáp."
+    },
+    {
+      "id": 338,
+      "text": "Hãy nỗ lực hết mình để đạt được vinh quang."
+    },
+    {
+      "id": 339,
+      "text": "Ngày mai sẽ đến với những ai biết giữ vững không ngừng."
+    },
+    {
+      "id": 340,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi tri thức."
+    },
+    {
+      "id": 341,
+      "text": "Hãy nỗ lực quyết tâm để đạt được bản thân."
+    },
+    {
+      "id": 342,
+      "text": "Hãy sáng tạo mạnh mẽ để đạt được thành công."
+    },
+    {
+      "id": 343,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 344,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 345,
+      "text": "Hãy giữ vững mỗi ngày để đạt được ước mơ."
+    },
+    {
+      "id": 346,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 347,
+      "text": "Cuộc sống sẽ đến với những ai biết hành động luôn luôn."
+    },
+    {
+      "id": 348,
+      "text": "Hãy thay đổi luôn luôn để đạt được vinh quang."
+    },
+    {
+      "id": 349,
+      "text": "Ngày mai sẽ đến với những ai biết rèn luyện kiên định."
+    },
+    {
+      "id": 350,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 351,
+      "text": "Hãy vượt qua quyết tâm để đạt được cuộc sống."
+    },
+    {
+      "id": 352,
+      "text": "Hãy giữ vững mạnh mẽ để đạt được chính mình."
+    },
+    {
+      "id": 353,
+      "text": "Hãy giữ vững một cách thông minh để đạt được niềm tin."
+    },
+    {
+      "id": 354,
+      "text": "Hạnh phúc sẽ đến với những ai biết rèn luyện mỗi ngày."
+    },
+    {
+      "id": 355,
+      "text": "Hãy thay đổi hết mình để đạt được đam mê."
+    },
+    {
+      "id": 356,
+      "text": "Hãy tin tưởng một cách thông minh để đạt được mục tiêu."
+    },
+    {
+      "id": 357,
+      "text": "Hãy sáng tạo hết mình để đạt được niềm tin."
+    },
+    {
+      "id": 358,
+      "text": "Ngày mai sẽ đến với những ai biết cố gắng quyết tâm."
+    },
+    {
+      "id": 359,
+      "text": "Hãy kiên trì không ngừng để đạt được chính mình."
+    },
+    {
+      "id": 360,
+      "text": "Hãy nỗ lực hết mình để đạt được ngày mai."
+    },
+    {
+      "id": 361,
+      "text": "Niềm tin sẽ đến với những ai biết rèn luyện mỗi ngày."
+    },
+    {
+      "id": 362,
+      "text": "Hãy học hỏi mỗi ngày để đạt được thành công."
+    },
+    {
+      "id": 363,
+      "text": "Hãy sáng tạo kiên định để đạt được hạnh phúc."
+    },
+    {
+      "id": 364,
+      "text": "Đam mê sẽ đến với những ai biết giữ vững không ngừng."
+    },
+    {
+      "id": 365,
+      "text": "Hãy cống hiến không ngừng để đạt được ước mơ."
+    },
+    {
+      "id": 366,
+      "text": "Tương lai sẽ đến với những ai biết nỗ lực quyết tâm."
+    },
+    {
+      "id": 367,
+      "text": "Hãy nỗ lực thật sự để đạt được niềm tin."
+    },
+    {
+      "id": 368,
+      "text": "Hãy thay đổi hết mình để đạt được tri thức."
+    },
+    {
+      "id": 369,
+      "text": "Niềm tin sẽ đến với những ai biết kiên trì một cách thông minh."
+    },
+    {
+      "id": 370,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi ước mơ."
+    },
+    {
+      "id": 371,
+      "text": "Hãy giúp đỡ người khác khi có thể."
+    },
+    {
+      "id": 372,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 373,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 374,
+      "text": "Tương lai sẽ đến với những ai biết cống hiến hết mình."
+    },
+    {
+      "id": 375,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi giá trị."
+    },
+    {
+      "id": 376,
+      "text": "Hãy hành động kiên định để đạt được ước mơ."
+    },
+    {
+      "id": 377,
+      "text": "Ngày mai sẽ đến với những ai biết theo đuổi một cách thông minh."
+    },
+    {
+      "id": 378,
+      "text": "Chính mình sẽ đến với những ai biết cố gắng quyết tâm."
+    },
+    {
+      "id": 379,
+      "text": "Hãy nỗ lực không ngừng để đạt được đam mê."
+    },
+    {
+      "id": 380,
+      "text": "Hãy theo đuổi hết mình để đạt được mục tiêu."
+    },
+    {
+      "id": 381,
+      "text": "Mục tiêu sẽ đến với những ai biết rèn luyện tự tin."
+    },
+    {
+      "id": 382,
+      "text": "Tri thức sẽ đến với những ai biết tin tưởng mỗi ngày."
+    },
+    {
+      "id": 383,
+      "text": "Niềm tin sẽ đến với những ai biết học hỏi kiên định."
+    },
+    {
+      "id": 384,
+      "text": "Hãy thay đổi quyết tâm để đạt được cuộc sống."
+    },
+    {
+      "id": 385,
+      "text": "Tương lai sẽ đến với những ai biết thay đổi không ngừng."
+    },
+    {
+      "id": 386,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi cuộc sống."
+    },
+    {
+      "id": 387,
+      "text": "Ước mơ sẽ đến với những ai biết tin tưởng thật sự."
+    },
+    {
+      "id": 388,
+      "text": "Ước mơ sẽ đến với những ai biết khám phá luôn luôn."
+    },
+    {
+      "id": 389,
+      "text": "Hãy nỗ lực hết mình để đạt được tri thức."
+    },
+    {
+      "id": 390,
+      "text": "Hãy hành động một cách thông minh để đạt được giá trị."
+    },
+    {
+      "id": 391,
+      "text": "Hãy nỗ lực không ngừng để đạt được cuộc sống."
+    },
+    {
+      "id": 392,
+      "text": "Hãy học hỏi tự tin để đạt được thành công."
+    },
+    {
+      "id": 393,
+      "text": "Hãy rèn luyện luôn luôn để đạt được tương lai."
+    },
+    {
+      "id": 394,
+      "text": "Ước mơ sẽ đến với những ai biết rèn luyện quyết tâm."
+    },
+    {
+      "id": 395,
+      "text": "Giá trị sẽ đến với những ai biết giữ vững quyết tâm."
+    },
+    {
+      "id": 396,
+      "text": "Hãy hành động một cách thông minh để đạt được chính mình."
+    },
+    {
+      "id": 397,
+      "text": "Hãy vượt qua một cách thông minh để đạt được bản thân."
+    },
+    {
+      "id": 398,
+      "text": "Hy vọng sẽ đến với những ai biết theo đuổi kiên định."
+    },
+    {
+      "id": 399,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 400,
+      "text": "Mục tiêu sẽ đến với những ai biết cố gắng mỗi ngày."
+    },
+    {
+      "id": 401,
+      "text": "Đam mê sẽ đến với những ai biết kiên trì tự tin."
+    },
+    {
+      "id": 402,
+      "text": "Hãy khám phá luôn luôn để đạt được vinh quang."
+    },
+    {
+      "id": 403,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 404,
+      "text": "Hãy cố gắng không ngừng để đạt được bản thân."
+    },
+    {
+      "id": 405,
+      "text": "Hãy trân trọng những gì bạn đang có."
+    },
+    {
+      "id": 406,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 407,
+      "text": "Đừng để nỗi sợ hãi ngăn cả bạn."
+    },
+    {
+      "id": 408,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 409,
+      "text": "Ngày mai sẽ đến với những ai biết thay đổi kiên định."
+    },
+    {
+      "id": 410,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi thành công."
+    },
+    {
+      "id": 411,
+      "text": "Hãy luôn giữ vững niềm tin."
+    },
+    {
+      "id": 412,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 413,
+      "text": "Ước mơ sẽ đến với những ai biết khám phá mạnh mẽ."
+    },
+    {
+      "id": 414,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi ngày mai."
+    },
+    {
+      "id": 415,
+      "text": "Chính mình sẽ đến với những ai biết kiên trì quyết tâm."
+    },
+    {
+      "id": 416,
+      "text": "Hãy khám phá mỗi ngày để đạt được tương lai."
+    },
+    {
+      "id": 417,
+      "text": "Sự tự tin là chìa khóa của vẻ đẹp."
+    },
+    {
+      "id": 418,
+      "text": "Bản thân sẽ đến với những ai biết sáng tạo hết mình."
+    },
+    {
+      "id": 419,
+      "text": "Hy vọng sẽ đến với những ai biết nỗ lực quyết tâm."
+    },
+    {
+      "id": 420,
+      "text": "Vinh quang sẽ đến với những ai biết khám phá mạnh mẽ."
+    },
+    {
+      "id": 421,
+      "text": "Hãy cống hiến thật sự để đạt được hạnh phúc."
+    },
+    {
+      "id": 422,
+      "text": "Hãy giữ vững luôn luôn để đạt được mục tiêu."
+    },
+    {
+      "id": 423,
+      "text": "Hãy thay đổi hết mình để đạt được hạnh phúc."
+    },
+    {
+      "id": 424,
+      "text": "Ngày mai sẽ đến với những ai biết hành động quyết tâm."
+    },
+    {
+      "id": 425,
+      "text": "Hãy giữ vững không ngừng để đạt được ước mơ."
+    },
+    {
+      "id": 426,
+      "text": "Niềm tin là sức mạnh lớn nhất."
+    },
+    {
+      "id": 427,
+      "text": "Gieo nhân nào gặt quả nấy."
+    },
+    {
+      "id": 428,
+      "text": "Hãy thay đổi mỗi ngày để đạt được cuộc sống."
+    },
+    {
+      "id": 429,
+      "text": "Hãy thay đổi kiên định để đạt được đam mê."
+    },
+    {
+      "id": 430,
+      "text": "Hãy học hỏi hết mình để đạt được bản thân."
+    },
+    {
+      "id": 431,
+      "text": "Khó khăn nào rồi cũng qua đi như sau cơn mưa."
+    },
+    {
+      "id": 432,
+      "text": "Hãy giữ vững quyết tâm để đạt được tương lai."
+    },
+    {
+      "id": 433,
+      "text": "Sự kiên nhẫn là đức tính của người thành công."
+    },
+    {
+      "id": 434,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 435,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 436,
+      "text": "Hãy cống hiến luôn luôn để đạt được vinh quang."
+    },
+    {
+      "id": 437,
+      "text": "Hãy hành động thật sự để đạt được tri thức."
+    },
+    {
+      "id": 438,
+      "text": "Hy vọng sẽ đến với những ai biết nỗ lực mạnh mẽ."
+    },
+    {
+      "id": 439,
+      "text": "Hãy học hỏi không ngừng để đạt được giá trị."
+    },
+    {
+      "id": 440,
+      "text": "Hãy lắng nghe trái tim mình."
+    },
+    {
+      "id": 441,
+      "text": "Ngày mai sẽ đến với những ai biết vươn lên mạnh mẽ."
+    },
+    {
+      "id": 442,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 443,
+      "text": "Đam mê sẽ đến với những ai biết cống hiến một cách thông minh."
+    },
+    {
+      "id": 444,
+      "text": "Chính mình sẽ đến với những ai biết vươn lên tự tin."
+    },
+    {
+      "id": 445,
+      "text": "Hãy sáng tạo quyết tâm để đạt được ước mơ."
+    },
+    {
+      "id": 446,
+      "text": "Hãy vươn lên quyết tâm để đạt được chính mình."
+    },
+    {
+      "id": 447,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 448,
+      "text": "Hãy cố gắng hết mình để đạt được thành công."
+    },
+    {
+      "id": 449,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 450,
+      "text": "Cuộc sống sẽ đến với những ai biết kiên trì hết mình."
+    },
+    {
+      "id": 451,
+      "text": "Vinh quang sẽ đến với những ai biết sáng tạo thật sự."
+    },
+    {
+      "id": 452,
+      "text": "Hãy theo đuổi luôn luôn để đạt được tri thức."
+    },
+    {
+      "id": 453,
+      "text": "Hãy theo đuổi mỗi ngày để đạt được ngày mai."
+    },
+    {
+      "id": 454,
+      "text": "Hãy nỗ lực mỗi ngày để đạt được thành công."
+    },
+    {
+      "id": 455,
+      "text": "Hãy hành động kiên định để đạt được cuộc sống."
+    },
+    {
+      "id": 456,
+      "text": "Hãy cố gắng kiên định để đạt được vinh quang."
+    },
+    {
+      "id": 457,
+      "text": "Hãy kiên trì luôn luôn để đạt được mục tiêu."
+    },
+    {
+      "id": 458,
+      "text": "Hãy tin tưởng mỗi ngày để đạt được niềm tin."
+    },
+    {
+      "id": 459,
+      "text": "Học tập là hạt giống của kiến thức."
+    },
+    {
+      "id": 460,
+      "text": "Hy vọng sẽ đến với những ai biết kiên trì mạnh mẽ."
+    },
+    {
+      "id": 461,
+      "text": "Hãy học cách yêu thương chính mình."
+    },
+    {
+      "id": 462,
+      "text": "Hãy sáng tạo hết mình để đạt được chính mình."
+    },
+    {
+      "id": 463,
+      "text": "Hãy theo đuổi thật sự để đạt được tri thức."
+    },
+    {
+      "id": 464,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi chính mình."
+    },
+    {
+      "id": 465,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 466,
+      "text": "Hãy rèn luyện mỗi ngày để đạt được ước mơ."
+    },
+    {
+      "id": 467,
+      "text": "Tri thức sẽ đến với những ai biết theo đuổi thật sự."
+    },
+    {
+      "id": 468,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi tương lai."
+    },
+    {
+      "id": 469,
+      "text": "Hãy cho phép mình được sai lầm."
+    },
+    {
+      "id": 470,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 471,
+      "text": "Hãy hành động hết mình để đạt được giá trị."
+    },
+    {
+      "id": 472,
+      "text": "Đam mê sẽ đến với những ai biết rèn luyện luôn luôn."
+    },
+    {
+      "id": 473,
+      "text": "Hãy thay đổi không ngừng để đạt được giá trị."
+    },
+    {
+      "id": 474,
+      "text": "Hãy rèn luyện tự tin để đạt được mục tiêu."
+    },
+    {
+      "id": 475,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 476,
+      "text": "Sự kiên trì là chìa khóa để thành công."
+    },
+    {
+      "id": 477,
+      "text": "Hãy giữ vững quyết tâm để đạt được ước mơ."
+    },
+    {
+      "id": 478,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 479,
+      "text": "Hãy vượt qua quyết tâm để đạt được mục tiêu."
+    },
+    {
+      "id": 480,
+      "text": "Hãy rèn luyện tự tin để đạt được tri thức."
+    },
+    {
+      "id": 481,
+      "text": "Tri thức sẽ đến với những ai biết học hỏi một cách thông minh."
+    },
+    {
+      "id": 482,
+      "text": "Hãy cống hiến một cách thông minh để đạt được cuộc sống."
+    },
+    {
+      "id": 483,
+      "text": "Hãy nỗ lực kiên định để đạt được hy vọng."
+    },
+    {
+      "id": 484,
+      "text": "Hãy vượt qua thật sự để đạt được ngày mai."
+    },
+    {
+      "id": 485,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 486,
+      "text": "Bản thân sẽ đến với những ai biết học hỏi quyết tâm."
+    },
+    {
+      "id": 487,
+      "text": "Mục tiêu sẽ đến với những ai biết giữ vững quyết tâm."
+    },
+    {
+      "id": 488,
+      "text": "Hãy giữ vững tự tin để đạt được hạnh phúc."
+    },
+    {
+      "id": 489,
+      "text": "Hành động là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 490,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 491,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 492,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 493,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 494,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 495,
+      "text": "Hãy thay đổi một cách thông minh để đạt được vinh quang."
+    },
+    {
+      "id": 496,
+      "text": "Hạnh phúc sẽ đến với những ai biết tin tưởng hết mình."
+    },
+    {
+      "id": 497,
+      "text": "Tương lai sẽ đến với những ai biết giữ vững không ngừng."
+    },
+    {
+      "id": 498,
+      "text": "Hãy cống hiến một cách thông minh để đạt được vinh quang."
+    },
+    {
+      "id": 499,
+      "text": "Không có con đường nào trải đầy hoa hồng."
+    },
+    {
+      "id": 500,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 501,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 502,
+      "text": "Cách chúng ta đứng dậy sau vấp ngã định nghĩa chúng ta."
+    },
+    {
+      "id": 503,
+      "text": "Giá trị sẽ đến với những ai biết hành động thật sự."
+    },
+    {
+      "id": 504,
+      "text": "Niềm tin sẽ đến với những ai biết nỗ lực một cách thông minh."
+    },
+    {
+      "id": 505,
+      "text": "Hãy vượt qua kiên định để đạt được ngày mai."
+    },
+    {
+      "id": 506,
+      "text": "Hãy hành động tự tin để đạt được niềm tin."
+    },
+    {
+      "id": 507,
+      "text": "Hãy nỗ lực mạnh mẽ để đạt được đam mê."
+    },
+    {
+      "id": 508,
+      "text": "Mục tiêu sẽ đến với những ai biết theo đuổi một cách thông minh."
+    },
+    {
+      "id": 509,
+      "text": "Hãy theo đuổi luôn luôn để đạt được thành công."
+    },
+    {
+      "id": 510,
+      "text": "Thành công sẽ đến với những ai biết vượt qua thật sự."
+    },
+    {
+      "id": 511,
+      "text": "Hãy hành động mỗi ngày để đạt được giá trị."
+    },
+    {
+      "id": 512,
+      "text": "Hãy rèn luyện kiên định để đạt được giá trị."
+    },
+    {
+      "id": 513,
+      "text": "Hãy sáng tạo kiên định để đạt được chính mình."
+    },
+    {
+      "id": 514,
+      "text": "Niềm tin sẽ đến với những ai biết nỗ lực hết mình."
+    },
+    {
+      "id": 515,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi vinh quang."
+    },
+    {
+      "id": 516,
+      "text": "Hãy hành động mạnh mẽ để đạt được ước mơ."
+    },
+    {
+      "id": 517,
+      "text": "Hãy học hỏi kiên định để đạt được hạnh phúc."
+    },
+    {
+      "id": 518,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 519,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 520,
+      "text": "Hãy thay đổi mỗi ngày để đạt được ước mơ."
+    },
+    {
+      "id": 521,
+      "text": "Tri thức sẽ đến với những ai biết cố gắng một cách thông minh."
+    },
+    {
+      "id": 522,
+      "text": "Hãy sáng tạo mỗi ngày để đạt được hạnh phúc."
+    },
+    {
+      "id": 523,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 524,
+      "text": "Hãy vượt qua luôn luôn để đạt được thành công."
+    },
+    {
+      "id": 525,
+      "text": "Đam mê sẽ đến với những ai biết tin tưởng hết mình."
+    },
+    {
+      "id": 526,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 527,
+      "text": "Hãy cố gắng một cách thông minh để đạt được tri thức."
+    },
+    {
+      "id": 528,
+      "text": "Đam mê sẽ đến với những ai biết tin tưởng luôn luôn."
+    },
+    {
+      "id": 529,
+      "text": "Hãy bắt đầu từ nơi mà bạn đang đứng."
+    },
+    {
+      "id": 530,
+      "text": "Sự nhiệt huyết là động cơ của thành công."
+    },
+    {
+      "id": 531,
+      "text": "Chính mình sẽ đến với những ai biết cố gắng kiên định."
+    },
+    {
+      "id": 532,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi tương lai."
+    },
+    {
+      "id": 533,
+      "text": "Tri thức sẽ đến với những ai biết cống hiến mạnh mẽ."
+    },
+    {
+      "id": 534,
+      "text": "Hãy vượt qua quyết tâm để đạt được ước mơ."
+    },
+    {
+      "id": 535,
+      "text": "Hãy theo đuổi thật sự để đạt được bản thân."
+    },
+    {
+      "id": 536,
+      "text": "Hy vọng sẽ đến với những ai biết khám phá mỗi ngày."
+    },
+    {
+      "id": 537,
+      "text": "Hãy thay đổi hết mình để đạt được cuộc sống."
+    },
+    {
+      "id": 538,
+      "text": "Hãy hành động luôn luôn để đạt được hạnh phúc."
+    },
+    {
+      "id": 539,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 540,
+      "text": "Bản thân sẽ đến với những ai biết nỗ lực thật sự."
+    },
+    {
+      "id": 541,
+      "text": "Hãy khám phá mỗi ngày để đạt được hy vọng."
+    },
+    {
+      "id": 542,
+      "text": "Hãy theo đuổi kiên định để đạt được ngày mai."
+    },
+    {
+      "id": 543,
+      "text": "Giá trị sẽ đến với những ai biết thay đổi thật sự."
+    },
+    {
+      "id": 544,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 545,
+      "text": "Hãy kiên trì không ngừng để đạt được bản thân."
+    },
+    {
+      "id": 546,
+      "text": "Tri thức sẽ đến với những ai biết hành động một cách thông minh."
+    },
+    {
+      "id": 547,
+      "text": "Ước mơ sẽ đến với những ai biết vượt qua mỗi ngày."
+    },
+    {
+      "id": 548,
+      "text": "Hãy học hỏi quyết tâm để đạt được tri thức."
+    },
+    {
+      "id": 549,
+      "text": "Hãy tin tưởng mạnh mẽ để đạt được niềm tin."
+    },
+    {
+      "id": 550,
+      "text": "Hãy sáng tạo thật sự để đạt được đam mê."
+    },
+    {
+      "id": 551,
+      "text": "Hãy tin tưởng tự tin để đạt được giá trị."
+    },
+    {
+      "id": 552,
+      "text": "Hành động là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 553,
+      "text": "Đam mê sẽ đến với những ai biết khám phá quyết tâm."
+    },
+    {
+      "id": 554,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 555,
+      "text": "Hạnh phúc sẽ đến với những ai biết cống hiến tự tin."
+    },
+    {
+      "id": 556,
+      "text": "Hãy theo đuổi mạnh mẽ để đạt được tri thức."
+    },
+    {
+      "id": 557,
+      "text": "Hãy học hỏi thật sự để đạt được đam mê."
+    },
+    {
+      "id": 558,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 559,
+      "text": "Ngày mai sẽ đến với những ai biết cống hiến mỗi ngày."
+    },
+    {
+      "id": 560,
+      "text": "Ước mơ sẽ đến với những ai biết tin tưởng quyết tâm."
+    },
+    {
+      "id": 561,
+      "text": "Hãy kiên trì thật sự để đạt được mục tiêu."
+    },
+    {
+      "id": 562,
+      "text": "Hãy rèn luyện luôn luôn để đạt được ngày mai."
+    },
+    {
+      "id": 563,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 564,
+      "text": "Hãy giữ vững không ngừng để đạt được ngày mai."
+    },
+    {
+      "id": 565,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi ước mơ."
+    },
+    {
+      "id": 566,
+      "text": "Ước mơ sẽ đến với những ai biết hành động tự tin."
+    },
+    {
+      "id": 567,
+      "text": "Ước mơ sẽ đến với những ai biết giữ vững tự tin."
+    },
+    {
+      "id": 568,
+      "text": "Giá trị sẽ đến với những ai biết nỗ lực mỗi ngày."
+    },
+    {
+      "id": 569,
+      "text": "Vinh quang sẽ đến với những ai biết học hỏi không ngừng."
+    },
+    {
+      "id": 570,
+      "text": "Đam mê sẽ đến với những ai biết học hỏi hết mình."
+    },
+    {
+      "id": 571,
+      "text": "Thành công sẽ đến với những ai biết rèn luyện mỗi ngày."
+    },
+    {
+      "id": 572,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 573,
+      "text": "Hãy theo đuổi mỗi ngày để đạt được hy vọng."
+    },
+    {
+      "id": 574,
+      "text": "Hãy khám phá quyết tâm để đạt được giá trị."
+    },
+    {
+      "id": 575,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi chính mình."
+    },
+    {
+      "id": 576,
+      "text": "Tương lai sẽ đến với những ai biết cố gắng một cách thông minh."
+    },
+    {
+      "id": 577,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 578,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 579,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 580,
+      "text": "Hãy vươn lên một cách thông minh để đạt được thành công."
+    },
+    {
+      "id": 581,
+      "text": "Vinh quang sẽ đến với những ai biết kiên trì mỗi ngày."
+    },
+    {
+      "id": 582,
+      "text": "Giá trị sẽ đến với những ai biết học hỏi tự tin."
+    },
+    {
+      "id": 583,
+      "text": "Hãy vươn lên hết mình để đạt được đam mê."
+    },
+    {
+      "id": 584,
+      "text": "Hãy cố gắng thật sự để đạt được ước mơ."
+    },
+    {
+      "id": 585,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi thành công."
+    },
+    {
+      "id": 586,
+      "text": "Ước mơ sẽ đến với những ai biết tin tưởng mỗi ngày."
+    },
+    {
+      "id": 587,
+      "text": "Hãy nỗ lực tự tin để đạt được hạnh phúc."
+    },
+    {
+      "id": 588,
+      "text": "Hãy cống hiến thật sự để đạt được mục tiêu."
+    },
+    {
+      "id": 589,
+      "text": "Bản thân sẽ đến với những ai biết vươn lên luôn luôn."
+    },
+    {
+      "id": 590,
+      "text": "Tương lai sẽ đến với những ai biết học hỏi hết mình."
+    },
+    {
+      "id": 591,
+      "text": "Hy vọng sẽ đến với những ai biết vươn lên luôn luôn."
+    },
+    {
+      "id": 592,
+      "text": "Hãy nỗ lực một cách thông minh để đạt được niềm tin."
+    },
+    {
+      "id": 593,
+      "text": "Giá trị sẽ đến với những ai biết kiên trì mỗi ngày."
+    },
+    {
+      "id": 594,
+      "text": "Vinh quang sẽ đến với những ai biết khám phá tự tin."
+    },
+    {
+      "id": 595,
+      "text": "Hãy tin tưởng một cách thông minh để đạt được hy vọng."
+    },
+    {
+      "id": 596,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 597,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 598,
+      "text": "Hãy vươn lên mỗi ngày để đạt được niềm tin."
+    },
+    {
+      "id": 599,
+      "text": "Hãy hành động quyết tâm để đạt được ngày mai."
+    },
+    {
+      "id": 600,
+      "text": "Bản thân sẽ đến với những ai biết vươn lên hết mình."
+    },
+    {
+      "id": 601,
+      "text": "Niềm tin sẽ đến với những ai biết thay đổi tự tin."
+    },
+    {
+      "id": 602,
+      "text": "Hãy học hỏi hết mình để đạt được tri thức."
+    },
+    {
+      "id": 603,
+      "text": "Mục tiêu sẽ đến với những ai biết sáng tạo mạnh mẽ."
+    },
+    {
+      "id": 604,
+      "text": "Tương lai sẽ đến với những ai biết nỗ lực hết mình."
+    },
+    {
+      "id": 605,
+      "text": "Hãy cố gắng thật sự để đạt được thành công."
+    },
+    {
+      "id": 606,
+      "text": "Thành công sẽ đến với những ai biết vươn lên tự tin."
+    },
+    {
+      "id": 607,
+      "text": "Sự chân thành là nền tảng của mọi mối quan hệ."
+    },
+    {
+      "id": 608,
+      "text": "Đam mê sẽ đến với những ai biết tin tưởng tự tin."
+    },
+    {
+      "id": 609,
+      "text": "Hãy vươn lên luôn luôn để đạt được ngày mai."
+    },
+    {
+      "id": 610,
+      "text": "Hãy theo đuổi kiên định để đạt được niềm tin."
+    },
+    {
+      "id": 611,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 612,
+      "text": "Hãy giữ vững hết mình để đạt được đam mê."
+    },
+    {
+      "id": 613,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 614,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 615,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 616,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 617,
+      "text": "Hãy thay đổi thật sự để đạt được hy vọng."
+    },
+    {
+      "id": 618,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 619,
+      "text": "Hãy kiên trì một cách thông minh để đạt được cuộc sống."
+    },
+    {
+      "id": 620,
+      "text": "Hãy kiên trì kiên định để đạt được hy vọng."
+    },
+    {
+      "id": 621,
+      "text": "Niềm tin sẽ đến với những ai biết học hỏi một cách thông minh."
+    },
+    {
+      "id": 622,
+      "text": "Tương lai sẽ đến với những ai biết kiên trì một cách thông minh."
+    },
+    {
+      "id": 623,
+      "text": "Hãy sáng tạo luôn luôn để đạt được tri thức."
+    },
+    {
+      "id": 624,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 625,
+      "text": "Tri thức sẽ đến với những ai biết nỗ lực tự tin."
+    },
+    {
+      "id": 626,
+      "text": "Hãy rèn luyện hết mình để đạt được hạnh phúc."
+    },
+    {
+      "id": 627,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 628,
+      "text": "Hãy ước mơ, cơ hội sẽ đến với bạn."
+    },
+    {
+      "id": 629,
+      "text": "Hãy sáng tạo kiên định để đạt được bản thân."
+    },
+    {
+      "id": 630,
+      "text": "Mục tiêu sẽ đến với những ai biết khám phá một cách thông minh."
+    },
+    {
+      "id": 631,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 632,
+      "text": "Hãy thay đổi quyết tâm để đạt được hy vọng."
+    },
+    {
+      "id": 633,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi thành công."
+    },
+    {
+      "id": 634,
+      "text": "Bản thân sẽ đến với những ai biết vươn lên tự tin."
+    },
+    {
+      "id": 635,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi vinh quang."
+    },
+    {
+      "id": 636,
+      "text": "Hãy sáng tạo mạnh mẽ để đạt được hy vọng."
+    },
+    {
+      "id": 637,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 638,
+      "text": "Ngày mai sẽ đến với những ai biết khám phá luôn luôn."
+    },
+    {
+      "id": 639,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 640,
+      "text": "Hãy vươn lên tự tin để đạt được ngày mai."
+    },
+    {
+      "id": 641,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi hy vọng."
+    },
+    {
+      "id": 642,
+      "text": "Vinh quang sẽ đến với những ai biết cống hiến kiên định."
+    },
+    {
+      "id": 643,
+      "text": "Giá trị sẽ đến với những ai biết rèn luyện thật sự."
+    },
+    {
+      "id": 644,
+      "text": "Vinh quang sẽ đến với những ai biết thay đổi không ngừng."
+    },
+    {
+      "id": 645,
+      "text": "Hạnh phúc sẽ đến với những ai biết hành động quyết tâm."
+    },
+    {
+      "id": 646,
+      "text": "Bản thân sẽ đến với những ai biết khám phá mỗi ngày."
+    },
+    {
+      "id": 647,
+      "text": "Cuộc sống sẽ đến với những ai biết hành động không ngừng."
+    },
+    {
+      "id": 648,
+      "text": "Hãy sáng tạo thật sự để đạt được giá trị."
+    },
+    {
+      "id": 649,
+      "text": "Hãy kiên trì luôn luôn để đạt được niềm tin."
+    },
+    {
+      "id": 650,
+      "text": "Hãy cố gắng kiên định để đạt được hy vọng."
+    },
+    {
+      "id": 651,
+      "text": "Cuộc sống sẽ đến với những ai biết hành động quyết tâm."
+    },
+    {
+      "id": 652,
+      "text": "Hãy hành động mỗi ngày để đạt được cuộc sống."
+    },
+    {
+      "id": 653,
+      "text": "Cuộc sống sẽ đến với những ai biết theo đuổi một cách thông minh."
+    },
+    {
+      "id": 654,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 655,
+      "text": "Hãy vươn lên thật sự để đạt được thành công."
+    },
+    {
+      "id": 656,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 657,
+      "text": "Hãy rèn luyện mỗi ngày để đạt được hy vọng."
+    },
+    {
+      "id": 658,
+      "text": "Hãy nỗ lực luôn luôn để đạt được chính mình."
+    },
+    {
+      "id": 659,
+      "text": "Hãy theo đuổi một cách thông minh để đạt được giá trị."
+    },
+    {
+      "id": 660,
+      "text": "Đam mê sẽ đến với những ai biết thay đổi thật sự."
+    },
+    {
+      "id": 661,
+      "text": "Hãy vươn lên thật sự để đạt được ước mơ."
+    },
+    {
+      "id": 662,
+      "text": "Tương lai nằm trong tay bạn."
+    },
+    {
+      "id": 663,
+      "text": "Hãy nỗ lực hết mình để đạt được cuộc sống."
+    },
+    {
+      "id": 664,
+      "text": "Hãy khám phá mạnh mẽ để đạt được giá trị."
+    },
+    {
+      "id": 665,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 666,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 667,
+      "text": "Hãy nỗ lực một cách thông minh để đạt được hy vọng."
+    },
+    {
+      "id": 668,
+      "text": "Giá trị sẽ đến với những ai biết kiên trì thật sự."
+    },
+    {
+      "id": 669,
+      "text": "Hãy rèn luyện tự tin để đạt được ước mơ."
+    },
+    {
+      "id": 670,
+      "text": "Hy vọng sẽ đến với những ai biết giữ vững quyết tâm."
+    },
+    {
+      "id": 671,
+      "text": "Hãy cống hiến không ngừng để đạt được ngày mai."
+    },
+    {
+      "id": 672,
+      "text": "Hãy kiên trì luôn luôn để đạt được thành công."
+    },
+    {
+      "id": 673,
+      "text": "Hãy cố gắng hết mình để đạt được niềm tin."
+    },
+    {
+      "id": 674,
+      "text": "Hãy rèn luyện kiên định để đạt được ước mơ."
+    },
+    {
+      "id": 675,
+      "text": "Muốn mua đồ không nhìn giá, hãy làm việc không nhìn đồng hồ."
+    },
+    {
+      "id": 676,
+      "text": "Hãy hành động tự tin để đạt được vinh quang."
+    },
+    {
+      "id": 677,
+      "text": "Hãy khám phá không ngừng để đạt được thành công."
+    },
+    {
+      "id": 678,
+      "text": "Hãy học hỏi thật sự để đạt được ngày mai."
+    },
+    {
+      "id": 679,
+      "text": "Hãy hành động mạnh mẽ để đạt được vinh quang."
+    },
+    {
+      "id": 680,
+      "text": "Mỗi vết sẹo đều là một bài học."
+    },
+    {
+      "id": 681,
+      "text": "Giá trị sẽ đến với những ai biết cống hiến tự tin."
+    },
+    {
+      "id": 682,
+      "text": "Hãy thay đổi thật sự để đạt được mục tiêu."
+    },
+    {
+      "id": 683,
+      "text": "Hãy tin tưởng mạnh mẽ để đạt được chính mình."
+    },
+    {
+      "id": 684,
+      "text": "Hành động là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 685,
+      "text": "Hãy kiên trì quyết tâm để đạt được đam mê."
+    },
+    {
+      "id": 686,
+      "text": "Hãy hành động kiên định để đạt được tri thức."
+    },
+    {
+      "id": 687,
+      "text": "Mục tiêu sẽ đến với những ai biết sáng tạo thật sự."
+    },
+    {
+      "id": 688,
+      "text": "Đừng để quá khứ níu kéo bạn."
+    },
+    {
+      "id": 689,
+      "text": "Niềm tin sẽ đến với những ai biết nỗ lực thật sự."
+    },
+    {
+      "id": 690,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 691,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi niềm tin."
+    },
+    {
+      "id": 692,
+      "text": "Hãy khám phá tự tin để đạt được tương lai."
+    },
+    {
+      "id": 693,
+      "text": "Mỗi ngày trôi qua là một món quà."
+    },
+    {
+      "id": 694,
+      "text": "Hãy kiên trì luôn luôn để đạt được hy vọng."
+    },
+    {
+      "id": 695,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi tương lai."
+    },
+    {
+      "id": 696,
+      "text": "Hành động là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 697,
+      "text": "Mục tiêu sẽ đến với những ai biết cố gắng thật sự."
+    },
+    {
+      "id": 698,
+      "text": "Hãy vươn lên tự tin để đạt được hy vọng."
+    },
+    {
+      "id": 699,
+      "text": "Cuộc sống sẽ đến với những ai biết tin tưởng quyết tâm."
+    },
+    {
+      "id": 700,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 701,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 702,
+      "text": "Hãy tin vào khả năng của bản thân."
+    },
+    {
+      "id": 703,
+      "text": "Giá trị sẽ đến với những ai biết giữ vững tự tin."
+    },
+    {
+      "id": 704,
+      "text": "Hãy kiên trì luôn luôn để đạt được ước mơ."
+    },
+    {
+      "id": 705,
+      "text": "Hãy giữ vững hết mình để đạt được ngày mai."
+    },
+    {
+      "id": 706,
+      "text": "Đừng bao giờ từ bỏ ước mơ."
+    },
+    {
+      "id": 707,
+      "text": "Cuộc sống sẽ đến với những ai biết sáng tạo luôn luôn."
+    },
+    {
+      "id": 708,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 709,
+      "text": "Hãy tin tưởng mỗi ngày để đạt được ước mơ."
+    },
+    {
+      "id": 710,
+      "text": "Hy vọng sẽ đến với những ai biết kiên trì quyết tâm."
+    },
+    {
+      "id": 711,
+      "text": "Hãy sáng tạo một cách thông minh để đạt được tương lai."
+    },
+    {
+      "id": 712,
+      "text": "Con người trong sóng gió trưởng thành."
+    },
+    {
+      "id": 713,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 714,
+      "text": "Thành công sẽ đến với những ai biết giữ vững một cách thông minh."
+    },
+    {
+      "id": 715,
+      "text": "Hãy khám phá hết mình để đạt được tương lai."
+    },
+    {
+      "id": 716,
+      "text": "Hãy vượt qua mạnh mẽ để đạt được tri thức."
+    },
+    {
+      "id": 717,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 718,
+      "text": "Hãy thay đổi tự tin để đạt được bản thân."
+    },
+    {
+      "id": 719,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 720,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 721,
+      "text": "Hãy thay đổi luôn luôn để đạt được cuộc sống."
+    },
+    {
+      "id": 722,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 723,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi đam mê."
+    },
+    {
+      "id": 724,
+      "text": "Tương lai sẽ đến với những ai biết vượt qua thật sự."
+    },
+    {
+      "id": 725,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi bản thân."
+    },
+    {
+      "id": 726,
+      "text": "Hãy học hỏi mạnh mẽ để đạt được ước mơ."
+    },
+    {
+      "id": 727,
+      "text": "Hãy giữ vững hết mình để đạt được niềm tin."
+    },
+    {
+      "id": 728,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 729,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 730,
+      "text": "Niềm tin sẽ đến với những ai biết vượt qua thật sự."
+    },
+    {
+      "id": 731,
+      "text": "Hy vọng sẽ đến với những ai biết cống hiến hết mình."
+    },
+    {
+      "id": 732,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 733,
+      "text": "Tri thức sẽ đến với những ai biết hành động mạnh mẽ."
+    },
+    {
+      "id": 734,
+      "text": "Hãy vượt qua không ngừng để đạt được mục tiêu."
+    },
+    {
+      "id": 735,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 736,
+      "text": "Giá trị sẽ đến với những ai biết vượt qua tự tin."
+    },
+    {
+      "id": 737,
+      "text": "Vinh quang sẽ đến với những ai biết vượt qua một cách thông minh."
+    },
+    {
+      "id": 738,
+      "text": "Bản thân sẽ đến với những ai biết tin tưởng thật sự."
+    },
+    {
+      "id": 739,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 740,
+      "text": "Niềm tin sẽ đến với những ai biết học hỏi tự tin."
+    },
+    {
+      "id": 741,
+      "text": "Hãy rèn luyện thật sự để đạt được hy vọng."
+    },
+    {
+      "id": 742,
+      "text": "Hãy kiên trì không ngừng để đạt được cuộc sống."
+    },
+    {
+      "id": 743,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 744,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 745,
+      "text": "Hãy học hỏi tự tin để đạt được niềm tin."
+    },
+    {
+      "id": 746,
+      "text": "Bản thân sẽ đến với những ai biết sáng tạo tự tin."
+    },
+    {
+      "id": 747,
+      "text": "Thành công sẽ đến với những ai biết theo đuổi kiên định."
+    },
+    {
+      "id": 748,
+      "text": "Thay đổi sẽ không đến nếu chúng ta trông chờ vào người khác."
+    },
+    {
+      "id": 749,
+      "text": "Hạnh phúc sẽ đến với những ai biết hành động thật sự."
+    },
+    {
+      "id": 750,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 751,
+      "text": "Hạnh phúc sẽ đến với những ai biết kiên trì mỗi ngày."
+    },
+    {
+      "id": 752,
+      "text": "Hãy khám phá quyết tâm để đạt được vinh quang."
+    },
+    {
+      "id": 753,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 754,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi mục tiêu."
+    },
+    {
+      "id": 755,
+      "text": "Hãy giữ vững hết mình để đạt được chính mình."
+    },
+    {
+      "id": 756,
+      "text": "Hãy theo đuổi mỗi ngày để đạt được cuộc sống."
+    },
+    {
+      "id": 757,
+      "text": "Tri thức sẽ đến với những ai biết giữ vững kiên định."
+    },
+    {
+      "id": 758,
+      "text": "Hãy rèn luyện một cách thông minh để đạt được giá trị."
+    },
+    {
+      "id": 759,
+      "text": "Mọi thứ đều có thể nếu bạn tin."
+    },
+    {
+      "id": 760,
+      "text": "Hãy vượt qua hết mình để đạt được tri thức."
+    },
+    {
+      "id": 761,
+      "text": "Hãy tin tưởng hết mình để đạt được đam mê."
+    },
+    {
+      "id": 762,
+      "text": "Hãy vươn lên không ngừng để đạt được ngày mai."
+    },
+    {
+      "id": 763,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 764,
+      "text": "Hãy tin tưởng quyết tâm để đạt được hy vọng."
+    },
+    {
+      "id": 765,
+      "text": "Hãy kiên trì quyết tâm để đạt được hy vọng."
+    },
+    {
+      "id": 766,
+      "text": "Hãy hành động kiên định để đạt được ngày mai."
+    },
+    {
+      "id": 767,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 768,
+      "text": "Hãy khám phá tiềm năng của bạn."
+    },
+    {
+      "id": 769,
+      "text": "Hãy cố gắng luôn luôn để đạt được cuộc sống."
+    },
+    {
+      "id": 770,
+      "text": "Hãy vượt qua không ngừng để đạt được ngày mai."
+    },
+    {
+      "id": 771,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 772,
+      "text": "Kỷ luật là cầu nối giữa mục tiêu và thành tựu."
+    },
+    {
+      "id": 773,
+      "text": "Hy vọng sẽ đến với những ai biết học hỏi thật sự."
+    },
+    {
+      "id": 774,
+      "text": "Hãy theo đuổi một cách thông minh để đạt được đam mê."
+    },
+    {
+      "id": 775,
+      "text": "Hãy sáng tạo thật sự để đạt được hy vọng."
+    },
+    {
+      "id": 776,
+      "text": "Hãy vượt qua mạnh mẽ để đạt được vinh quang."
+    },
+    {
+      "id": 777,
+      "text": "Hãy vượt qua quyết tâm để đạt được bản thân."
+    },
+    {
+      "id": 778,
+      "text": "Hãy hành động tự tin để đạt được cuộc sống."
+    },
+    {
+      "id": 779,
+      "text": "Cuộc sống sẽ đến với những ai biết khám phá không ngừng."
+    },
+    {
+      "id": 780,
+      "text": "Cuộc sống sẽ đến với những ai biết kiên trì mạnh mẽ."
+    },
+    {
+      "id": 781,
+      "text": "Hãy kiên trì thật sự để đạt được đam mê."
+    },
+    {
+      "id": 782,
+      "text": "Hãy học hỏi hết mình để đạt được ước mơ."
+    },
+    {
+      "id": 783,
+      "text": "Thành công sẽ đến với những ai biết hành động hết mình."
+    },
+    {
+      "id": 784,
+      "text": "Đời sống có hạn mà sự học thì vô hạn."
+    },
+    {
+      "id": 785,
+      "text": "Hãy luôn chiến đấu cho những gì bạn tin tưởng."
+    },
+    {
+      "id": 786,
+      "text": "Hành động là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 787,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 788,
+      "text": "Đam mê sẽ đến với những ai biết theo đuổi kiên định."
+    },
+    {
+      "id": 789,
+      "text": "Tri thức sẽ đến với những ai biết theo đuổi mạnh mẽ."
+    },
+    {
+      "id": 790,
+      "text": "Hãy giữ vững kiên định để đạt được thành công."
+    },
+    {
+      "id": 791,
+      "text": "Hãy sáng tạo tự tin để đạt được vinh quang."
+    },
+    {
+      "id": 792,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 793,
+      "text": "Hãy giữ vững quyết tâm để đạt được hy vọng."
+    },
+    {
+      "id": 794,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi hạnh phúc."
+    },
+    {
+      "id": 795,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 796,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 797,
+      "text": "Thành công sẽ đến với những ai biết rèn luyện tự tin."
+    },
+    {
+      "id": 798,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi mục tiêu."
+    },
+    {
+      "id": 799,
+      "text": "Hãy thay đổi thật sự để đạt được tri thức."
+    },
+    {
+      "id": 800,
+      "text": "Hãy thay đổi không ngừng để đạt được hạnh phúc."
+    },
+    {
+      "id": 801,
+      "text": "Hãy thay đổi mạnh mẽ để đạt được tương lai."
+    },
+    {
+      "id": 802,
+      "text": "Hãy giữ vững quyết tâm để đạt được giá trị."
+    },
+    {
+      "id": 803,
+      "text": "Hãy theo đuổi tự tin để đạt được cuộc sống."
+    },
+    {
+      "id": 804,
+      "text": "Hãy kiên định với con đường đã chọn."
+    },
+    {
+      "id": 805,
+      "text": "Hãy khám phá mạnh mẽ để đạt được bản thân."
+    },
+    {
+      "id": 806,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 807,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 808,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 809,
+      "text": "Sự sáng tạo không có giới hạn."
+    },
+    {
+      "id": 810,
+      "text": "Hãy thay đổi quyết tâm để đạt được hạnh phúc."
+    },
+    {
+      "id": 811,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 812,
+      "text": "Hãy cống hiến hết mình để đạt được mục tiêu."
+    },
+    {
+      "id": 813,
+      "text": "Hãy nỗ lực thật sự để đạt được tri thức."
+    },
+    {
+      "id": 814,
+      "text": "Đừng sợ thay đổi."
+    },
+    {
+      "id": 815,
+      "text": "Hãy kiên trì kiên định để đạt được vinh quang."
+    },
+    {
+      "id": 816,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 817,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 818,
+      "text": "Hành động là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 819,
+      "text": "Hãy tin tưởng quyết tâm để đạt được niềm tin."
+    },
+    {
+      "id": 820,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi giá trị."
+    },
+    {
+      "id": 821,
+      "text": "Hạnh phúc đến từ những điều giản đơn."
+    },
+    {
+      "id": 822,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 823,
+      "text": "Đừng đợi cơ hội, hãy tự tạo ra nó."
+    },
+    {
+      "id": 824,
+      "text": "Hãy hành động thật sự để đạt được giá trị."
+    },
+    {
+      "id": 825,
+      "text": "Hãy theo đuổi hết mình để đạt được vinh quang."
+    },
+    {
+      "id": 826,
+      "text": "Niềm tin sẽ đến với những ai biết tin tưởng tự tin."
+    },
+    {
+      "id": 827,
+      "text": "Học là quyền lực."
+    },
+    {
+      "id": 828,
+      "text": "Hãy vươn lên kiên định để đạt được giá trị."
+    },
+    {
+      "id": 829,
+      "text": "Khó khăn chỉ là bước đệm cho thành công."
+    },
+    {
+      "id": 830,
+      "text": "Hạnh phúc sẽ đến với những ai biết sáng tạo một cách thông minh."
+    },
+    {
+      "id": 831,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 832,
+      "text": "Để thành công nói thay bạn."
+    },
+    {
+      "id": 833,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 834,
+      "text": "Học từ những thất bại."
+    },
+    {
+      "id": 835,
+      "text": "Hãy khám phá quyết tâm để đạt được cuộc sống."
+    },
+    {
+      "id": 836,
+      "text": "Ước mơ sẽ đến với những ai biết thay đổi mỗi ngày."
+    },
+    {
+      "id": 837,
+      "text": "Bản thân sẽ đến với những ai biết sáng tạo thật sự."
+    },
+    {
+      "id": 838,
+      "text": "Mục tiêu sẽ đến với những ai biết giữ vững không ngừng."
+    },
+    {
+      "id": 839,
+      "text": "Hãy kiên trì mạnh mẽ để đạt được bản thân."
+    },
+    {
+      "id": 840,
+      "text": "Hãy kiên trì mạnh mẽ để đạt được đam mê."
+    },
+    {
+      "id": 841,
+      "text": "Bản thân sẽ đến với những ai biết tin tưởng mỗi ngày."
+    },
+    {
+      "id": 842,
+      "text": "Hãy sáng tạo tự tin để đạt được ước mơ."
+    },
+    {
+      "id": 843,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến giá trị."
+    },
+    {
+      "id": 844,
+      "text": "Bản thân sẽ đến với những ai biết học hỏi tự tin."
+    },
+    {
+      "id": 845,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi niềm tin."
+    },
+    {
+      "id": 846,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi ngày mai."
+    },
+    {
+      "id": 847,
+      "text": "Tôi tự hào về những nỗ lực của mình."
+    },
+    {
+      "id": 848,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 849,
+      "text": "Hành động là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 850,
+      "text": "Hãy vươn lên luôn luôn để đạt được cuộc sống."
+    },
+    {
+      "id": 851,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi cuộc sống."
+    },
+    {
+      "id": 852,
+      "text": "Hành trình vạn dặm bắt đầu từ một bước chân."
+    },
+    {
+      "id": 853,
+      "text": "Hãy học hỏi kiên định để đạt được mục tiêu."
+    },
+    {
+      "id": 854,
+      "text": "Hãy khám phá mỗi ngày để đạt được vinh quang."
+    },
+    {
+      "id": 855,
+      "text": "Tri thức sẽ đến với những ai biết thay đổi tự tin."
+    },
+    {
+      "id": 856,
+      "text": "Bản thân sẽ đến với những ai biết hành động thật sự."
+    },
+    {
+      "id": 857,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 858,
+      "text": "Hãy nỗ lực mỗi ngày để đạt được mục tiêu."
+    },
+    {
+      "id": 859,
+      "text": "Hãy cống hiến thật sự để đạt được đam mê."
+    },
+    {
+      "id": 860,
+      "text": "Hạnh phúc sẽ đến với những ai biết theo đuổi luôn luôn."
+    },
+    {
+      "id": 861,
+      "text": "Chính mình sẽ đến với những ai biết thay đổi không ngừng."
+    },
+    {
+      "id": 862,
+      "text": "Hy vọng sẽ đến với những ai biết hành động không ngừng."
+    },
+    {
+      "id": 863,
+      "text": "Chính mình sẽ đến với những ai biết tin tưởng thật sự."
+    },
+    {
+      "id": 864,
+      "text": "Cuộc sống sẽ đến với những ai biết thay đổi thật sự."
+    },
+    {
+      "id": 865,
+      "text": "Sự chuẩn bị tốt nhất cho ngày mai là làm tốt hôm nay."
+    },
+    {
+      "id": 866,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi cuộc sống."
+    },
+    {
+      "id": 867,
+      "text": "Hãy cố gắng một cách thông minh để đạt được đam mê."
+    },
+    {
+      "id": 868,
+      "text": "Hãy học hỏi hết mình để đạt được cuộc sống."
+    },
+    {
+      "id": 869,
+      "text": "Vinh quang sẽ đến với những ai biết theo đuổi tự tin."
+    },
+    {
+      "id": 870,
+      "text": "Hãy cống hiến luôn luôn để đạt được cuộc sống."
+    },
+    {
+      "id": 871,
+      "text": "Tương lai sẽ đến với những ai biết sáng tạo không ngừng."
+    },
+    {
+      "id": 872,
+      "text": "Ngày mai sẽ đến với những ai biết khám phá tự tin."
+    },
+    {
+      "id": 873,
+      "text": "Hãy vượt qua không ngừng để đạt được hạnh phúc."
+    },
+    {
+      "id": 874,
+      "text": "Hãy giữ vững hết mình để đạt được tương lai."
+    },
+    {
+      "id": 875,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 876,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 877,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi niềm tin."
+    },
+    {
+      "id": 878,
+      "text": "Mục tiêu sẽ đến với những ai biết khám phá mạnh mẽ."
+    },
+    {
+      "id": 879,
+      "text": "Chính mình sẽ đến với những ai biết tin tưởng mỗi ngày."
+    },
+    {
+      "id": 880,
+      "text": "Hãy sáng tạo một cách thông minh để đạt được cuộc sống."
+    },
+    {
+      "id": 881,
+      "text": "Vinh quang sẽ đến với những ai biết theo đuổi kiên định."
+    },
+    {
+      "id": 882,
+      "text": "Hãy kiên trì mạnh mẽ để đạt được mục tiêu."
+    },
+    {
+      "id": 883,
+      "text": "Hãy rèn luyện quyết tâm để đạt được cuộc sống."
+    },
+    {
+      "id": 884,
+      "text": "Mục tiêu sẽ đến với những ai biết thay đổi luôn luôn."
+    },
+    {
+      "id": 885,
+      "text": "Vinh quang sẽ đến với những ai biết cố gắng tự tin."
+    },
+    {
+      "id": 886,
+      "text": "Nghĩ lớn và dám làm lớn."
+    },
+    {
+      "id": 887,
+      "text": "Hãy giữ vững mỗi ngày để đạt được giá trị."
+    },
+    {
+      "id": 888,
+      "text": "Bản thân sẽ đến với những ai biết giữ vững quyết tâm."
+    },
+    {
+      "id": 889,
+      "text": "Hãy sống chậm lại và cảm nhận."
+    },
+    {
+      "id": 890,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến hạnh phúc."
+    },
+    {
+      "id": 891,
+      "text": "Hãy sống một cuộc đời ý nghĩa."
+    },
+    {
+      "id": 892,
+      "text": "Thành công sẽ đến với những ai biết tin tưởng mạnh mẽ."
+    },
+    {
+      "id": 893,
+      "text": "Ngày mai sẽ tốt đẹp hơn."
+    },
+    {
+      "id": 894,
+      "text": "Hãy khám phá một cách thông minh để đạt được vinh quang."
+    },
+    {
+      "id": 895,
+      "text": "Hy vọng sẽ đến với những ai biết cống hiến mỗi ngày."
+    },
+    {
+      "id": 896,
+      "text": "Chính mình sẽ đến với những ai biết hành động một cách thông minh."
+    },
+    {
+      "id": 897,
+      "text": "Hãy sáng tạo tự tin để đạt được tương lai."
+    },
+    {
+      "id": 898,
+      "text": "Hy vọng sẽ đến với những ai biết nỗ lực mỗi ngày."
+    },
+    {
+      "id": 899,
+      "text": "Hãy vượt qua mỗi ngày để đạt được hy vọng."
+    },
+    {
+      "id": 900,
+      "text": "Hãy cống hiến một cách thông minh để đạt được tương lai."
+    },
+    {
+      "id": 901,
+      "text": "Đứng dậy mạnh mẽ hơn sau mỗi lần ngã."
+    },
+    {
+      "id": 902,
+      "text": "Hãy hành động không ngừng để đạt được ước mơ."
+    },
+    {
+      "id": 903,
+      "text": "Ước mơ sẽ đến với những ai biết nỗ lực thật sự."
+    },
+    {
+      "id": 904,
+      "text": "Hy vọng sẽ đến với những ai biết theo đuổi mỗi ngày."
+    },
+    {
+      "id": 905,
+      "text": "Hãy khát khao, hạnh phúc sẽ đến với bạn."
+    },
+    {
+      "id": 906,
+      "text": "Hãy tin tưởng thật sự để đạt được tương lai."
+    },
+    {
+      "id": 907,
+      "text": "Hãy vượt qua một cách thông minh để đạt được niềm tin."
+    },
+    {
+      "id": 908,
+      "text": "Thành công sẽ đến với những ai biết hành động mạnh mẽ."
+    },
+    {
+      "id": 909,
+      "text": "Hãy vượt qua mạnh mẽ để đạt được cuộc sống."
+    },
+    {
+      "id": 910,
+      "text": "Giữ vững là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 911,
+      "text": "Hãy khám phá hết mình để đạt được hy vọng."
+    },
+    {
+      "id": 912,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 913,
+      "text": "Bản thân sẽ đến với những ai biết cố gắng kiên định."
+    },
+    {
+      "id": 914,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 915,
+      "text": "Kiên trì là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 916,
+      "text": "Cố gắng là con đường ngắn nhất dẫn đến vinh quang."
+    },
+    {
+      "id": 917,
+      "text": "Hãy cống hiến hết mình để đạt được ngày mai."
+    },
+    {
+      "id": 918,
+      "text": "Hãy thay đổi kiên định để đạt được hạnh phúc."
+    },
+    {
+      "id": 919,
+      "text": "Hãy học hỏi mỗi ngày để đạt được hy vọng."
+    },
+    {
+      "id": 920,
+      "text": "Hãy cống hiến hết mình để đạt được bản thân."
+    },
+    {
+      "id": 921,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi tri thức."
+    },
+    {
+      "id": 922,
+      "text": "Hãy khám phá luôn luôn để đạt được tương lai."
+    },
+    {
+      "id": 923,
+      "text": "Hạnh phúc sẽ đến với những ai biết vượt qua kiên định."
+    },
+    {
+      "id": 924,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 925,
+      "text": "Hãy rèn luyện hết mình để đạt được mục tiêu."
+    },
+    {
+      "id": 926,
+      "text": "Hãy sáng tạo thật sự để đạt được tương lai."
+    },
+    {
+      "id": 927,
+      "text": "Giá trị sẽ đến với những ai biết cố gắng quyết tâm."
+    },
+    {
+      "id": 928,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến bản thân."
+    },
+    {
+      "id": 929,
+      "text": "Hãy vượt qua tự tin để đạt được giá trị."
+    },
+    {
+      "id": 930,
+      "text": "Hãy tin tưởng quyết tâm để đạt được mục tiêu."
+    },
+    {
+      "id": 931,
+      "text": "Hãy học hỏi tự tin để đạt được ngày mai."
+    },
+    {
+      "id": 932,
+      "text": "Hãy sáng tạo luôn luôn để đạt được bản thân."
+    },
+    {
+      "id": 933,
+      "text": "Ước mơ sẽ đến với những ai biết vượt qua tự tin."
+    },
+    {
+      "id": 934,
+      "text": "Hãy tin tưởng quyết tâm để đạt được đam mê."
+    },
+    {
+      "id": 935,
+      "text": "Hy vọng sẽ đến với những ai biết rèn luyện một cách thông minh."
+    },
+    {
+      "id": 936,
+      "text": "Ước mơ sẽ đến với những ai biết cố gắng hết mình."
+    },
+    {
+      "id": 937,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 938,
+      "text": "Hãy giữ vững một cách thông minh để đạt được cuộc sống."
+    },
+    {
+      "id": 939,
+      "text": "Ngày mai sẽ đến với những ai biết hành động một cách thông minh."
+    },
+    {
+      "id": 940,
+      "text": "Hãy hành động thật sự để đạt được hạnh phúc."
+    },
+    {
+      "id": 941,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến đam mê."
+    },
+    {
+      "id": 942,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi tri thức."
+    },
+    {
+      "id": 943,
+      "text": "Hãy theo đuổi hết mình để đạt được cuộc sống."
+    },
+    {
+      "id": 944,
+      "text": "Đừng bao giờ dừng lại khi đang theo đuổi vinh quang."
+    },
+    {
+      "id": 945,
+      "text": "Hãy vươn lên mạnh mẽ để đạt được bản thân."
+    },
+    {
+      "id": 946,
+      "text": "Vinh quang sẽ đến với những ai biết cống hiến thật sự."
+    },
+    {
+      "id": 947,
+      "text": "Hạnh phúc sẽ đến với những ai biết sáng tạo hết mình."
+    },
+    {
+      "id": 948,
+      "text": "Đừng bao giờ từ bỏ khi đang theo đuổi bản thân."
+    },
+    {
+      "id": 949,
+      "text": "Hãy khám phá một cách thông minh để đạt được giá trị."
+    },
+    {
+      "id": 950,
+      "text": "Hãy tin tưởng luôn luôn để đạt được ước mơ."
+    },
+    {
+      "id": 951,
+      "text": "Giá trị sẽ đến với những ai biết vươn lên mạnh mẽ."
+    },
+    {
+      "id": 952,
+      "text": "Hãy giữ vững không ngừng để đạt được thành công."
+    },
+    {
+      "id": 953,
+      "text": "Đừng so sánh mình với người khác."
+    },
+    {
+      "id": 954,
+      "text": "Thay đổi là con đường ngắn nhất dẫn đến tri thức."
+    },
+    {
+      "id": 955,
+      "text": "Hy vọng sẽ đến với những ai biết thay đổi mạnh mẽ."
+    },
+    {
+      "id": 956,
+      "text": "Theo đuổi là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 957,
+      "text": "Vươn lên là con đường ngắn nhất dẫn đến mục tiêu."
+    },
+    {
+      "id": 958,
+      "text": "Khám phá là con đường ngắn nhất dẫn đến hy vọng."
+    },
+    {
+      "id": 959,
+      "text": "Vượt qua là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 960,
+      "text": "Tin tưởng là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 961,
+      "text": "Ngày mai sẽ đến với những ai biết giữ vững tự tin."
+    },
+    {
+      "id": 962,
+      "text": "Hành động là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 963,
+      "text": "Hãy cống hiến mỗi ngày để đạt được chính mình."
+    },
+    {
+      "id": 964,
+      "text": "Hy vọng sẽ đến với những ai biết vươn lên mạnh mẽ."
+    },
+    {
+      "id": 965,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 966,
+      "text": "Bản thân sẽ đến với những ai biết học hỏi không ngừng."
+    },
+    {
+      "id": 967,
+      "text": "Hãy thay đổi không ngừng để đạt được vinh quang."
+    },
+    {
+      "id": 968,
+      "text": "Bản thân sẽ đến với những ai biết hành động mỗi ngày."
+    },
+    {
+      "id": 969,
+      "text": "Hãy nỗ lực luôn luôn để đạt được thành công."
+    },
+    {
+      "id": 970,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến niềm tin."
+    },
+    {
+      "id": 971,
+      "text": "Hy vọng sẽ đến với những ai biết vượt qua hết mình."
+    },
+    {
+      "id": 972,
+      "text": "Hãy luôn tò mò và không ngừng học hỏi."
+    },
+    {
+      "id": 973,
+      "text": "Hãy nỗ lực mỗi ngày để đạt được giá trị."
+    },
+    {
+      "id": 974,
+      "text": "Đam mê sẽ đến với những ai biết vượt qua một cách thông minh."
+    },
+    {
+      "id": 975,
+      "text": "Bản thân sẽ đến với những ai biết kiên trì thật sự."
+    },
+    {
+      "id": 976,
+      "text": "Hãy cố gắng kiên định để đạt được thành công."
+    },
+    {
+      "id": 977,
+      "text": "Hãy chấp nhận rủi ro để đạt được điều lớn lao."
+    },
+    {
+      "id": 978,
+      "text": "Tương lai sẽ đến với những ai biết hành động hết mình."
+    },
+    {
+      "id": 979,
+      "text": "Hãy nỗ lực kiên định để đạt được đam mê."
+    },
+    {
+      "id": 980,
+      "text": "Đừng bao giờ nản lòng khi đang theo đuổi mục tiêu."
+    },
+    {
+      "id": 981,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến tương lai."
+    },
+    {
+      "id": 982,
+      "text": "Hãy khám phá kiên định để đạt được ước mơ."
+    },
+    {
+      "id": 983,
+      "text": "Hãy là người thay đổi thế giới."
+    },
+    {
+      "id": 984,
+      "text": "Thành công sẽ đến với những ai biết tin tưởng thật sự."
+    },
+    {
+      "id": 985,
+      "text": "Hãy cống hiến mỗi ngày để đạt được mục tiêu."
+    },
+    {
+      "id": 986,
+      "text": "Hãy kiên trì mạnh mẽ để đạt được giá trị."
+    },
+    {
+      "id": 987,
+      "text": "Hãy sáng tạo hết mình để đạt được vinh quang."
+    },
+    {
+      "id": 988,
+      "text": "Hãy hành động kiên định để đạt được đam mê."
+    },
+    {
+      "id": 989,
+      "text": "Niềm tin sẽ đến với những ai biết hành động quyết tâm."
+    },
+    {
+      "id": 990,
+      "text": "Hãy rèn luyện mạnh mẽ để đạt được đam mê."
+    },
+    {
+      "id": 991,
+      "text": "Rèn luyện là con đường ngắn nhất dẫn đến ngày mai."
+    },
+    {
+      "id": 992,
+      "text": "Hãy là phiên bản tốt nhất của chính mình."
+    },
+    {
+      "id": 993,
+      "text": "Hãy khám phá tự tin để đạt được đam mê."
+    },
+    {
+      "id": 994,
+      "text": "Hãy hành động mỗi ngày để đạt được hạnh phúc."
+    },
+    {
+      "id": 995,
+      "text": "Học hỏi là con đường ngắn nhất dẫn đến ước mơ."
+    },
+    {
+      "id": 996,
+      "text": "Cống hiến là con đường ngắn nhất dẫn đến chính mình."
+    },
+    {
+      "id": 997,
+      "text": "Hãy rèn luyện không ngừng để đạt được chính mình."
+    },
+    {
+      "id": 998,
+      "text": "Sáng tạo là con đường ngắn nhất dẫn đến thành công."
+    },
+    {
+      "id": 999,
+      "text": "Nỗ lực là con đường ngắn nhất dẫn đến cuộc sống."
+    },
+    {
+      "id": 1000,
+      "text": "Ước mơ sẽ đến với những ai biết theo đuổi không ngừng."
+    }
+  ]
+}

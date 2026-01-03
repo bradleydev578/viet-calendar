@@ -1,0 +1,183 @@
+{
+  "solar_date": "2025-12-12",
+  "lunar_date": {
+    "day": 23,
+    "month": 10,
+    "year": 2025,
+    "is_leap_month": false
+  },
+  "can_chi": {
+    "year": {
+      "can": "Ất",
+      "chi": "Tỵ"
+    },
+    "month": {
+      "can": "Đinh",
+      "chi": "Hợi"
+    },
+    "day": {
+      "can": "Ất",
+      "chi": "Mão"
+    },
+    "ngu_hanh": "Mộc"
+  },
+  "tiet_khi": "Đại tuyết",
+  "star28": {
+    "name": "Cang",
+    "is_good": false
+  },
+  "truc12": {
+    "name": "Khai",
+    "is_good": true
+  },
+  "hoang_dao_hours": [
+    {
+      "chi": "Tý",
+      "time_range": "23:00 - 01:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Sửu",
+      "time_range": "01:00 - 03:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Dần",
+      "time_range": "03:00 - 05:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Mão",
+      "time_range": "05:00 - 07:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Thìn",
+      "time_range": "07:00 - 09:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Tỵ",
+      "time_range": "09:00 - 11:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Ngọ",
+      "time_range": "11:00 - 13:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Mùi",
+      "time_range": "13:00 - 15:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Thân",
+      "time_range": "15:00 - 17:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Dậu",
+      "time_range": "17:00 - 19:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Tuất",
+      "time_range": "19:00 - 21:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Hợi",
+      "time_range": "21:00 - 23:00",
+      "is_hoang_dao": false
+    }
+  ],
+  "directions": [
+    {
+      "name": "Hỷ thần",
+      "direction": "Tây Bắc",
+      "rating": 5
+    },
+    {
+      "name": "Tài thần",
+      "direction": "Đông Nam",
+      "rating": 5
+    },
+    {
+      "name": "Hắc thần",
+      "direction": "Đông",
+      "rating": 1
+    }
+  ],
+  "good_activities": [
+    {
+      "name": "cắt may áo màn (sẽ có lộc ăn).",
+      "category": "description"
+    }
+  ],
+  "bad_activities": [
+    {
+      "name": "Chôn cất bị Trùng tang. Cưới gả e rằng phòng không giá lạnh. Tranh đấu kiện tụng lâm bại. Khởi dựng nhà cửa thì con đầu dễ gặp nạn. 10 hoặc 100 ngày sau thì gặp họa, rồi dần dần tiêu hết ruộng đất, nếu làm quan bị cách chức. Sao Cang thuộc Thất Sát Tinh, sinh con nhằm ngày này ắt khó nuôi, nên lấy tên của Sao mà đặt cho nó thì yên lành.",
+      "category": "description"
+    }
+  ],
+  "good_stars": [
+    "Thiên đức",
+    "Nguyệt Ân",
+    "Âm Đức",
+    "Mãn đức tinh",
+    "Tam Hợp",
+    "Dân nhật, thời đức"
+  ],
+  "bad_stars": [
+    "Thiên Ngục",
+    "Thiên Hỏa",
+    "Đại Hao",
+    "Nhân Cách",
+    "Huyền Vũ"
+  ],
+  "ly_thuan_phong_hours": [
+    {
+      "time_range": "11h-13h, 23h- 1h",
+      "name": "Tốc hỷ",
+      "is_good": true,
+      "description": "Tốc hỷ mọi việc mỹ miều Cầu tài cầu lộc thì cầu phương Nam Mất của chẳng phải đi tìm Còn trong nhà đó chưa đem ra ngoài Hành nhân thì được gặp người Việc quan việc sự ấy thời cùng hay Bệnh tật thì được qua ngày Gia trạch đẹp đẽ tốt thay mọi bề.."
+    },
+    {
+      "time_range": "5h-7h, 17h-19h",
+      "name": "Tiểu cát",
+      "is_good": true,
+      "description": "Tiểu cát mọi việc tốt tươi Người ta đem đến tin vui điều lành Mất của Phương Tây rành rành Hành nhân xem đã hành trình đến nơi Bệnh tật sửa lễ cầu trời Mọi việc thuận lợi vui cười thật tươi.."
+    },
+    {
+      "time_range": "1h-3h, 13h-15h",
+      "name": "Lưu niên",
+      "is_good": false,
+      "description": "Lưu niên mọi việc khó thay Mưu cầu lúc chửa sáng ngày mới nên Việc quan phải hoãn mới yên Hành nhân đang tính đường nên chưa về Mất của phương Hỏa tìm đi Đề phong khẩu thiệt thị phi lắm điều.."
+    },
+    {
+      "time_range": "3h-5h, 15h-17h",
+      "name": "Xích khẩu",
+      "is_good": false,
+      "description": "Xích khẩu lắm chuyên thị phi Đề phòng ta phải lánh đi mới là Mất của kíp phải dò la Hành nhân chưa thấy ắt là viễn chinh Gia trạch lắm việc bất bình Ốm đau vì bởi yêu tinh trêu người.."
+    }
+  ],
+  "conflicting_ages": {
+    "xung_ngay": [
+      "Kỷ Dậu",
+      "Đinh Dậu",
+      "Tân Mùi",
+      "Tân Sửu"
+    ],
+    "xung_thang": [
+      "Kỷ Tị",
+      "Quý Tị",
+      "Quý Mùi",
+      "Quý Sửu",
+      "Quý Hợi"
+    ]
+  },
+  "day_score": null,
+  "source": "lichngaytot.com",
+  "scraped_at": null
+}

@@ -1,0 +1,128 @@
+{
+  "database_info": {
+    "name": "Vietnam_Comprehensive_Calendar_2026",
+    "description": "Tổng hợp ngày lễ, kỷ niệm ngành và lễ hội văn hóa Việt Nam năm 2026",
+    "last_updated": "2026-01-02",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "data": [
+    {
+      "category": "PUBLIC_HOLIDAYS",
+      "items": [
+        {
+          "id": "PH_NEW_YEAR",
+          "name": "Tết Dương lịch 2026",
+          "start_time": "2026-01-01T00:00:00",
+          "end_time": "2026-01-01T23:59:59",
+          "total_days": 1,
+          "description": "Nghỉ chính thức 1 ngày."
+        },
+        {
+          "id": "PH_LUNAR_NEW_YEAR",
+          "name": "Tết Nguyên đán Bính Ngọ",
+          "start_time": "2026-02-14T00:00:00",
+          "end_time": "2026-02-22T23:59:59",
+          "total_days": 9,
+          "description": "Nghỉ 9 ngày liên tục (27 tháng Chạp năm Ất Tỵ đến hết mùng 5 tháng Giêng năm Bính Ngọ)."
+        },
+        {
+          "id": "PH_HUNG_KING",
+          "name": "Giỗ Tổ Hùng Vương (10/3 Âm lịch)",
+          "start_time": "2026-04-25T00:00:00",
+          "end_time": "2026-04-27T23:59:59",
+          "total_days": 3,
+          "description": "Nghỉ bù thứ Hai do mùng 10/3 rơi vào Chủ nhật."
+        },
+        {
+          "id": "PH_REUNIFICATION_LABOR",
+          "name": "Ngày Giải phóng & Quốc tế Lao động",
+          "start_time": "2026-04-30T00:00:00",
+          "end_time": "2026-05-03T23:59:59",
+          "total_days": 4,
+          "description": "Nghỉ từ thứ Năm (30/4) đến hết Chủ nhật (3/5)."
+        },
+        {
+          "id": "PH_NATIONAL_DAY",
+          "name": "Lễ Quốc khánh 2/9",
+          "start_time": "2026-08-29T00:00:00",
+          "end_time": "2026-09-02T23:59:59",
+          "total_days": 5,
+          "description": "Nghỉ 5 ngày liên tục nhờ hoán đổi ngày làm việc thứ Hai (31/8)."
+        }
+      ]
+    },
+    {
+      "category": "SECTOR_ANNIVERSARIES",
+      "items": [
+        { "id": "SA_STUDENT", "name": "Ngày Học sinh, Sinh viên", "date": "01-09", "start_time": "2026-01-09T00:00:00", "end_time": "2026-01-09T23:59:59" },
+        { "id": "SA_DOCTOR", "name": "Ngày Thầy thuốc Việt Nam", "date": "02-27", "start_time": "2026-02-27T00:00:00", "end_time": "2026-02-27T23:59:59" },
+        { "id": "SA_BORDER_GUARD", "name": "Ngày Biên phòng toàn dân", "date": "03-03", "start_time": "2026-03-03T00:00:00", "end_time": "2026-03-03T23:59:59" },
+        { "id": "SA_MILITIA", "name": "Ngày truyền thống Dân quân tự vệ", "date": "03-28", "start_time": "2026-03-28T00:00:00", "end_time": "2026-03-28T23:59:59" },
+        { "id": "SA_STATISTICS", "name": "Ngày Thống kê Việt Nam", "date": "05-06", "start_time": "2026-05-06T00:00:00", "end_time": "2026-05-06T23:59:59" },
+        { "id": "SA_PRESS", "name": "Ngày Báo chí Cách mạng Việt Nam", "date": "06-21", "start_time": "2026-06-21T00:00:00", "end_time": "2026-06-21T23:59:59" },
+        { "id": "SA_PROCURACY", "name": "Ngày thành lập ngành Kiểm sát", "date": "07-26", "start_time": "2026-07-26T00:00:00", "end_time": "2026-07-26T23:59:59" },
+        { "id": "SA_SECURITY", "name": "Ngày truyền thống Công an nhân dân", "date": "08-19", "start_time": "2026-08-19T00:00:00", "end_time": "2026-08-19T23:59:59" },
+        { "id": "SA_TAX_CUSTOMS", "name": "Ngày truyền thống ngành Thuế & Hải quan", "date": "09-10", "start_time": "2026-09-10T00:00:00", "end_time": "2026-09-10T23:59:59" },
+        { "id": "SA_COURT", "name": "Ngày truyền thống Tòa án nhân dân", "date": "09-13", "start_time": "2026-09-13T00:00:00", "end_time": "2026-09-13T23:59:59" },
+        { "id": "SA_LAWYER_PRINTER", "name": "Ngày truyền thống Luật sư & Ngành In", "date": "10-10", "start_time": "2026-10-10T00:00:00", "end_time": "2026-10-10T23:59:59" },
+        { "id": "SA_BUSINESSMAN", "name": "Ngày Doanh nhân Việt Nam", "date": "10-13", "start_time": "2026-10-13T00:00:00", "end_time": "2026-10-13T23:59:59" },
+        { "id": "SA_FARMER", "name": "Ngày Hội Nông dân Việt Nam", "date": "10-14", "start_time": "2026-10-14T00:00:00", "end_time": "2026-10-14T23:59:59" },
+        { "id": "SA_LAW_DAY", "name": "Ngày Pháp luật Việt Nam", "date": "11-09", "start_time": "2026-11-09T00:00:00", "end_time": "2026-11-09T23:59:59" },
+        { "id": "SA_TEACHER", "name": "Ngày Nhà giáo Việt Nam", "date": "11-20", "start_time": "2026-11-20T00:00:00", "end_time": "2026-11-20T23:59:59" },
+        { "id": "SA_ARMY", "name": "Ngày thành lập Quân đội nhân dân", "date": "12-22", "start_time": "2026-12-22T00:00:00", "end_time": "2026-12-22T23:59:59" }
+      ]
+    },
+    {
+      "category": "CULTURAL_ETHNIC_FESTIVALS",
+      "items": [
+        {
+          "id": "CF_CHUA_HUONG",
+          "name": "Lễ hội Chùa Hương (Khai hội)",
+          "location": "Hà Nội",
+          "start_time": "2026-02-22T00:00:00",
+          "end_time": "2026-05-16T23:59:59",
+          "description": "Lễ hội tâm linh dài nhất miền Bắc."
+        },
+        {
+          "id": "CF_LIM",
+          "name": "Hội Lim",
+          "location": "Bắc Ninh",
+          "start_time": "2026-03-01T00:00:00",
+          "end_time": "2026-03-02T23:59:59",
+          "description": "Lễ hội Quan họ truyền thống (13 tháng Giêng)."
+        },
+        {
+          "id": "CF_ELEPHANT_RACING",
+          "name": "Lễ hội Đua Voi Tây Nguyên",
+          "location": "Đắk Lắk",
+          "start_time": "2026-03-15T00:00:00",
+          "end_time": "2026-03-17T23:59:59",
+          "description": "Lễ hội truyền thống của đồng bào dân tộc tại Buôn Đôn."
+        },
+        {
+          "id": "CF_VU_LAN",
+          "name": "Lễ Vu Lan (Rằm tháng 7)",
+          "start_time": "2026-08-27T00:00:00",
+          "end_time": "2026-08-27T23:59:59",
+          "description": "Ngày lễ báo hiếu."
+        },
+        {
+          "id": "CF_KATE",
+          "name": "Lễ hội Kate (Người Chăm)",
+          "location": "Ninh Thuận",
+          "start_time": "2026-10-10T00:00:00",
+          "end_time": "2026-10-12T23:59:59",
+          "description": "Lễ hội lớn nhất của người Chăm Bàlamôn."
+        },
+        {
+          "id": "CF_OK_OM_BOK",
+          "name": "Lễ hội Ok Om Bok (Người Khmer)",
+          "location": "Sóc Trăng/Trà Vinh",
+          "start_time": "2026-11-23T00:00:00",
+          "end_time": "2026-11-24T23:59:59",
+          "description": "Lễ cúng trăng và đua ghe Ngo."
+        }
+      ]
+    }
+  ]
+}

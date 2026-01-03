@@ -1,0 +1,180 @@
+{
+  "solar_date": "2025-01-15",
+  "lunar_date": {
+    "day": 16,
+    "month": 12,
+    "year": 2024,
+    "is_leap_month": false
+  },
+  "can_chi": {
+    "year": {
+      "can": "Giáp",
+      "chi": "Thìn"
+    },
+    "month": {
+      "can": "Đinh",
+      "chi": "Sửu"
+    },
+    "day": {
+      "can": "Giáp",
+      "chi": "Thân"
+    },
+    "ngu_hanh": "Mộc"
+  },
+  "tiet_khi": "Tiểu hàn",
+  "star28": {
+    "name": "Cơ",
+    "is_good": true
+  },
+  "truc12": {
+    "name": "Khai",
+    "is_good": true
+  },
+  "hoang_dao_hours": [
+    {
+      "chi": "Tý",
+      "time_range": "23:00 - 01:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Sửu",
+      "time_range": "01:00 - 03:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Dần",
+      "time_range": "03:00 - 05:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Mão",
+      "time_range": "05:00 - 07:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Thìn",
+      "time_range": "07:00 - 09:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Tỵ",
+      "time_range": "09:00 - 11:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Ngọ",
+      "time_range": "11:00 - 13:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Mùi",
+      "time_range": "13:00 - 15:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Thân",
+      "time_range": "15:00 - 17:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Dậu",
+      "time_range": "17:00 - 19:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Tuất",
+      "time_range": "19:00 - 21:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Hợi",
+      "time_range": "21:00 - 23:00",
+      "is_hoang_dao": false
+    }
+  ],
+  "directions": [
+    {
+      "name": "Hỷ thần",
+      "direction": "Đông Bắc",
+      "rating": 5
+    },
+    {
+      "name": "Tài thần",
+      "direction": "Đông Nam",
+      "rating": 5
+    },
+    {
+      "name": "Hắc thần",
+      "direction": "Tây Bắc",
+      "rating": 1
+    }
+  ],
+  "good_activities": [
+    {
+      "name": "Khởi tạo trăm việc đều tốt, tốt nhất là chôn cất, tu bổ mồ mả, trổ cửa, khai trương, xuất hành, các việc thủy lợi (như tháo nước, đào kênh, khai thông mương rãnh...)",
+      "category": "description"
+    }
+  ],
+  "bad_activities": [
+    {
+      "name": "Đóng giường, lót giường, đi thuyền.",
+      "category": "description"
+    }
+  ],
+  "good_stars": [
+    "Thiên Quan",
+    "Nguyệt Không",
+    "Ngũ phú",
+    "Phúc Sinh",
+    "Hoạt điệu",
+    "Mẫu Thương",
+    "Đại Hồng Sa",
+    "Trực Tinh",
+    "Đại cát"
+  ],
+  "bad_stars": [
+    "Lôi công",
+    "Thổ cẩm"
+  ],
+  "ly_thuan_phong_hours": [
+    {
+      "time_range": "9h-11h, 21h-23h",
+      "name": "Tốc hỷ",
+      "is_good": true,
+      "description": "Tốc hỷ mọi việc mỹ miều Cầu tài cầu lộc thì cầu phương Nam Mất của chẳng phải đi tìm Còn trong nhà đó chưa đem ra ngoài Hành nhân thì được gặp người Việc quan việc sự ấy thời cùng hay Bệnh tật thì được qua ngày Gia trạch đẹp đẽ tốt thay mọi bề.."
+    },
+    {
+      "time_range": "3h-5h, 15h-17h",
+      "name": "Tiểu cát",
+      "is_good": true,
+      "description": "Tiểu cát mọi việc tốt tươi Người ta đem đến tin vui điều lành Mất của Phương Tây rành rành Hành nhân xem đã hành trình đến nơi Bệnh tật sửa lễ cầu trời Mọi việc thuận lợi vui cười thật tươi.."
+    },
+    {
+      "time_range": "11h-13h, 23h- 1h",
+      "name": "Lưu niên",
+      "is_good": false,
+      "description": "Lưu niên mọi việc khó thay Mưu cầu lúc chửa sáng ngày mới nên Việc quan phải hoãn mới yên Hành nhân đang tính đường nên chưa về Mất của phương Hỏa tìm đi Đề phong khẩu thiệt thị phi lắm điều.."
+    },
+    {
+      "time_range": "1h-3h, 13h-15h",
+      "name": "Xích khẩu",
+      "is_good": false,
+      "description": "Xích khẩu lắm chuyên thị phi Đề phòng ta phải lánh đi mới là Mất của kíp phải dò la Hành nhân chưa thấy ắt là viễn chinh Gia trạch lắm việc bất bình Ốm đau vì bởi yêu tinh trêu người.."
+    }
+  ],
+  "conflicting_ages": {
+    "xung_ngay": [
+      "Mậu Dần",
+      "Bính Dần",
+      "Canh Ngọ",
+      "Canh Tý"
+    ],
+    "xung_thang": [
+      "Tân Mùi",
+      "Kỷ Mùi"
+    ]
+  },
+  "day_score": null,
+  "source": "lichngaytot.com",
+  "scraped_at": null
+}

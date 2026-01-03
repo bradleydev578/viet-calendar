@@ -1,0 +1,462 @@
+{
+  "version": "1.0",
+  "year": 2025,
+  "generated_at": "2025-12-15T10:28:55.633044",
+  "total_days": 6,
+  "days": [
+    {
+      "d": "2025-01-15",
+      "ld": 16,
+      "lm": 12,
+      "ly": 2024,
+      "lp": 0,
+      "dgz": "Giáp Thân",
+      "mgz": "Đinh Sửu",
+      "ygz": "Giáp Thìn",
+      "nh": "Mộc",
+      "s28": "Cơ",
+      "s28g": 1,
+      "t12": "Khai",
+      "t12g": 1,
+      "tk": "Tiểu hàn",
+      "hd": [
+        "Tý",
+        "Sửu",
+        "Thìn",
+        "Mùi",
+        "Tuất"
+      ],
+      "dir": [
+        {
+          "n": "Hỷ thần",
+          "d": "Đông Bắc",
+          "r": 5
+        },
+        {
+          "n": "Tài thần",
+          "d": "Đông Nam",
+          "r": 5
+        },
+        {
+          "n": "Hắc thần",
+          "d": "Tây Bắc",
+          "r": 1
+        }
+      ],
+      "ga": [
+        "Khởi tạo trăm việc đều tốt, tốt nhất là chôn cất, tu bổ mồ mả, trổ cửa, khai trương, xuất hành, các việc thủy lợi (như tháo nước, đào kênh, khai thông mương rãnh...)"
+      ],
+      "ba": [
+        "Đóng giường, lót giường, đi thuyền."
+      ],
+      "gs": [
+        "Thiên Quan",
+        "Nguyệt Không",
+        "Ngũ phú",
+        "Phúc Sinh",
+        "Hoạt điệu",
+        "Mẫu Thương",
+        "Đại Hồng Sa",
+        "Trực Tinh",
+        "Đại cát"
+      ],
+      "bs": [
+        "Lôi công",
+        "Thổ cẩm"
+      ],
+      "sc": null
+    },
+    {
+      "d": "2025-12-08",
+      "ld": 19,
+      "lm": 10,
+      "ly": 2025,
+      "lp": 0,
+      "dgz": "Tân Hợi",
+      "mgz": "Đinh Hợi",
+      "ygz": "Ất Tỵ",
+      "nh": "Kim",
+      "s28": "Trương",
+      "s28g": 1,
+      "t12": "Khai",
+      "t12g": 1,
+      "tk": "Đại tuyết",
+      "hd": [
+        "Sửu",
+        "Thìn",
+        "Ngọ",
+        "Mùi",
+        "Tuất",
+        "Hợi"
+      ],
+      "dir": [
+        {
+          "n": "Hỷ thần",
+          "d": "Tây Nam",
+          "r": 5
+        },
+        {
+          "n": "Tài thần",
+          "d": "Tây Nam",
+          "r": 5
+        },
+        {
+          "n": "Hắc thần",
+          "d": "Đông Bắc",
+          "r": 1
+        }
+      ],
+      "ga": [
+        "Khởi công tạo tác trăm việc đều tốt, tốt nhất là xây cất nhà, che mái dựng hiên, trổ cửa dựng cửa, cưới gả, chôn cất, làm ruộng, nuôi tằm, cắt áo, làm thuỷ lợi."
+      ],
+      "ba": [
+        "Sửa hoặc làm thuyền chèo, đẩy thuyền mới xuống nước"
+      ],
+      "gs": [
+        "Địa tài",
+        "Tục Thế",
+        "Phúc hậu",
+        "Kim đường",
+        "Thiên Ân"
+      ],
+      "bs": [
+        "Thổ phủ",
+        "Thiên ôn",
+        "Hỏa tai",
+        "Lục Bất thành",
+        "Thần cách",
+        "Ngũ Quỹ",
+        "Cửu không",
+        "Lôi công",
+        "Nguyệt Hình"
+      ],
+      "sc": null
+    },
+    {
+      "d": "2025-12-09",
+      "ld": 20,
+      "lm": 10,
+      "ly": 2025,
+      "lp": 0,
+      "dgz": "Nhâm Tý",
+      "mgz": "Đinh Hợi",
+      "ygz": "Ất Tỵ",
+      "nh": "Thủy",
+      "s28": "Dực",
+      "s28g": 0,
+      "t12": "Khai",
+      "t12g": 1,
+      "tk": "Đại tuyết",
+      "hd": [
+        "Tý",
+        "Sửu",
+        "Mão",
+        "Ngọ",
+        "Thân",
+        "Dậu"
+      ],
+      "dir": [
+        {
+          "n": "Hỷ thần",
+          "d": "Nam",
+          "r": 5
+        },
+        {
+          "n": "Tài thần",
+          "d": "Tây",
+          "r": 5
+        },
+        {
+          "n": "Hắc thần",
+          "d": "Đông Bắc",
+          "r": 1
+        }
+      ],
+      "ga": [
+        "Cắt áo sẽ được tiền tài."
+      ],
+      "ba": [
+        "Chôn cất, cưới gả, xây cất nhà, trổ cửa gắn cửa, các việc thủy lợi."
+      ],
+      "gs": [
+        "Thiên Quý",
+        "Thiên Mã (Lộc mã)",
+        "U Vi tinh",
+        "Yếu yên (thiên quý)",
+        "Sát cống",
+        "Đại cát",
+        "Thiên Thụy"
+      ],
+      "bs": [
+        "Trùng Tang",
+        "Trùng phục",
+        "Bạch hổ",
+        "Thiên địa chuyển sát",
+        "Phủ đầu dát"
+      ],
+      "sc": null
+    },
+    {
+      "d": "2025-12-10",
+      "ld": 21,
+      "lm": 10,
+      "ly": 2025,
+      "lp": 0,
+      "dgz": "Quý Sửu",
+      "mgz": "Đinh Hợi",
+      "ygz": "Ất Tỵ",
+      "nh": "Thủy",
+      "s28": "Chẩn",
+      "s28g": 1,
+      "t12": "Khai",
+      "t12g": 1,
+      "tk": "Đại tuyết",
+      "hd": [
+        "Dần",
+        "Mão",
+        "Thân",
+        "Tuất",
+        "Hợi"
+      ],
+      "dir": [
+        {
+          "n": "Hỷ thần",
+          "d": "Đông Nam",
+          "r": 5
+        },
+        {
+          "n": "Tài thần",
+          "d": "Tây Bắc",
+          "r": 5
+        },
+        {
+          "n": "Hắc thần",
+          "d": "Đông Bắc",
+          "r": 1
+        }
+      ],
+      "ga": [
+        "Khởi công tạo tác mọi việc đều tốt lành, tốt nhất là xây cất lầu gác, chôn cất, cưới gả. Các việc khác cũng tốt như dựng phòng, cất trại, xuất hành."
+      ],
+      "ba": [
+        "Đi thuyền."
+      ],
+      "gs": [
+        "Thiên phú",
+        "Thiên Quý",
+        "Thiên thành",
+        "Lộc khố",
+        "Ngọc đường",
+        "Thiên Ân",
+        "Trực Tinh",
+        "Đại cát"
+      ],
+      "bs": [
+        "Thổ ôn",
+        "Thiên tặc",
+        "Nguyệt Yếm đại họa",
+        "Quả tú",
+        "Tam tang",
+        "Âm thác"
+      ],
+      "sc": null
+    },
+    {
+      "d": "2025-12-11",
+      "ld": 22,
+      "lm": 10,
+      "ly": 2025,
+      "lp": 0,
+      "dgz": "Giáp Dần",
+      "mgz": "Đinh Hợi",
+      "ygz": "Ất Tỵ",
+      "nh": "Mộc",
+      "s28": "Giác",
+      "s28g": 1,
+      "t12": "Khai",
+      "t12g": 1,
+      "tk": "Đại tuyết",
+      "hd": [
+        "Tý",
+        "Sửu",
+        "Thìn",
+        "Mùi",
+        "Tuất"
+      ],
+      "dir": [
+        {
+          "n": "Hỷ thần",
+          "d": "Đông Bắc",
+          "r": 5
+        },
+        {
+          "n": "Tài thần",
+          "d": "Đông Nam",
+          "r": 5
+        },
+        {
+          "n": "Hắc thần",
+          "d": "Đông Bắc",
+          "r": 1
+        }
+      ],
+      "ga": [
+        "Tạo tác mọi việc đều đặng vinh xương, tấn lợi. Hôn nhân cưới gả sanh con quý. Công danh khoa cử đỗ đạt cao."
+      ],
+      "ba": [
+        "Chôn cất hoạn nạn ba năm. Sửa chữa hay xây đắp mộ phần ắt có người chết. Sanh con ngày này có Sao Giác khó nuôi, nên lấy tên Sao mà đặt tên cho con mới an toàn. Dùng tên sao của năm hay của tháng cũng được."
+      ],
+      "gs": [
+        "Nguyệt Đức",
+        "Minh tinh",
+        "Ngũ phú",
+        "Lục Hợp"
+      ],
+      "bs": [
+        "Tiểu Hao",
+        "Hoang vu",
+        "Hà khôi",
+        "Ngũ hư",
+        "Cẩu Giảo"
+      ],
+      "sc": null
+    },
+    {
+      "d": "2025-12-12",
+      "ld": 23,
+      "lm": 10,
+      "ly": 2025,
+      "lp": 0,
+      "dgz": "Ất Mão",
+      "mgz": "Đinh Hợi",
+      "ygz": "Ất Tỵ",
+      "nh": "Mộc",
+      "s28": "Cang",
+      "s28g": 0,
+      "t12": "Khai",
+      "t12g": 1,
+      "tk": "Đại tuyết",
+      "hd": [
+        "Tý",
+        "Dần",
+        "Mão",
+        "Ngọ",
+        "Mùi",
+        "Dậu"
+      ],
+      "dir": [
+        {
+          "n": "Hỷ thần",
+          "d": "Tây Bắc",
+          "r": 5
+        },
+        {
+          "n": "Tài thần",
+          "d": "Đông Nam",
+          "r": 5
+        },
+        {
+          "n": "Hắc thần",
+          "d": "Đông",
+          "r": 1
+        }
+      ],
+      "ga": [
+        "cắt may áo màn (sẽ có lộc ăn)."
+      ],
+      "ba": [
+        "Chôn cất bị Trùng tang. Cưới gả e rằng phòng không giá lạnh. Tranh đấu kiện tụng lâm bại. Khởi dựng nhà cửa thì con đầu dễ gặp nạn. 10 hoặc 100 ngày sau thì gặp họa, rồi dần dần tiêu hết ruộng đất, nếu làm quan bị cách chức. Sao Cang thuộc Thất Sát Tinh, sinh con nhằm ngày này ắt khó nuôi, nên lấy tên của Sao mà đặt cho nó thì yên lành."
+      ],
+      "gs": [
+        "Thiên đức",
+        "Nguyệt Ân",
+        "Âm Đức",
+        "Mãn đức tinh",
+        "Tam Hợp",
+        "Dân nhật, thời đức"
+      ],
+      "bs": [
+        "Thiên Ngục",
+        "Thiên Hỏa",
+        "Đại Hao",
+        "Nhân Cách",
+        "Huyền Vũ"
+      ],
+      "sc": null
+    }
+  ],
+  "activities": {
+    "cau_an": {
+      "n": "Cầu an",
+      "c": "spiritual"
+    },
+    "cau_tu": {
+      "n": "Cầu tự",
+      "c": "spiritual"
+    },
+    "giai_han": {
+      "n": "Giải hạn",
+      "c": "spiritual"
+    },
+    "cung_te": {
+      "n": "Cúng tế",
+      "c": "spiritual"
+    },
+    "dong_tho": {
+      "n": "Động thổ",
+      "c": "construction"
+    },
+    "xay_nha": {
+      "n": "Xây nhà",
+      "c": "construction"
+    },
+    "sua_chua": {
+      "n": "Sửa chữa",
+      "c": "construction"
+    },
+    "khai_truong": {
+      "n": "Khai trương",
+      "c": "business"
+    },
+    "ky_hop_dong": {
+      "n": "Ký hợp đồng",
+      "c": "business"
+    },
+    "giao_dich": {
+      "n": "Giao dịch",
+      "c": "business"
+    },
+    "xuat_hanh": {
+      "n": "Xuất hành",
+      "c": "travel"
+    },
+    "cuoi_hoi": {
+      "n": "Cưới hỏi",
+      "c": "family"
+    },
+    "an_hoi": {
+      "n": "Ăn hỏi",
+      "c": "family"
+    },
+    "nhap_trach": {
+      "n": "Nhập trạch",
+      "c": "family"
+    },
+    "kham_benh": {
+      "n": "Khám bệnh",
+      "c": "health"
+    },
+    "an_tang": {
+      "n": "An táng",
+      "c": "funeral"
+    },
+    "cai_tang": {
+      "n": "Cải táng",
+      "c": "funeral"
+    },
+    "trong_trot": {
+      "n": "Trồng trọt",
+      "c": "agriculture"
+    }
+  }
+}

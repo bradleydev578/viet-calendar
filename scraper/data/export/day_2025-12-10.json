@@ -1,0 +1,145 @@
+{
+  "solar_date": "2025-12-10",
+  "lunar_date": {
+    "day": 21,
+    "month": 10,
+    "year": 2025,
+    "is_leap_month": false
+  },
+  "can_chi": {
+    "year": {
+      "can": "Ất",
+      "chi": "Tỵ"
+    },
+    "month": {
+      "can": "Đinh",
+      "chi": "Hợi"
+    },
+    "day": {
+      "can": "Quý",
+      "chi": "Sửu"
+    },
+    "ngu_hanh": "Thủy"
+  },
+  "tiet_khi": "Đại tuyết",
+  "star28": {
+    "name": "Chẩn",
+    "is_good": true
+  },
+  "truc12": {
+    "name": "Khai",
+    "is_good": true
+  },
+  "hoang_dao_hours": [
+    {
+      "chi": "Tý",
+      "time_range": "23:00 - 01:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Sửu",
+      "time_range": "01:00 - 03:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Dần",
+      "time_range": "03:00 - 05:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Mão",
+      "time_range": "05:00 - 07:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Thìn",
+      "time_range": "07:00 - 09:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Tỵ",
+      "time_range": "09:00 - 11:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Ngọ",
+      "time_range": "11:00 - 13:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Mùi",
+      "time_range": "13:00 - 15:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Thân",
+      "time_range": "15:00 - 17:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Dậu",
+      "time_range": "17:00 - 19:00",
+      "is_hoang_dao": false
+    },
+    {
+      "chi": "Tuất",
+      "time_range": "19:00 - 21:00",
+      "is_hoang_dao": true
+    },
+    {
+      "chi": "Hợi",
+      "time_range": "21:00 - 23:00",
+      "is_hoang_dao": true
+    }
+  ],
+  "directions": [
+    {
+      "name": "Hỷ thần",
+      "direction": "Đông Nam",
+      "rating": 5
+    },
+    {
+      "name": "Tài thần",
+      "direction": "Tây Bắc",
+      "rating": 5
+    },
+    {
+      "name": "Hắc thần",
+      "direction": "Đông Bắc",
+      "rating": 1
+    }
+  ],
+  "good_activities": [
+    {
+      "name": "Khởi công tạo tác mọi việc đều tốt lành, tốt nhất là xây cất lầu gác, chôn cất, cưới gả. Các việc khác cũng tốt như dựng phòng, cất trại, xuất hành.",
+      "category": "description"
+    }
+  ],
+  "bad_activities": [
+    {
+      "name": "Đi thuyền.",
+      "category": "description"
+    }
+  ],
+  "good_stars": [
+    "Thiên phú",
+    "Thiên Quý",
+    "Thiên thành",
+    "Lộc khố",
+    "Ngọc đường",
+    "Thiên Ân",
+    "Trực Tinh",
+    "Đại cát"
+  ],
+  "bad_stars": [
+    "Thổ ôn",
+    "Thiên tặc",
+    "Nguyệt Yếm đại họa",
+    "Quả tú",
+    "Tam tang",
+    "Âm thác"
+  ],
+  "day_score": null,
+  "source": "lichngaytot.com",
+  "scraped_at": null
+}
