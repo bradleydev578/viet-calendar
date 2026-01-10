@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { View, ScrollView, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { addMonths, subMonths, startOfMonth, startOfDay } from 'date-fns';
+import { addMonths, subMonths, startOfMonth, startOfDay, format } from 'date-fns';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
@@ -23,6 +23,12 @@ import { useHolidays } from '../../hooks/useHolidays';
 import { useSettingsStore } from '../../stores/useSettingsStore';
 import { getThemeForDate } from '../../theme/monthThemes';
 import type { RootStackParamList } from '../../app/navigation/types';
+import {
+  trackScreenView,
+  trackViewMonthCalendar,
+  trackNavigateMonth,
+  trackSelectDate,
+} from '../../services/analytics';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -54,6 +60,15 @@ export function CalendarScreen() {
   // Get dynamic theme based on current month
   const monthTheme = useMemo(() => getThemeForDate(currentMonth), [currentMonth]);
 
+  // Track screen view on mount
+  useEffect(() => {
+    trackScreenView('CalendarScreen');
+    trackViewMonthCalendar({
+      year: currentMonth.getFullYear(),
+      month: currentMonth.getMonth() + 1,
+    });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Get animation duration based on reduce motion setting
   const animationDuration = reduceMotionEnabled ? REDUCED_ANIMATION_DURATION : ANIMATION_DURATION;
 
@@ -62,12 +77,28 @@ export function CalendarScreen() {
   const opacity = useSharedValue(1);
 
   const handlePrevMonth = useCallback(() => {
-    setCurrentMonth(prev => subMonths(prev, 1));
-  }, []);
+    const prevMonth = subMonths(currentMonth, 1);
+    trackNavigateMonth({
+      direction: 'prev',
+      fromMonth: currentMonth.getMonth() + 1,
+      fromYear: currentMonth.getFullYear(),
+      toMonth: prevMonth.getMonth() + 1,
+      toYear: prevMonth.getFullYear(),
+    });
+    setCurrentMonth(prevMonth);
+  }, [currentMonth]);
 
   const handleNextMonth = useCallback(() => {
-    setCurrentMonth(prev => addMonths(prev, 1));
-  }, []);
+    const nextMonth = addMonths(currentMonth, 1);
+    trackNavigateMonth({
+      direction: 'next',
+      fromMonth: currentMonth.getMonth() + 1,
+      fromYear: currentMonth.getFullYear(),
+      toMonth: nextMonth.getMonth() + 1,
+      toYear: nextMonth.getFullYear(),
+    });
+    setCurrentMonth(nextMonth);
+  }, [currentMonth]);
 
   const handleToday = useCallback(() => {
     const today = new Date();
@@ -76,6 +107,10 @@ export function CalendarScreen() {
   }, []);
 
   const handleSelectDate = useCallback((date: Date) => {
+    trackSelectDate({
+      date: format(date, 'yyyy-MM-dd'),
+      source: 'calendar_tap',
+    });
     setSelectedDate(date);
 
     // Navigate to DayDetail modal

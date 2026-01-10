@@ -1,0 +1,11 @@
+# Robots.txt for Lịch Việt - Vạn Sự An Lành
+# https://lichviet.online
+
+User-agent: *
+Allow: /
+
+# Disallow admin/api paths if any
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://lichviet.online/sitemap.xml

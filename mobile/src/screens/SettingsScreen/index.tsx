@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, Alert, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSettingsStore } from '../../stores/useSettingsStore';
+import { trackScreenView, trackViewSettings } from '../../services/analytics';
 import { SettingToggle } from './SettingToggle';
 import { SettingLink } from './SettingLink';
 import { InfoModal, type InfoModalType } from './InfoModal';
@@ -22,6 +23,12 @@ export function SettingsScreen() {
   useEffect(() => {
     loadSettings();
   }, [loadSettings]);
+
+  // Track screen view on mount
+  useEffect(() => {
+    trackScreenView('SettingsScreen');
+    trackViewSettings();
+  }, []);
 
   const handleAbout = () => {
     Alert.alert(
@@ -41,11 +48,11 @@ export function SettingsScreen() {
   };
 
   const handleFeedback = () => {
-    Alert.alert('Góp ý', 'Vui lòng gửi góp ý về ứng dụng qua email:\nfeedback@lichviet.app', [
+    Alert.alert('Góp ý', 'Vui lòng gửi góp ý về ứng dụng qua email:\nbradley.dev578@gmail.com', [
       { text: 'Hủy', style: 'cancel' },
       {
         text: 'Mở Email',
-        onPress: () => Linking.openURL('mailto:feedback@lichviet.app'),
+        onPress: () => Linking.openURL('mailto:bradley.dev578@gmail.com'),
       },
     ]);
   };

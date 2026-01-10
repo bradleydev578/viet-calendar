@@ -3,7 +3,7 @@
  * Redesigned with large date display, quick info cards, score bars, and more
  */
 
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -34,6 +34,7 @@ import { colors } from '../../theme';
 import { getThemeForDate } from '../../theme/monthThemes';
 import type { DayDetailModalScreenProps } from '../../app/navigation/types';
 import type { Holiday } from '../../data/types/HolidayData';
+import { trackScreenView, trackViewDayDetail } from '../../services/analytics';
 
 const DISMISS_THRESHOLD = 100;
 
@@ -107,6 +108,17 @@ export function DayDetailModalScreen({ route, navigation }: DayDetailModalScreen
 
   // Get daily quote for this date
   const quote = useMemo(() => QuoteService.getQuoteForDate(date), [date]);
+
+  // Track screen view
+  useEffect(() => {
+    trackScreenView('DayDetailModalScreen');
+    trackViewDayDetail({
+      date: dateString || new Date().toISOString().split('T')[0],
+      lunarDate: dayData ? `${dayData.ld}/${dayData.lm}` : undefined,
+      dayScore: score?.score,
+      source: 'calendar_tap',
+    });
+  }, [dateString, dayData, score]);
 
   // Format weekday
   const weekday = format(date, 'EEEE', { locale: vi });

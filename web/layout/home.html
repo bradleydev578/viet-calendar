@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lịch Việt Dashboard - Refined Grid</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#089673",
+                        "primary-hover": "#067a5d",
+                        "accent-gold": "#DAA520",
+                        "background-light": "#f4f4f0",
+                        "background-dark": "#111816",
+                        "surface-dark": "#192926",
+                        "card-dark": "rgba(40, 61, 58, 0.7)",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        .glass-panel {
+            background: rgba(40, 61, 58, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glow-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            opacity: 0.3;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .calendar-cell {
+            aspect-ratio: 1 / 1.1;
+            @apply flex flex-col items-center justify-center relative p-1 transition-all duration-200 cursor-pointer;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-white font-display overflow-hidden antialiased">
+<div class="glow-circle bg-primary w-[500px] h-[500px] top-[-100px] left-[-100px]"></div>
+<div class="glow-circle bg-accent-gold w-[400px] h-[400px] bottom-[-50px] right-[-50px] opacity-20"></div>
+<div class="glow-circle bg-primary w-[300px] h-[300px] top-[40%] left-[30%] opacity-10"></div>
+<div class="relative flex h-screen w-full flex-row z-10">
+<aside class="w-20 lg:w-64 h-full flex flex-col border-r border-white/5 bg-[#111816]/90 backdrop-blur-md transition-all duration-300">
+<div class="p-6 flex items-center justify-center lg:justify-start gap-3">
+<div class="size-10 rounded-xl bg-gradient-to-br from-primary to-[#055c46] flex items-center justify-center shadow-lg shadow-primary/20 shrink-0">
+<span class="material-symbols-outlined text-white" style="font-size: 24px;">balance</span>
+</div>
+<h1 class="text-xl font-bold text-white hidden lg:block tracking-tight">Lịch Việt</h1>
+</div>
+<nav class="flex-1 flex flex-col gap-2 px-3 py-6">
+<a class="group flex items-center gap-3 px-3 py-3 rounded-xl bg-primary/20 text-primary border border-primary/10 transition-all hover:bg-primary/30" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">calendar_month</span>
+<span class="font-medium hidden lg:block">Trang chủ</span>
+</a>
+<a class="group flex items-center gap-3 px-3 py-3 rounded-xl text-[#9cbab2] hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">explore</span>
+<span class="font-medium hidden lg:block">La Bàn</span>
+</a>
+<a class="group flex items-center gap-3 px-3 py-3 rounded-xl text-[#9cbab2] hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">celebration</span>
+<span class="font-medium hidden lg:block">Sự Kiện</span>
+</a>
+</nav>
+<div class="p-6">
+<div class="bg-gradient-to-br from-[#283D3A] to-[#1a2e2b] p-4 rounded-xl border border-white/5 hidden lg:block">
+<p class="text-xs text-[#9cbab2] mb-1">Câu nói hay</p>
+<p class="text-sm text-white italic font-medium">"Vạn sự tùy duyên, tâm an vạn sự an."</p>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="h-20 px-8 flex items-center justify-between shrink-0">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-white/5 text-accent-gold transition-colors flex items-center justify-center group active:scale-95">
+<span class="material-symbols-outlined group-hover:-translate-x-0.5 transition-transform" style="font-size: 24px;">chevron_left</span>
+</button>
+<div class="flex flex-col items-center min-w-[140px] px-2">
+<h2 class="text-2xl font-bold text-white leading-tight">Tháng 6, 2024</h2>
+<p class="text-sm text-[#9cbab2] font-medium">Năm Giáp Thìn</p>
+</div>
+<button class="p-2 rounded-full hover:bg-white/5 text-accent-gold transition-colors flex items-center justify-center group active:scale-95">
+<span class="material-symbols-outlined group-hover:translate-x-0.5 transition-transform" style="font-size: 24px;">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-[#283935] p-1 rounded-lg flex items-center">
+<button class="px-4 py-1.5 rounded-md bg-[#111816] text-white shadow-sm text-sm font-medium transition-all">Tháng</button>
+<button class="px-4 py-1.5 rounded-md text-[#9cbab2] hover:text-white text-sm font-medium transition-all">Tuần</button>
+</div>
+<button class="size-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-white">notifications</span>
+</button>
+<div class="size-10 rounded-full bg-gradient-to-r from-amber-200 to-yellow-400 overflow-hidden border-2 border-white/10" title="User Profile">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBVfer18sA6v4lwUZBMI0K1Ma8bRO4CfrqnI8TDfUjcvijLkMoPL5-gk5qHWEaNBnGY8PSAyllZUPRkb08-caeHTHSnYbyU506XJcG2MVhOhRlmoSfJ9_09_8ovZ-HwoxSqfnc1bgBVMZFbeT1s2b10nI8CqN9lMl5FUJg0zAJsrwxpC9zLJD9Dfkm9gqVfVxvcErl6dOBNowEEis8zrN9B6UI3S_Y9GBNAWQcGWLjYbwoyNHFuqWvEKiHmHhKSBCYWBSE89rCgss"/>
+</div>
+</div>
+</header>
+<div class="flex-1 p-6 pt-0 flex gap-6 overflow-hidden">
+<div class="flex-[2.5] glass-panel rounded-2xl flex flex-col p-8 overflow-hidden shadow-2xl">
+<div class="grid grid-cols-7 mb-4 border-b border-white/5 pb-4">
+<div class="text-center text-xs font-bold text-[#9cbab2] uppercase tracking-wider">CN</div>
+<div class="text-center text-xs font-bold text-[#9cbab2] uppercase tracking-wider">T2</div>
+<div class="text-center text-xs font-bold text-[#9cbab2] uppercase tracking-wider">T3</div>
+<div class="text-center text-xs font-bold text-[#9cbab2] uppercase tracking-wider">T4</div>
+<div class="text-center text-xs font-bold text-[#9cbab2] uppercase tracking-wider">T5</div>
+<div class="text-center text-xs font-bold text-[#9cbab2] uppercase tracking-wider">T6</div>
+<div class="text-center text-xs font-bold text-[#9cbab2] uppercase tracking-wider">T7</div>
+</div>
+<div class="grid grid-cols-7 gap-3 flex-1 overflow-y-auto">
+<div class="calendar-cell opacity-20">
+<span class="text-lg font-medium">26</span>
+<span class="text-[10px] text-accent-gold font-medium">20</span>
+</div>
+<div class="calendar-cell opacity-20">
+<span class="text-lg font-medium">27</span>
+<span class="text-[10px] text-accent-gold font-medium">21</span>
+</div>
+<div class="calendar-cell opacity-20">
+<span class="text-lg font-medium">28</span>
+<span class="text-[10px] text-accent-gold font-medium">22</span>
+</div>
+<div class="calendar-cell opacity-20">
+<span class="text-lg font-medium">29</span>
+<span class="text-[10px] text-accent-gold font-medium">23</span>
+</div>
+<div class="calendar-cell opacity-20">
+<span class="text-lg font-medium">30</span>
+<span class="text-[10px] text-accent-gold font-medium">24</span>
+</div>
+<div class="calendar-cell opacity-20">
+<span class="text-lg font-medium">31</span>
+<span class="text-[10px] text-accent-gold font-medium">25</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">1</span>
+<span class="text-[10px] text-accent-gold font-medium">26</span>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+<div class="size-1 rounded-full bg-blue-400"></div>
+</div>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">2</span>
+<span class="text-[10px] text-accent-gold font-medium">27</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">3</span>
+<span class="text-[10px] text-accent-gold font-medium">28</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">4</span>
+<span class="text-[10px] text-accent-gold font-medium">29</span>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+<div class="size-1 rounded-full bg-red-400"></div>
+</div>
+</div>
+<div class="calendar-cell bg-primary rounded-xl shadow-[0_0_20px_rgba(8,150,115,0.4)] scale-105 z-20">
+<span class="text-lg font-bold text-white">5</span>
+<span class="text-[10px] text-white/90 font-bold uppercase">1/5</span>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+<div class="size-1 rounded-full bg-white"></div>
+</div>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">6</span>
+<span class="text-[10px] text-accent-gold font-medium">2</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">7</span>
+<span class="text-[10px] text-accent-gold font-medium">3</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">8</span>
+<span class="text-[10px] text-accent-gold font-medium">4</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">9</span>
+<span class="text-[10px] text-accent-gold font-medium">5</span>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+<div class="size-1 rounded-full bg-blue-300"></div>
+</div>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">10</span>
+<span class="text-[10px] text-accent-gold font-medium">6</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">11</span>
+<span class="text-[10px] text-accent-gold font-medium">7</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">12</span>
+<span class="text-[10px] text-accent-gold font-medium">8</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">13</span>
+<span class="text-[10px] text-accent-gold font-medium">9</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">14</span>
+<span class="text-[10px] text-accent-gold font-medium">10</span>
+</div>
+<div class="calendar-cell rounded-xl border-2 border-accent-gold bg-accent-gold/5 shadow-[0_0_15px_rgba(218,165,32,0.15)]">
+<span class="text-lg font-bold text-white">15</span>
+<span class="text-[10px] text-accent-gold font-bold">11</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">16</span>
+<span class="text-[10px] text-accent-gold font-medium">12</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">17</span>
+<span class="text-[10px] text-accent-gold font-medium">13</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">18</span>
+<span class="text-[10px] text-accent-gold font-medium">14</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">19</span>
+<span class="text-[10px] text-accent-gold font-medium">15</span>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+<div class="size-1 rounded-full bg-blue-400"></div>
+<div class="size-1 rounded-full bg-red-400"></div>
+</div>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">20</span>
+<span class="text-[10px] text-accent-gold font-medium">16</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">21</span>
+<span class="text-[10px] text-accent-gold font-medium">17</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">22</span>
+<span class="text-[10px] text-accent-gold font-medium">18</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">23</span>
+<span class="text-[10px] text-accent-gold font-medium">19</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">24</span>
+<span class="text-[10px] text-accent-gold font-medium">20</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">25</span>
+<span class="text-[10px] text-accent-gold font-medium">21</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">26</span>
+<span class="text-[10px] text-accent-gold font-medium">22</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">27</span>
+<span class="text-[10px] text-accent-gold font-medium">23</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">28</span>
+<span class="text-[10px] text-accent-gold font-medium">24</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">29</span>
+<span class="text-[10px] text-accent-gold font-medium">25</span>
+</div>
+<div class="calendar-cell hover:bg-white/5 rounded-xl">
+<span class="text-lg font-medium text-white">30</span>
+<span class="text-[10px] text-accent-gold font-medium">26</span>
+</div>
+</div>
+</div>
+<div class="flex-1 min-w-[320px] max-w-[380px] flex flex-col gap-4 overflow-y-auto pr-2 pb-4">
+<div class="glass-panel rounded-2xl p-6 relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl group-hover:bg-primary/30 transition-colors"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h2 class="text-4xl font-bold text-white tracking-tight">15</h2>
+<p class="text-lg font-medium text-white">Thứ Sáu</p>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-2xl font-bold text-accent-gold">11</span>
+<span class="text-xs text-[#9cbab2] uppercase tracking-wider">Âm lịch</span>
+</div>
+</div>
+<div class="space-y-1 border-t border-white/10 pt-4">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-gold"></span>
+<p class="text-sm text-gray-200">Ngày <span class="font-bold text-white">Giáp Thìn</span></p>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-white/30"></span>
+<p class="text-sm text-gray-400">Tháng <span class="font-medium text-gray-300">Canh Ngọ</span> • Năm <span class="font-medium text-gray-300">Giáp Thìn</span></p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-gold text-lg">schedule</span>
+<h3 class="text-sm font-bold text-white uppercase tracking-wide">Giờ Hoàng Đạo</h3>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<div class="flex-shrink-0 px-4 py-2 rounded-lg bg-[#283935] border border-white/5">
+<span class="block text-xs text-[#9cbab2]">Dần</span>
+<span class="text-sm font-bold text-white">03:00 - 05:00</span>
+</div>
+<div class="flex-shrink-0 px-4 py-2 rounded-lg bg-[#283935] border border-white/5">
+<span class="block text-xs text-[#9cbab2]">Thìn</span>
+<span class="text-sm font-bold text-white">07:00 - 09:00</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-3">
+<div class="bg-[#1a2e2b] rounded-xl p-4 border border-primary/20">
+<div class="flex items-center gap-2 mb-3">
+<div class="p-1 rounded bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<h4 class="text-primary font-bold text-[11px] uppercase tracking-wider">Nên làm</h4>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-0.5 rounded-md bg-primary/10 text-primary text-[10px] font-bold border border-primary/10 uppercase">Cúng tế</span>
+<span class="px-2 py-0.5 rounded-md bg-primary/10 text-primary text-[10px] font-bold border border-primary/10 uppercase">Đính hôn</span>
+</div>
+</div>
+<div class="bg-[#2a1d1d] rounded-xl p-4 border border-red-500/20">
+<div class="flex items-center gap-2 mb-3">
+<div class="p-1 rounded bg-red-500/20 text-red-500">
+<span class="material-symbols-outlined text-sm font-bold">close</span>
+</div>
+<h4 class="text-red-500 font-bold text-[11px] uppercase tracking-wider">Không nên</h4>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-0.5 rounded-md bg-red-500/10 text-red-400 text-[10px] font-bold border border-red-500/10 uppercase">Xuất hành</span>
+</div>
+</div>
+</div>
+<div class="glass-panel rounded-xl p-4 mt-auto">
+<h3 class="text-xs font-bold text-white mb-3 uppercase tracking-wider">Sự kiện sắp tới</h3>
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+<span class="material-symbols-outlined" style="font-size: 20px;">event</span>
+</div>
+<div class="min-w-0">
+<p class="text-sm font-medium text-white truncate">Tiệc sinh nhật công ty</p>
+<p class="text-xs text-[#9cbab2]">10:00 AM • Sảnh chính</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

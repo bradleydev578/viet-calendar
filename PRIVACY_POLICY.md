@@ -2,7 +2,7 @@
 
 **Lịch Việt - Vạn Sự An Lành**
 
-*Ngày cập nhật: 04/01/2026*
+*Ngày cập nhật: 10/01/2026*
 
 ---
 
@@ -14,12 +14,21 @@ Chào mừng bạn đến với ứng dụng **Lịch Việt - Vạn Sự An Là
 
 ### 2. Thu thập thông tin
 
-**Ứng dụng KHÔNG thu thập bất kỳ thông tin cá nhân nào**, bao gồm:
+**Ứng dụng KHÔNG thu thập thông tin cá nhân định danh**, bao gồm:
 - Không thu thập tên, email, số điện thoại
-- Không thu thập vị trí địa lý
-- Không thu thập thông tin thiết bị
-- Không theo dõi hoạt động người dùng
-- Không sử dụng cookie hoặc công nghệ theo dõi
+- Không thu thập vị trí địa lý chính xác
+- Không yêu cầu đăng nhập hoặc tạo tài khoản
+
+**Dữ liệu phân tích ẩn danh**: Chúng tôi sử dụng Firebase Analytics để thu thập dữ liệu sử dụng ẩn danh nhằm cải thiện ứng dụng:
+- Màn hình được xem (ví dụ: Lịch, Chi tiết ngày, La bàn)
+- Hành động trong ứng dụng (ví dụ: chuyển tháng, chọn ngày)
+- Thông tin thiết bị chung (loại thiết bị, phiên bản hệ điều hành)
+- Báo cáo lỗi ứng dụng
+
+**Lưu ý quan trọng**:
+- Tất cả dữ liệu đều ẩn danh và không thể liên kết với cá nhân bạn
+- Firebase tự động lưu trữ sự kiện khi offline và gửi khi có mạng
+- Bạn có thể tắt phân tích trong Cài đặt ứng dụng
 
 ### 3. Dữ liệu được lưu trữ
 
@@ -38,11 +47,13 @@ Bạn có thể từ chối quyền này và ứng dụng vẫn hoạt động b
 
 ### 5. Chia sẻ thông tin
 
-Chúng tôi **KHÔNG chia sẻ** bất kỳ thông tin nào với bên thứ ba vì chúng tôi không thu thập thông tin của bạn.
+Dữ liệu phân tích ẩn danh được xử lý bởi **Google Firebase Analytics** theo [Chính sách bảo mật của Google](https://policies.google.com/privacy). Chúng tôi **KHÔNG chia sẻ** hoặc bán thông tin cá nhân của bạn cho bất kỳ bên thứ ba nào khác.
 
 ### 6. Bảo mật
 
-Vì ứng dụng hoạt động hoàn toàn offline và không thu thập dữ liệu, không có rủi ro về rò rỉ thông tin cá nhân.
+- Ứng dụng hoạt động chính với dữ liệu offline
+- Dữ liệu phân tích được mã hóa trong quá trình truyền tải
+- Không có thông tin cá nhân định danh nào được thu thập hoặc lưu trữ
 
 ### 7. Quyền của người dùng
 
@@ -69,12 +80,21 @@ Welcome to **Lịch Việt - Vạn Sự An Lành** (Vietnamese Lunar Calendar). 
 
 ### 2. Information Collection
 
-**This app does NOT collect any personal information**, including:
+**This app does NOT collect personally identifiable information**, including:
 - No collection of names, emails, phone numbers
-- No location tracking
-- No device information collection
-- No user activity tracking
-- No cookies or tracking technologies
+- No precise location tracking
+- No login or account creation required
+
+**Anonymous Analytics Data**: We use Firebase Analytics to collect anonymous usage data to improve the app:
+- Screens viewed (e.g., Calendar, Day Detail, Compass)
+- In-app actions (e.g., month navigation, date selection)
+- General device information (device type, OS version)
+- App crash reports
+
+**Important Notes**:
+- All data is anonymous and cannot be linked to you personally
+- Firebase automatically stores events offline and syncs when online
+- You can disable analytics in App Settings
 
 ### 3. Data Storage
 
@@ -93,11 +113,13 @@ You can deny this permission and the app will still function normally.
 
 ### 5. Information Sharing
 
-We **DO NOT share** any information with third parties because we do not collect your information.
+Anonymous analytics data is processed by **Google Firebase Analytics** per [Google's Privacy Policy](https://policies.google.com/privacy). We **DO NOT share** or sell any personal information to any other third parties.
 
 ### 6. Security
 
-Since the app works completely offline and does not collect data, there is no risk of personal information leakage.
+- The app primarily operates with offline data
+- Analytics data is encrypted during transmission
+- No personally identifiable information is collected or stored
 
 ### 7. User Rights
 

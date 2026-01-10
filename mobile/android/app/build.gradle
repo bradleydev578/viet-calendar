@@ -74,9 +74,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.lichviettemp"
+    namespace "vn.bradley.vietcalendar"
     defaultConfig {
-        applicationId "com.lichviettemp"
+        applicationId "vn.bradley.vietcalendar"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

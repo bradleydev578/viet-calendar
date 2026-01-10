@@ -8,6 +8,12 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { RootNavigator } from './navigation';
 import { useFengShuiStore } from '../stores/useFengShuiStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
+import {
+  initAnalytics,
+  trackAppOpen,
+  setUserProperties,
+  logDebugInstructions,
+} from '../services/analytics';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,6 +30,19 @@ function App(): React.JSX.Element {
   const loadSettings = useSettingsStore(state => state.loadSettings);
 
   useEffect(() => {
+    // Initialize analytics (non-blocking, fail-safe)
+    initAnalytics();
+    trackAppOpen();
+    setUserProperties({
+      userType: 'free',
+      appVersion: '1.0.0',
+    });
+
+    // Log debug instructions in dev mode
+    if (__DEV__) {
+      logDebugInstructions();
+    }
+
     // Load data asynchronously on app initialization
     loadFengShuiData().catch(error => {
       console.error('Failed to load feng shui data on app start:', error);

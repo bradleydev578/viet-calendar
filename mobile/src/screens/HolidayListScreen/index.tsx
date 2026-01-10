@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useHolidays } from '../../hooks/useHolidays';
+import { trackScreenView, trackViewHolidays, trackHolidayTap } from '../../services/analytics';
 import { HolidayItem } from './HolidayItem';
 import { MonthHeader } from './MonthHeader';
 import { styles } from './styles';
@@ -50,6 +51,12 @@ export function HolidayListScreen() {
     return sectionArray;
   }, [holidaysByMonth]);
 
+  // Track screen view on mount
+  useEffect(() => {
+    trackScreenView('HolidayListScreen');
+    trackViewHolidays({ year });
+  }, [year]);
+
   // Scroll to current month on initial load
   useEffect(() => {
     if (!isLoading && sections.length > 0 && sectionListRef.current) {
@@ -70,6 +77,11 @@ export function HolidayListScreen() {
   }, [isLoading, sections, currentMonth]);
 
   const handleHolidayPress = (holiday: Holiday) => {
+    // Track holiday tap
+    trackHolidayTap({
+      holidayName: holiday.name,
+      holidayDate: holiday.date,
+    });
     // Navigate to DayDetailModal screen for this date
     navigation.navigate('DayDetailModal', {
       date: new Date(holiday.date).toISOString(),

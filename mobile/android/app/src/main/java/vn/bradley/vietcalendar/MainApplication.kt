@@ -1,4 +1,4 @@
-package com.lichviettemp
+package vn.bradley.vietcalendar
 
 import android.app.Application
 import com.facebook.react.PackageList

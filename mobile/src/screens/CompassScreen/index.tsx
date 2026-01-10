@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -8,6 +8,7 @@ import { CompassModeToggle } from './CompassModeToggle';
 import { StandardCompass } from './StandardCompass';
 import { FengShuiCompass } from './FengShuiCompass';
 import { FengShuiInfoPanel } from './FengShuiInfoPanel';
+import { trackScreenView, trackViewCompass } from '../../services/analytics';
 
 export type CompassMode = 'standard' | 'fengshui';
 
@@ -16,6 +17,12 @@ export function CompassScreen() {
 
   // Get compass data at parent level to share with children
   const { heading, isAvailable, error } = useCompass();
+
+  // Track screen view on mount
+  useEffect(() => {
+    trackScreenView('CompassScreen');
+    trackViewCompass();
+  }, []);
 
   const handleModeChange = useCallback((newMode: CompassMode) => {
     setMode(newMode);

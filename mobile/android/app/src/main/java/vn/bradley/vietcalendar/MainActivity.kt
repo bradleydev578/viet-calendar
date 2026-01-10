@@ -1,4 +1,4 @@
-package com.lichviettemp
+package vn.bradley.vietcalendar
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
