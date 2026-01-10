@@ -7,11 +7,15 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: 'https://lichviet.online/privacy',
+  },
   openGraph: {
     title: 'Chính Sách Bảo Mật | Lịch Việt',
     description: 'Chính sách bảo mật ứng dụng Lịch Việt',
     type: 'website',
     locale: 'vi_VN',
+    url: 'https://lichviet.online/privacy',
   },
 };
 

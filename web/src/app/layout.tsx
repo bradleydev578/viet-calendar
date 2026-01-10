@@ -1,12 +1,17 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import { WebsiteJsonLd, OrganizationJsonLd } from "@/components/seo";
+import { AnalyticsProvider } from "@/components/providers";
+import { MaterialSymbolsLoader } from "@/components/common/MaterialSymbolsLoader";
 
 const manrope = Manrope({
   subsets: ["latin", "vietnamese"],
   variable: "--font-manrope",
   weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap", // Optimize font loading - show fallback until custom font loads
+  preload: true,
 });
 
 export const viewport: Viewport = {
@@ -137,16 +142,24 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
-        />
+        {/* DNS Prefetch for external resources */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+        {/* Preconnect to Google Fonts for faster loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
         {/* JSON-LD Structured Data */}
         <WebsiteJsonLd />
         <OrganizationJsonLd />
       </head>
       <body className={`${manrope.variable} font-[Manrope] antialiased`}>
-        {children}
+        <MaterialSymbolsLoader />
+        <Suspense fallback={null}>
+          <AnalyticsProvider>{children}</AnalyticsProvider>
+        </Suspense>
       </body>
     </html>
   );

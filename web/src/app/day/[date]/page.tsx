@@ -26,6 +26,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${formattedDate} - Lịch Việt Vạn Sự An Lành`,
     description: `Xem thông tin phong thủy, giờ hoàng đạo, việc nên làm cho ngày ${formattedDate}`,
+    alternates: {
+      canonical: `https://lichviet.online/day/${date}`,
+    },
+    openGraph: {
+      title: `${formattedDate} - Lịch Việt`,
+      description: `Xem thông tin phong thủy, giờ hoàng đạo cho ngày ${formattedDate}`,
+      type: "article",
+      locale: "vi_VN",
+      url: `https://lichviet.online/day/${date}`,
+    },
   };
 }
 
