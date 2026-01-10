@@ -27,6 +27,7 @@ open LichViet.xcworkspace
 ```
 
 Hoặc xem trong file:
+
 ```bash
 grep -r "PRODUCT_BUNDLE_IDENTIFIER" mobile/ios/LichViet.xcodeproj/project.pbxproj | head -1
 ```
@@ -52,13 +53,13 @@ cp ~/Downloads/GoogleService-Info.plist mobile/ios/LichViet/
 ```
 
 3. Mở Xcode, kéo file vào project:
+
    - Right-click folder `LichViet` trong Xcode
    - Chọn **"Add Files to LichViet..."**
    - Chọn `GoogleService-Info.plist`
    - ✅ Check **"Copy items if needed"**
    - ✅ Check **"Add to targets: LichViet"**
    - Click **"Add"**
-
 4. **Verify:** File phải xuất hiện trong Xcode project navigator
 
 ---
@@ -73,6 +74,7 @@ grep "package=" mobile/android/app/src/main/AndroidManifest.xml
 ```
 
 Hoặc xem trong `build.gradle`:
+
 ```bash
 grep "applicationId" mobile/android/app/build.gradle
 ```
@@ -127,6 +129,7 @@ $RNFirebaseAsStaticFramework = true
 ```
 
 Sau đó chạy:
+
 ```bash
 cd mobile/ios && pod install && cd ..
 ```
@@ -189,6 +192,7 @@ npm run android
 ### iOS Build Failed
 
 **Error: `GoogleService-Info.plist not found`**
+
 ```bash
 # Verify file exists
 ls -la mobile/ios/LichViet/GoogleService-Info.plist
@@ -198,6 +202,7 @@ cp ~/Downloads/GoogleService-Info.plist mobile/ios/LichViet/
 ```
 
 **Error: Pod install failed**
+
 ```bash
 cd mobile/ios
 rm -rf Pods Podfile.lock
@@ -207,6 +212,7 @@ pod install --repo-update
 ### Android Build Failed
 
 **Error: `google-services.json not found`**
+
 ```bash
 # Verify file exists
 ls -la mobile/android/app/google-services.json
@@ -216,6 +222,7 @@ cp ~/Downloads/google-services.json mobile/android/app/
 ```
 
 **Error: `Could not find com.google.gms:google-services`**
+
 ```bash
 # Clean và rebuild
 cd mobile/android
@@ -269,12 +276,14 @@ Sau đó mở Firebase Console → DebugView để xem events real-time.
 - [ ] `android/app/build.gradle` updated with google-services plugin
 - [ ] iOS build successful
 - [ ] Android build successful
+- [ ] 
 
 ---
 
 ## Sau Khi Hoàn Thành
 
 Khi tất cả checklist đã ✅, quay lại và gõ **"g"** hoặc **"go"** để tôi tiếp tục implement:
+
 - Analytics service layer
 - Screen tracking
 - Event tracking
