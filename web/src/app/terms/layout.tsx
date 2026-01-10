@@ -7,11 +7,15 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: 'https://lichviet.online/terms',
+  },
   openGraph: {
     title: 'Điều Khoản Sử Dụng | Lịch Việt',
     description: 'Điều khoản sử dụng ứng dụng Lịch Việt',
     type: 'website',
     locale: 'vi_VN',
+    url: 'https://lichviet.online/terms',
   },
 };
 
