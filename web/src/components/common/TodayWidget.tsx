@@ -4,8 +4,9 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { LunarCalculator, WEEKDAY_NAMES } from "@/lib/lunar";
-import { FengShuiRepository, DayScore } from "@/lib/fengshui";
-import { QuoteRepository } from "@/lib/quotes";
+import { FengShuiRepository } from "@/lib/fengshui/FengShuiRepository";
+import { DayScore } from "@/lib/fengshui/DayScore";
+import { QuoteRepository } from "@/lib/quotes/QuoteRepository";
 import { DayScoreCircle } from "./DayScoreCircle";
 
 export function TodayWidget() {

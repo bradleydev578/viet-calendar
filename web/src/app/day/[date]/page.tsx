@@ -1,5 +1,13 @@
+/**
+ * Day Detail Page - Server Component
+ *
+ * This page pre-fetches feng shui data on the server for SEO and performance.
+ * Data is passed to the client component for hydration.
+ */
+
 import { Metadata } from "next";
-import { DayDetailContent } from "@/components/day-detail/DayDetailContent";
+import { DayDetailContentClient } from "@/components/day-detail/DayDetailContentClient";
+import { FengShuiServerRepository } from "@/lib/fengshui/FengShuiServerRepository";
 
 interface PageProps {
   params: Promise<{ date: string }>;
@@ -23,5 +31,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function DayDetailPage({ params }: PageProps) {
   const { date } = await params;
-  return <DayDetailContent dateString={date} />;
+
+  // Pre-fetch feng shui data on server
+  const dateObj = new Date(date);
+  const fengShuiData = FengShuiServerRepository.getByDate(dateObj);
+
+  // Also fetch month data for calendar
+  const monthData = FengShuiServerRepository.getByMonth(
+    dateObj.getFullYear(),
+    dateObj.getMonth() + 1
+  );
+
+  return (
+    <DayDetailContentClient
+      dateString={date}
+      initialFengShuiData={fengShuiData}
+      initialMonthData={monthData}
+    />
+  );
 }

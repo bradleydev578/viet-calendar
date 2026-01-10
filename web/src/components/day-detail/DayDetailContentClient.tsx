@@ -1,39 +1,83 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { format, isToday } from "date-fns";
-import { vi } from "date-fns/locale";
-import { LunarCalculator, WEEKDAY_NAMES, GIO_DIA_CHI, CON_GIAP } from "@/lib/lunar";
-import { FengShuiRepository } from "@/lib/fengshui/FengShuiRepository";
-import { DayScore } from "@/lib/fengshui/DayScore";
+import { LunarCalculator, WEEKDAY_NAMES } from "@/lib/lunar";
+import { DayScore } from "@/lib/fengshui";
+import type { DayFengShuiData } from "@/lib/fengshui/types";
 import { HolidayRepository, getHolidayColor } from "@/lib/holidays";
 import { getMonthTheme } from "@/lib/theme";
-import { DayScoreCircle } from "@/components/common/DayScoreCircle";
 import { TopHeader, Footer } from "@/components/layout";
-import { CalendarGridNew, CalendarHeader } from "@/components/calendar";
+// Import CalendarHeader directly to avoid tree-shaking issues with barrel exports
+import { CalendarHeader } from "@/components/calendar/CalendarHeader";
 import { DayHeaderCard } from "./DayHeaderCard";
 import { GoodHoursSection } from "./GoodHoursSection";
 import { ActivitiesCard } from "./ActivitiesCard";
 import { DirectionsSection } from "./DirectionsSection";
 import { InfoGrid } from "./InfoGrid";
+import { CalendarGridClient } from "@/components/home/CalendarGridClient";
+import { createFengShuiCache, fetchFengShuiByMonth } from "@/lib/fengshui/client";
 
-interface DayDetailContentProps {
+interface DayDetailContentClientProps {
   dateString: string;
+  initialFengShuiData: DayFengShuiData | null;
+  initialMonthData: DayFengShuiData[];
 }
 
-export function DayDetailContent({ dateString }: DayDetailContentProps) {
+export function DayDetailContentClient({
+  dateString,
+  initialFengShuiData,
+  initialMonthData,
+}: DayDetailContentClientProps) {
   const date = useMemo(() => new Date(dateString), [dateString]);
   const [currentMonth, setCurrentMonth] = useState(new Date(date));
+
+  // Cache for feng shui data
+  const fengShuiCache = useMemo(() => {
+    const cache = createFengShuiCache();
+    if (initialFengShuiData) {
+      cache.set(initialFengShuiData);
+    }
+    cache.setMany(initialMonthData);
+    return cache;
+  }, [initialFengShuiData, initialMonthData]);
+
+  // Fetch month data when month changes
+  const fetchMonthData = useCallback(
+    async (monthDate: Date) => {
+      const year = monthDate.getFullYear();
+      const month = monthDate.getMonth() + 1;
+
+      // Check if we already have data for this month
+      const firstDayStr = `${year}-${String(month).padStart(2, "0")}-01`;
+      if (fengShuiCache.has(firstDayStr)) {
+        return;
+      }
+
+      try {
+        const data = await fetchFengShuiByMonth(year, month);
+        fengShuiCache.setMany(data);
+      } catch (error) {
+        console.error("Error fetching month data:", error);
+      }
+    },
+    [fengShuiCache]
+  );
+
+  // Effect to fetch month data when current month changes
+  useEffect(() => {
+    fetchMonthData(currentMonth);
+  }, [currentMonth, fetchMonthData]);
+
   const lunarDate = useMemo(() => LunarCalculator.toLunar(date), [date]);
   const yearInfo = useMemo(
     () => LunarCalculator.getYearInfo(lunarDate.year),
     [lunarDate.year]
   );
-  const fengShuiData = useMemo(
-    () => FengShuiRepository.getByDate(date),
-    [date]
-  );
+
+  // Use initial data directly
+  const fengShuiData = initialFengShuiData;
   const dayScore = useMemo(() => {
     if (!fengShuiData) return null;
     return DayScore.calculate(fengShuiData);
@@ -49,16 +93,26 @@ export function DayDetailContent({ dateString }: DayDetailContentProps) {
   }, [date]);
 
   const handlePrevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
+    );
   };
 
   const handleNextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
+    );
   };
 
   const handleToday = () => {
     setCurrentMonth(new Date());
   };
+
+  // Helper to get cached data for calendar
+  const getCachedData = useCallback(
+    (calDate: Date) => fengShuiCache.get(calDate),
+    [fengShuiCache]
+  );
 
   return (
     <div
@@ -86,7 +140,6 @@ export function DayDetailContent({ dateString }: DayDetailContentProps) {
       <main className="flex-1 flex flex-col overflow-hidden relative z-10">
         <div className="flex-1 px-4 lg:px-8 flex justify-center overflow-y-auto pb-6">
           <div className="w-full max-w-6xl flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-8">
-            
             {/* Desktop: Calendar Section - Left side */}
             <div className="hidden lg:block lg:w-[380px] lg:flex-shrink-0">
               <div className="flex justify-center py-4">
@@ -98,10 +151,11 @@ export function DayDetailContent({ dateString }: DayDetailContentProps) {
                   onToday={handleToday}
                 />
               </div>
-              <CalendarGridNew
+              <CalendarGridClient
                 currentDate={currentMonth}
                 selectedDate={date}
                 theme={monthTheme}
+                getCachedData={getCachedData}
               />
 
               {/* Upcoming Holidays Section - Below calendar (Desktop) */}
@@ -112,7 +166,11 @@ export function DayDetailContent({ dateString }: DayDetailContentProps) {
                   </h3>
                   <div className="flex flex-col gap-3">
                     {upcomingHolidays.map((holiday) => {
-                      const holidayColor = getHolidayColor(holiday.category, holiday.type, holiday.isImportant);
+                      const holidayColor = getHolidayColor(
+                        holiday.category,
+                        holiday.type,
+                        holiday.isImportant
+                      );
                       return (
                         <Link
                           key={holiday.id}
@@ -129,10 +187,13 @@ export function DayDetailContent({ dateString }: DayDetailContentProps) {
                             {format(holiday.startDate, "d/M")}
                           </div>
                           <div className="flex-1">
-                            <p className="text-sm font-bold" style={{ color: '#1e293b' }}>
+                            <p
+                              className="text-sm font-bold"
+                              style={{ color: "#1e293b" }}
+                            >
                               {holiday.name}
                             </p>
-                            <p className="text-xs" style={{ color: '#64748b' }}>
+                            <p className="text-xs" style={{ color: "#64748b" }}>
                               {holiday.daysUntil} ngày nữa
                             </p>
                           </div>
@@ -171,7 +232,10 @@ export function DayDetailContent({ dateString }: DayDetailContentProps) {
 
               {/* Good Hours Section */}
               {fengShuiData && (
-                <GoodHoursSection hoangDaoHours={fengShuiData.hd} theme={monthTheme} />
+                <GoodHoursSection
+                  hoangDaoHours={fengShuiData.hd}
+                  theme={monthTheme}
+                />
               )}
 
               {/* Activities Cards */}
@@ -192,11 +256,16 @@ export function DayDetailContent({ dateString }: DayDetailContentProps) {
 
               {/* Directions Section */}
               {fengShuiData && fengShuiData.dir && (
-                <DirectionsSection directions={fengShuiData.dir} theme={monthTheme} />
+                <DirectionsSection
+                  directions={fengShuiData.dir}
+                  theme={monthTheme}
+                />
               )}
 
               {/* Info Grid */}
-              {fengShuiData && <InfoGrid fengShuiData={fengShuiData} theme={monthTheme} />}
+              {fengShuiData && (
+                <InfoGrid fengShuiData={fengShuiData} theme={monthTheme} />
+              )}
 
               {/* Navigation to prev/next day */}
               <div className="flex justify-between mt-8">
@@ -231,10 +300,11 @@ export function DayDetailContent({ dateString }: DayDetailContentProps) {
                     onToday={handleToday}
                   />
                 </div>
-                <CalendarGridNew
+                <CalendarGridClient
                   currentDate={currentMonth}
                   selectedDate={date}
                   theme={monthTheme}
+                  getCachedData={getCachedData}
                 />
 
                 {/* Upcoming Holidays Section - Mobile */}
@@ -245,11 +315,18 @@ export function DayDetailContent({ dateString }: DayDetailContentProps) {
                     </h3>
                     <div className="flex flex-col gap-3">
                       {upcomingHolidays.map((holiday) => {
-                        const holidayColor = getHolidayColor(holiday.category, holiday.type, holiday.isImportant);
+                        const holidayColor = getHolidayColor(
+                          holiday.category,
+                          holiday.type,
+                          holiday.isImportant
+                        );
                         return (
                           <Link
                             key={holiday.id}
-                            href={`/day/${format(holiday.startDate, "yyyy-MM-dd")}`}
+                            href={`/day/${format(
+                              holiday.startDate,
+                              "yyyy-MM-dd"
+                            )}`}
                             className="flex items-center gap-3 hover:bg-white/50 rounded-lg p-2 -mx-2 transition-colors"
                           >
                             <div
@@ -262,10 +339,16 @@ export function DayDetailContent({ dateString }: DayDetailContentProps) {
                               {format(holiday.startDate, "d/M")}
                             </div>
                             <div className="flex-1">
-                              <p className="text-sm font-bold" style={{ color: '#1e293b' }}>
+                              <p
+                                className="text-sm font-bold"
+                                style={{ color: "#1e293b" }}
+                              >
                                 {holiday.name}
                               </p>
-                              <p className="text-xs" style={{ color: '#64748b' }}>
+                              <p
+                                className="text-xs"
+                                style={{ color: "#64748b" }}
+                              >
                                 {holiday.daysUntil} ngày nữa
                               </p>
                             </div>

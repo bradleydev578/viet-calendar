@@ -4,7 +4,8 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { format, isSameDay, isToday, isSaturday, isSunday } from "date-fns";
 import { LunarCalculator } from "@/lib/lunar";
-import { FengShuiRepository, DayScore } from "@/lib/fengshui";
+import { FengShuiRepository } from "@/lib/fengshui/FengShuiRepository";
+import { DayScore } from "@/lib/fengshui/DayScore";
 
 interface DayCellProps {
   date: Date;
