@@ -13,26 +13,28 @@ import {
   format,
 } from "date-fns";
 import { LunarCalculator } from "@/lib/lunar";
-import { FengShuiRepository } from "@/lib/fengshui/FengShuiRepository";
 import { HolidayRepository } from "@/lib/holidays";
 import type { MonthTheme } from "@/lib/theme";
+import type { DayFengShuiData } from "@/lib/fengshui/types";
 import Link from "next/link";
 
-interface CalendarGridNewProps {
+interface CalendarGridClientProps {
   currentDate: Date;
   selectedDate?: Date;
   theme: MonthTheme;
   onSelectDate?: (date: Date) => void;
+  getCachedData: (date: Date) => DayFengShuiData | undefined;
 }
 
 const WEEKDAYS = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
 
-export function CalendarGridNew({
+export function CalendarGridClient({
   currentDate,
   selectedDate,
   theme,
   onSelectDate,
-}: CalendarGridNewProps) {
+  getCachedData,
+}: CalendarGridClientProps) {
   // Generate calendar days
   const calendarDays = useMemo(() => {
     const monthStart = startOfMonth(currentDate);
@@ -66,13 +68,14 @@ export function CalendarGridNew({
       {/* Calendar grid */}
       <div className="grid grid-cols-7 gap-1 lg:gap-1.5">
         {calendarDays.map((day) => (
-          <CalendarDayCell
+          <CalendarDayCellClient
             key={day.toISOString()}
             date={day}
             currentMonth={currentDate}
             selectedDate={selectedDate}
             theme={theme}
             onSelect={onSelectDate}
+            fengShuiData={getCachedData(day)}
           />
         ))}
       </div>
@@ -80,21 +83,23 @@ export function CalendarGridNew({
   );
 }
 
-interface CalendarDayCellProps {
+interface CalendarDayCellClientProps {
   date: Date;
   currentMonth: Date;
   selectedDate?: Date;
   theme: MonthTheme;
   onSelect?: (date: Date) => void;
+  fengShuiData?: DayFengShuiData;
 }
 
-function CalendarDayCell({
+function CalendarDayCellClient({
   date,
   currentMonth,
   selectedDate,
   theme,
   onSelect,
-}: CalendarDayCellProps) {
+  fengShuiData,
+}: CalendarDayCellClientProps) {
   const isCurrentMonth = isSameMonth(date, currentMonth);
   const isSelected = selectedDate && isSameDay(date, selectedDate);
   const isTodayDate = isToday(date);
@@ -103,12 +108,6 @@ function CalendarDayCell({
 
   // Get lunar date
   const lunarDate = useMemo(() => LunarCalculator.toLunar(date), [date]);
-
-  // Get feng shui data for event dots
-  const fengShuiData = useMemo(
-    () => FengShuiRepository.getByDate(date),
-    [date]
-  );
 
   // Check for holidays
   const holidays = useMemo(() => HolidayRepository.getByDate(date), [date]);
@@ -191,7 +190,10 @@ function CalendarDayCell({
                 : ""
             }`}
             style={
-              !isTodayDate && isCurrentMonth && lunarDate.day !== 1 && lunarDate.day !== 15
+              !isTodayDate &&
+              isCurrentMonth &&
+              lunarDate.day !== 1 &&
+              lunarDate.day !== 15
                 ? { color: theme.accentGold }
                 : {}
             }

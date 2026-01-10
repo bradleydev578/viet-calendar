@@ -3,19 +3,25 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { format, isToday } from "date-fns";
-import { vi } from "date-fns/locale";
 import { LunarCalculator, WEEKDAY_NAMES, GIO_DIA_CHI, CON_GIAP } from "@/lib/lunar";
-import { FengShuiRepository } from "@/lib/fengshui/FengShuiRepository";
-import { DayScore } from "@/lib/fengshui/DayScore";
+import { DayScore } from "@/lib/fengshui";
 import { HolidayRepository, getHolidayColor } from "@/lib/holidays";
 import type { MonthTheme } from "@/lib/theme";
+import type { DayFengShuiData } from "@/lib/fengshui/types";
 
-interface DayDetailPanelProps {
+interface DayDetailPanelClientProps {
   selectedDate: Date;
   theme: MonthTheme;
+  fengShuiData: DayFengShuiData | null;
+  isLoading: boolean;
 }
 
-export function DayDetailPanel({ selectedDate, theme }: DayDetailPanelProps) {
+export function DayDetailPanelClient({
+  selectedDate,
+  theme,
+  fengShuiData,
+  isLoading,
+}: DayDetailPanelClientProps) {
   const lunarDate = useMemo(
     () => LunarCalculator.toLunar(selectedDate),
     [selectedDate]
@@ -23,10 +29,6 @@ export function DayDetailPanel({ selectedDate, theme }: DayDetailPanelProps) {
   const yearInfo = useMemo(
     () => LunarCalculator.getYearInfo(lunarDate.year),
     [lunarDate.year]
-  );
-  const fengShuiData = useMemo(
-    () => FengShuiRepository.getByDate(selectedDate),
-    [selectedDate]
   );
   const dayScore = useMemo(() => {
     if (!fengShuiData) return null;
@@ -52,12 +54,27 @@ export function DayDetailPanel({ selectedDate, theme }: DayDetailPanelProps) {
   // Get hoàng đạo hours with zodiac info (all hours, not just first 3)
   const hoangDaoHours = useMemo(() => {
     if (!fengShuiData?.hd) return [];
-    return GIO_DIA_CHI.filter((gio) => fengShuiData.hd.includes(gio.chi))
-      .map((gio) => ({
+    return GIO_DIA_CHI.filter((gio) => fengShuiData.hd.includes(gio.chi)).map(
+      (gio) => ({
         ...gio,
-        emoji: CON_GIAP[GIO_DIA_CHI.findIndex((g) => g.chi === gio.chi)]?.emoji || "🐉",
-      }));
+        emoji:
+          CON_GIAP[GIO_DIA_CHI.findIndex((g) => g.chi === gio.chi)]?.emoji ||
+          "🐉",
+      })
+    );
   }, [fengShuiData]);
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 min-w-[300px] max-w-[380px] flex flex-col gap-4 overflow-y-auto pr-2 pb-4 scrollbar-hide pt-1">
+        <div className="glass-panel-light rounded-2xl p-5 animate-pulse">
+          <div className="h-6 bg-slate-200 rounded w-1/3 mb-4"></div>
+          <div className="h-10 bg-slate-200 rounded w-1/4 mb-4"></div>
+          <div className="h-4 bg-slate-200 rounded w-2/3"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 min-w-[300px] max-w-[380px] flex flex-col gap-4 overflow-y-auto pr-2 pb-4 scrollbar-hide pt-1">
@@ -67,85 +84,87 @@ export function DayDetailPanel({ selectedDate, theme }: DayDetailPanelProps) {
           className="glass-panel-light dark:glass-panel-dark rounded-2xl lg:rounded-3xl p-5 lg:p-6 relative overflow-hidden group shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
           style={{ borderColor: `${theme.primaryAccent}15` }}
         >
-        <div
-          className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl transition-colors"
-          style={{ backgroundColor: `${theme.primaryAccent}15` }}
-        />
+          <div
+            className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl transition-colors"
+            style={{ backgroundColor: `${theme.primaryAccent}15` }}
+          />
 
-        <div className="flex justify-between items-start mb-4 lg:mb-6">
-          <div>
-            {/* Status badge */}
-            <div className="flex items-center gap-2 mb-2">
-              <span
-                className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded"
-                style={{
-                  backgroundColor: isHoangDao ? `${theme.accentGold}20` : 'rgba(100,100,100,0.2)',
-                  color: isHoangDao ? theme.accentGold : '#888',
-                }}
+          <div className="flex justify-between items-start mb-4 lg:mb-6">
+            <div>
+              {/* Status badge */}
+              <div className="flex items-center gap-2 mb-2">
+                <span
+                  className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded"
+                  style={{
+                    backgroundColor: isHoangDao
+                      ? `${theme.accentGold}20`
+                      : "rgba(100,100,100,0.2)",
+                    color: isHoangDao ? theme.accentGold : "#888",
+                  }}
+                >
+                  ★ {isHoangDao ? "HOÀNG ĐẠO" : "HẮC ĐẠO"}
+                </span>
+              </div>
+              <p
+                className="text-lg lg:text-xl font-bold mb-1"
+                style={{ color: theme.primaryAccent }}
               >
-                ★ {isHoangDao ? "HOÀNG ĐẠO" : "HẮC ĐẠO"}
-              </span>
+                {weekday}
+              </p>
+              <h2 className="text-4xl lg:text-5xl font-black text-slate-800 tracking-tight">
+                {selectedDate.getDate()}
+              </h2>
             </div>
-            <p
-              className="text-lg lg:text-xl font-bold mb-1"
-              style={{ color: theme.primaryAccent }}
-            >
-              {weekday}
-            </p>
-            <h2 className="text-4xl lg:text-5xl font-black text-slate-800 tracking-tight">
-              {selectedDate.getDate()}
-            </h2>
-          </div>
-          <div className="text-right">
-            <div className="text-xs text-slate-500 mb-1 font-semibold uppercase tracking-wider">
-              Âm lịch
-            </div>
-            <div
-              className="text-2xl lg:text-3xl font-black"
-              style={{ color: theme.accentGold }}
-            >
-              {lunarDate.day}
-            </div>
-            <div className="text-[10px] text-slate-500 font-semibold tracking-wide mt-1 uppercase">
-              Tháng {lunarDate.month}
+            <div className="text-right">
+              <div className="text-xs text-slate-500 mb-1 font-semibold uppercase tracking-wider">
+                Âm lịch
+              </div>
+              <div
+                className="text-2xl lg:text-3xl font-black"
+                style={{ color: theme.accentGold }}
+              >
+                {lunarDate.day}
+              </div>
+              <div className="text-[10px] text-slate-500 font-semibold tracking-wide mt-1 uppercase">
+                Tháng {lunarDate.month}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Can Chi Info */}
-        <div
-          className="space-y-3 border-t pt-4 lg:pt-6"
-          style={{ borderColor: `${theme.primaryAccent}20` }}
-        >
-          <div className="flex items-center gap-2">
-            <span
-              className="w-2 h-2 rounded-full"
-              style={{ backgroundColor: theme.accentGold }}
-            />
-            <p className="text-sm text-slate-600">
-              Ngày{" "}
-              <span className="font-black text-slate-800">
-                {fengShuiData?.dgz || "—"}
-              </span>
-            </p>
+          {/* Can Chi Info */}
+          <div
+            className="space-y-3 border-t pt-4 lg:pt-6"
+            style={{ borderColor: `${theme.primaryAccent}20` }}
+          >
+            <div className="flex items-center gap-2">
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: theme.accentGold }}
+              />
+              <p className="text-sm text-slate-600">
+                Ngày{" "}
+                <span className="font-black text-slate-800">
+                  {fengShuiData?.dgz || "—"}
+                </span>
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: `${theme.primaryAccent}60` }}
+              />
+              <p className="text-sm text-slate-500">
+                Tháng{" "}
+                <span className="font-bold text-slate-700">
+                  {fengShuiData?.mgz || "—"}
+                </span>{" "}
+                • Năm{" "}
+                <span className="font-bold text-slate-700">
+                  {yearInfo.canChi.full}
+                </span>
+              </p>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span
-              className="w-2 h-2 rounded-full"
-              style={{ backgroundColor: `${theme.primaryAccent}60` }}
-            />
-            <p className="text-sm text-slate-500">
-              Tháng{" "}
-              <span className="font-bold text-slate-700">
-                {fengShuiData?.mgz || "—"}
-              </span>{" "}
-              • Năm{" "}
-              <span className="font-bold text-slate-700">
-                {yearInfo.canChi.full}
-              </span>
-            </p>
-          </div>
-        </div>
         </div>
       </Link>
 
@@ -215,7 +234,11 @@ export function DayDetailPanel({ selectedDate, theme }: DayDetailPanelProps) {
           </h3>
           <div className="flex flex-col gap-3">
             {upcomingHolidays.map((holiday) => {
-              const holidayColor = getHolidayColor(holiday.category, holiday.type, holiday.isImportant);
+              const holidayColor = getHolidayColor(
+                holiday.category,
+                holiday.type,
+                holiday.isImportant
+              );
               return (
                 <Link
                   key={holiday.id}
@@ -232,10 +255,10 @@ export function DayDetailPanel({ selectedDate, theme }: DayDetailPanelProps) {
                     {format(holiday.startDate, "d/M")}
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-bold" style={{ color: '#1e293b' }}>
+                    <p className="text-sm font-bold" style={{ color: "#1e293b" }}>
                       {holiday.name}
                     </p>
-                    <p className="text-xs" style={{ color: '#64748b' }}>
+                    <p className="text-xs" style={{ color: "#64748b" }}>
                       {holiday.daysUntil} ngày nữa
                     </p>
                   </div>
@@ -259,7 +282,10 @@ interface HoangDaoHoursSectionProps {
   theme: MonthTheme;
 }
 
-function HoangDaoHoursSection({ hoangDaoHours, theme }: HoangDaoHoursSectionProps) {
+function HoangDaoHoursSection({
+  hoangDaoHours,
+  theme,
+}: HoangDaoHoursSectionProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -277,22 +303,22 @@ function HoangDaoHoursSection({ hoangDaoHours, theme }: HoangDaoHoursSectionProp
     checkScroll();
     const scrollEl = scrollRef.current;
     if (scrollEl) {
-      scrollEl.addEventListener('scroll', checkScroll);
+      scrollEl.addEventListener("scroll", checkScroll);
       // Also check on resize
-      window.addEventListener('resize', checkScroll);
+      window.addEventListener("resize", checkScroll);
       return () => {
-        scrollEl.removeEventListener('scroll', checkScroll);
-        window.removeEventListener('resize', checkScroll);
+        scrollEl.removeEventListener("scroll", checkScroll);
+        window.removeEventListener("resize", checkScroll);
       };
     }
   }, [hoangDaoHours]);
 
-  const scroll = (direction: 'left' | 'right') => {
+  const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const scrollAmount = 140; // Approximate width of one card
       scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth',
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
       });
     }
   };
@@ -310,28 +336,32 @@ function HoangDaoHoursSection({ hoangDaoHours, theme }: HoangDaoHoursSectionProp
           Giờ Hoàng Đạo
         </h3>
       </div>
-      
+
       {/* Scroll container with arrows */}
       <div className="relative">
         {/* Left arrow */}
         {canScrollLeft && (
           <button
-            onClick={() => scroll('left')}
+            onClick={() => scroll("left")}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/90 shadow-md flex items-center justify-center hover:bg-white transition-colors"
             style={{ color: theme.primaryAccent }}
           >
-            <span className="material-symbols-outlined text-[18px]">chevron_left</span>
+            <span className="material-symbols-outlined text-[18px]">
+              chevron_left
+            </span>
           </button>
         )}
-        
+
         {/* Right arrow */}
         {canScrollRight && (
           <button
-            onClick={() => scroll('right')}
+            onClick={() => scroll("right")}
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/90 shadow-md flex items-center justify-center hover:bg-white transition-colors"
             style={{ color: theme.primaryAccent }}
           >
-            <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+            <span className="material-symbols-outlined text-[18px]">
+              chevron_right
+            </span>
           </button>
         )}
 
@@ -339,7 +369,7 @@ function HoangDaoHoursSection({ hoangDaoHours, theme }: HoangDaoHoursSectionProp
         <div
           ref={scrollRef}
           className="flex gap-2 overflow-x-auto pb-2 px-1"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {hoangDaoHours.map((hour) => (
             <div
