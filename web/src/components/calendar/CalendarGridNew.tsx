@@ -25,7 +25,7 @@ interface CalendarGridNewProps {
   onSelectDate?: (date: Date) => void;
 }
 
-const WEEKDAYS = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+const WEEKDAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
 export function CalendarGridNew({
   currentDate,
@@ -37,8 +37,8 @@ export function CalendarGridNew({
   const calendarDays = useMemo(() => {
     const monthStart = startOfMonth(currentDate);
     const monthEnd = endOfMonth(currentDate);
-    const calendarStart = startOfWeek(monthStart, { weekStartsOn: 0 });
-    const calendarEnd = endOfWeek(monthEnd, { weekStartsOn: 0 });
+    const calendarStart = startOfWeek(monthStart, { weekStartsOn: 1 }); // Monday
+    const calendarEnd = endOfWeek(monthEnd, { weekStartsOn: 1 }); // Monday
 
     return eachDayOfInterval({ start: calendarStart, end: calendarEnd });
   }, [currentDate]);
@@ -51,9 +51,9 @@ export function CalendarGridNew({
           <div
             key={day}
             className={`text-center text-[10px] lg:text-xs font-black uppercase tracking-widest ${
-              index === 0
+              index === 6
                 ? "text-red-400"
-                : index === 6
+                : index === 5
                 ? "text-emerald-500"
                 : "text-slate-400 dark:text-[#9cbab2]"
             }`}
