@@ -2,9 +2,9 @@
 
 ## 📋 Yêu Cầu Trước Khi Triển Khai
 
-- [x] Tài khoản [Vercel](https://vercel.com) (miễn phí)
-- [x] Tài khoản [GitHub](https://github.com)
-- [x] Domain `lichviet.online` đã được mua và sẵn sàng
+- [X] Tài khoản [Vercel](https://vercel.com) (miễn phí)
+- [X] Tài khoản [GitHub](https://github.com)
+- [X] Domain `lichviet.online` đã được mua và sẵn sàng
 
 ---
 
@@ -43,15 +43,15 @@ git push -u origin main
 
 Trong màn hình **Configure Project**:
 
-| Setting | Value |
-|---------|-------|
-| **Framework Preset** | Next.js (tự động detect) |
-| **Root Directory** | `web` |
-| **Build Command** | `npm run build` (mặc định) |
-| **Output Directory** | `.next` (mặc định) |
-| **Install Command** | `npm install` (mặc định) |
+| Setting                    | Value                           |
+| -------------------------- | ------------------------------- |
+| **Framework Preset** | Next.js (tự động detect)     |
+| **Root Directory**   | `web`                         |
+| **Build Command**    | `npm run build` (mặc định) |
+| **Output Directory** | `.next` (mặc định)         |
+| **Install Command**  | `npm install` (mặc định)   |
 
-> ⚠️ **Quan trọng**: Vì project có cấu trúc monorepo, cần set **Root Directory** = `web`
+> ⚠️ **Quan trọng**: Vì  project có cấu trúc monorepo, cần set **Root Directory** = `web`
 
 ### Bước 4: Deploy
 
@@ -75,17 +75,17 @@ Vercel sẽ hiển thị các DNS records cần thêm. Vào nhà cung cấp doma
 
 **Option A: Dùng Vercel DNS (Khuyến nghị)**
 
-| Type | Name | Value |
-|------|------|-------|
-| A | @ | `76.76.21.21` |
-| CNAME | www | `cname.vercel-dns.com` |
+| Type  | Name | Value                    |
+| ----- | ---- | ------------------------ |
+| A     | @    | `76.76.21.21`          |
+| CNAME | www  | `cname.vercel-dns.com` |
 
 **Option B: Dùng CNAME**
 
-| Type | Name | Value |
-|------|------|-------|
-| CNAME | @ | `cname.vercel-dns.com` |
-| CNAME | www | `cname.vercel-dns.com` |
+| Type  | Name | Value                    |
+| ----- | ---- | ------------------------ |
+| CNAME | @    | `cname.vercel-dns.com` |
+| CNAME | www  | `cname.vercel-dns.com` |
 
 > 💡 DNS có thể mất 5 phút - 48 giờ để propagate
 
@@ -142,9 +142,9 @@ Nếu sau này cần thêm biến môi trường:
 1. Vào **Project Settings** → **Environment Variables**
 2. Thêm các biến cần thiết:
 
-| Name | Value | Environment |
-|------|-------|-------------|
-| `NEXT_PUBLIC_SITE_URL` | `https://lichviet.online` | Production |
+| Name                     | Value                       | Environment |
+| ------------------------ | --------------------------- | ----------- |
+| `NEXT_PUBLIC_SITE_URL` | `https://lichviet.online` | Production  |
 
 ---
 
