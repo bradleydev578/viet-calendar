@@ -117,13 +117,13 @@ export const WEEKDAY_NAMES = [
 ] as const;
 
 export const WEEKDAY_NAMES_SHORT = [
-  'CN',
   'T2',
   'T3',
   'T4',
   'T5',
   'T6',
   'T7',
+  'CN',
 ] as const;
 
 // Vietnamese month names

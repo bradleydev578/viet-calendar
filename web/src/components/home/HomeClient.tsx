@@ -30,10 +30,10 @@ export function HomeClient({
   initialQuote,
   initialDate,
 }: HomeClientProps) {
-  // Initialize dates from server
-  const serverDate = useMemo(() => new Date(initialDate), [initialDate]);
-  const [currentDate, setCurrentDate] = useState(serverDate);
-  const [selectedDate, setSelectedDate] = useState(serverDate);
+  // Use client-side date to avoid static build date mismatch
+  // initialDate is only used as fallback for SSR hydration
+  const [currentDate, setCurrentDate] = useState(() => new Date());
+  const [selectedDate, setSelectedDate] = useState(() => new Date());
 
   // Cache for feng shui data
   const fengShuiCache = useMemo(() => {
@@ -47,11 +47,9 @@ export function HomeClient({
   }, [initialFengShuiData, initialMonthData]);
 
   // Current feng shui data for selected date
-  const [fengShuiData, setFengShuiData] = useState<DayFengShuiData | null>(
-    initialFengShuiData
-  );
-  const [monthData, setMonthData] = useState<DayFengShuiData[]>(initialMonthData);
-  const [isLoading, setIsLoading] = useState(false);
+  // Start with null to trigger fetch for actual today's date (client-side)
+  const [fengShuiData, setFengShuiData] = useState<DayFengShuiData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const theme = useMemo(
     () => getMonthTheme(currentDate.getMonth() + 1),
@@ -104,7 +102,6 @@ export function HomeClient({
     try {
       const data = await fetchFengShuiByMonth(year, month);
       fengShuiCache.setMany(data);
-      setMonthData(data);
     } catch (error) {
       console.error("Error fetching month data:", error);
     }
