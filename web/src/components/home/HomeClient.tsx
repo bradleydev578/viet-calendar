@@ -69,6 +69,7 @@ export function HomeClient({
     const cached = fengShuiCache.get(dateStr);
     if (cached) {
       setFengShuiData(cached);
+      setIsLoading(false);
       return;
     }
 

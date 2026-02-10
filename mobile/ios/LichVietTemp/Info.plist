@@ -31,8 +31,6 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialCommunityIcons.ttf</string>
@@ -52,5 +50,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<!-- Mô tả quyền sử dụng Compass -->
+	<key>NSMotionUsageDescription</key>
+	<string>Ứng dụng cần truy cập cảm biến chuyển động để hiển thị la bàn phong thủy.</string>
+
+	<!-- Mô tả quyền Location (nếu dùng) -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Ứng dụng cần vị trí để hiển thị hướng la bàn chính xác.</string>
+
+	<!-- Encryption Compliance (QUAN TRỌNG) -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+
 </dict>
 </plist>

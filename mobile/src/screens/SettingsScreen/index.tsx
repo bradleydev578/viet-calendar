@@ -13,7 +13,7 @@ import { SettingLink } from './SettingLink';
 import { InfoModal, type InfoModalType } from './InfoModal';
 import { styles } from './styles';
 
-const APP_VERSION = '0.0.1';
+const APP_VERSION = '1.2';
 
 export function SettingsScreen() {
   const { settings, loadSettings, toggleLunarDates, toggleHolidays } = useSettingsStore();
@@ -48,13 +48,10 @@ export function SettingsScreen() {
   };
 
   const handleFeedback = () => {
-    Alert.alert('Góp ý', 'Vui lòng gửi góp ý về ứng dụng qua email:\nbradley.dev578@gmail.com', [
-      { text: 'Hủy', style: 'cancel' },
-      {
-        text: 'Mở Email',
-        onPress: () => Linking.openURL('mailto:bradley.dev578@gmail.com'),
-      },
-    ]);
+    // Mở trang liên hệ trong browser bên ngoài
+    Linking.openURL('https://www.madebybang.com/contact').catch(() => {
+      Alert.alert('Lỗi', 'Không thể mở trang web. Vui lòng thử lại sau.');
+    });
   };
 
   return (
