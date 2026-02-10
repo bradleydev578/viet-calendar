@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { RootNavigator } from './navigation';
 import { useFengShuiStore } from '../stores/useFengShuiStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
+import { useWidgetSync } from '../core/widget';
 import {
   initAnalytics,
   trackAppOpen,
@@ -28,6 +29,9 @@ function App(): React.JSX.Element {
   // Load feng shui data on app start
   const loadFengShuiData = useFengShuiStore(state => state.loadData);
   const loadSettings = useSettingsStore(state => state.loadSettings);
+
+  // Initialize widget sync (iOS Calendar Widget)
+  useWidgetSync();
 
   useEffect(() => {
     // Initialize analytics (non-blocking, fail-safe)

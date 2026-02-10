@@ -1,6 +1,6 @@
 {
   "name": "lich-viet",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -21,7 +21,7 @@
     "date-fns": "^3.3.1",
     "lunar-javascript": "^1.6.12",
     "react": "18.2.0",
-    "react-native": "0.73.4",
+    "react-native": "^0.73.11",
     "react-native-compass-heading": "^2.0.2",
     "react-native-gesture-handler": "^2.14.1",
     "react-native-linear-gradient": "^2.8.3",
