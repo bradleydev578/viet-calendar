@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mẫu A: Lịch Treo Tường 3D & Bảng Lịch Tháng Tương Tác (12 Sắc Màu Bốn Mùa)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@0,700;0,900;1,600;1,800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .serif-display {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    }
+    .mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+    #tear-sheet {
+      container-type: inline-size;
+    }
+    .hero-three-cols {
+      display: grid;
+      grid-template-columns: 1.08fr 1.44fr 0.98fr;
+      align-items: center;
+    }
+    .tall-solar-num {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-variant-numeric: lining-nums tabular-nums;
+      font-feature-settings: "lnum" 1, "tnum" 1;
+      display: inline-block;
+      font-size: clamp(3.4rem, 19cqw, 5.2rem);
+      transform: scaleX(0.9) scaleY(1.18);
+      transform-origin: center;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+    }
+    .tall-lunar-num {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-variant-numeric: lining-nums tabular-nums;
+      font-feature-settings: "lnum" 1, "tnum" 1;
+      display: inline-block;
+      font-size: clamp(2.15rem, 11.5cqw, 3.3rem);
+      transform: scaleX(0.92) scaleY(1.15);
+      transform-origin: right center;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+    .paper-stack {
+      box-shadow:
+        0 1px 0 #e2e8f0,
+        0 4px 0 -1px #ffffff,
+        0 5px 0 -1px #cbd5e1,
+        0 9px 0 -2px #ffffff,
+        0 10px 0 -2px #94a3b8,
+        0 22px 38px -10px rgba(15, 23, 42, 0.2);
+    }
+    .gold-emboss {
+      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 52%, #d97706 100%);
+    }
+    @keyframes tearPaper {
+      0% { transform: translateY(-8px) rotate(-1deg); opacity: 0.55; }
+      100% { transform: translateY(0) rotate(0); opacity: 1; }
+    }
+    .tear-anim {
+      animation: tearPaper 0.24s ease-out;
+    }
+  </style>
+</head>
+<body id="app-body" class="min-h-screen antialiased transition-colors duration-500 p-3 sm:p-4 lg:p-6" style="background-color: #FEF2F2; color: #0f172a;">
+  <!-- Ambient Seasonal Glow -->
+  <div id="glow-1" class="fixed top-[-120px] left-[-80px] w-[460px] h-[460px] rounded-full blur-3xl pointer-events-none opacity-30 transition-all duration-500" style="background: #DC2626;"></div>
+  <div id="glow-2" class="fixed bottom-[-120px] right-[-80px] w-[460px] h-[460px] rounded-full blur-3xl pointer-events-none opacity-25 transition-all duration-500" style="background: #d97706;"></div>
+
+  <div id="page-container" class="max-w-7xl mx-auto relative z-10 flex flex-col gap-4 sm:gap-5 transition-all duration-300">
+    <!-- 1. TOP NAVIGATION BAR -->
+    <header class="bg-white/85 backdrop-blur-xl rounded-2xl border border-slate-200/80 px-4 sm:px-5 py-3 shadow-sm flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div id="brand-badge" class="w-10 h-10 rounded-xl flex items-center justify-center text-white font-black shadow-md transition-colors" style="background-color: #DC2626;">
+          <span class="serif-display text-lg italic">V</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-extrabold text-base tracking-tight text-slate-900">Lịch Việt</span>
+            <span id="season-pill" class="text-xs font-bold px-2.5 py-0.5 rounded-full text-white transition-colors" style="background-color: #DC2626;">Tháng 1 • Tết Nguyên Đán</span>
+          </div>
+          <p class="text-xs text-slate-500 hidden sm:block">Mẫu A: Lịch Bloc 3D Ô Ngày Siêu Lớn & Bảng Lịch Tháng Cao Bằng Nhau (Chuẩn Mobile & Desktop)</p>
+        </div>
+      </div>
+
+      <!-- Layout & Viewport Switcher -->
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="flex items-center gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/60">
+          <button onclick="setViewport('desktop')" id="btn-vp-desktop" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-sm transition-all" style="background-color: #DC2626;">
+            🖥️ Desktop
+          </button>
+          <button onclick="setViewport('mobile')" id="btn-vp-mobile" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/60 transition-all">
+            📱 Mobile (390px)
+          </button>
+        </div>
+
+        <div class="flex items-center gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/60">
+          <button onclick="setLayoutMode('split')" id="btn-mode-split" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-sm transition-all" style="background-color: #DC2626;">
+            📌 Song Song
+          </button>
+          <button onclick="setLayoutMode('flip')" id="btn-mode-flip" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/60 transition-all">
+            🔄 Lật Khánh Lịch
+          </button>
+        </div>
+
+        <button onclick="selectMonth(11); pickDay(6);" class="px-3 py-1.5 rounded-full text-xs font-bold border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 shadow-sm">
+          Hôm nay (06/11)
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. 12-MONTH SEASONAL COLOR PALETTE SWITCHER -->
+    <section class="bg-white/85 backdrop-blur-xl rounded-2xl border border-slate-200/80 p-3 sm:p-3.5 shadow-sm">
+      <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+        <span class="text-xs font-extrabold uppercase tracking-wider text-slate-700">
+          🎨 Bấm chọn Tháng 1 → Tháng 12 (12 sắc thái Bốn Mùa):
+        </span>
+        <span id="theme-desc" class="text-xs font-semibold text-slate-600">Tháng 1: Khai Xuân Đón Tết — Đỏ Chu Sa & Vàng Hoàng Kim</span>
+      </div>
+      <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-12 gap-1.5" id="month-buttons"></div>
+    </section>
+
+    <!-- 3. MAIN EQUAL-HEIGHT ROW: LEFT 5 COLS (TỜ LỊCH BLOC 3D SỐ CỰC ĐẠI) === RIGHT 7 COLS (BẢNG LỊCH THÁNG Ô CAO RỘNG) -->
+    <section id="section-split" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
+      <!-- LEFT 5 COLS: KHUNG NGÀY CHI TIẾT (TỜ LỊCH BLOC TREO TƯỜNG 3D) -->
+      <div id="col-left-bloc" class="lg:col-span-5 h-full">
+        <div id="bloc-outer" class="h-full rounded-3xl p-4 sm:p-5 border-2 shadow-xl flex flex-col justify-between transition-all duration-500 relative overflow-hidden" style="background: linear-gradient(180deg, #DC2626 0%, #991B1B 26%, #f8fafc 26%, #ffffff 100%); border-color: #DC2626;">
+          <!-- Hanging Gold Cord -->
+          <div class="flex justify-center -mt-2 mb-1.5">
+            <div class="w-16 h-3 rounded-full gold-emboss shadow-md border border-amber-200 flex items-center justify-center">
+              <div class="w-2.5 h-2.5 rounded-full bg-slate-900"></div>
+            </div>
+          </div>
+
+          <!-- Upper Plaque -->
+          <div class="text-white px-1.5 sm:px-2 pb-3.5 flex items-center justify-between gap-2">
+            <div>
+              <span id="bloc-season-tag" class="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-sm whitespace-nowrap">
+                MÙA XUÂN • TIẾT TIỂU HÀN
+              </span>
+              <h1 id="bloc-month-title" class="serif-display text-2xl sm:text-3xl font-bold italic mt-1 tracking-wide">
+                Tháng 1, 2026
+              </h1>
+              <p id="bloc-subtitle" class="text-xs opacity-90 mt-0.5">Tết Nguyên Đán • Năm Bính Ngọ</p>
+            </div>
+            <div class="text-right shrink-0">
+              <div id="bloc-motif" class="text-3xl sm:text-4xl mb-1">🌸</div>
+              <span id="bloc-hd-badge" class="inline-block px-2.5 py-1 rounded-full gold-emboss text-slate-950 text-[11px] font-black shadow whitespace-nowrap">
+                ★ HOÀNG ĐẠO (86đ)
+              </span>
+            </div>
+          </div>
+
+          <!-- Tear-Off Paper Sheet -->
+          <div id="tear-sheet" class="flex-1 bg-[#FFFCF7] rounded-2xl p-4 sm:p-5 border border-amber-200/90 paper-stack text-slate-800 relative flex flex-col justify-between">
+            <!-- Perforation Line -->
+            <div class="border-b-2 border-dashed border-slate-300/80 pb-2.5 flex items-center justify-between text-[11px] sm:text-xs font-bold tracking-wider uppercase text-slate-500">
+              <span>DƯƠNG LỊCH</span>
+              <span id="bloc-weekday" class="text-sm sm:text-base font-extrabold tracking-wide" style="color: #DC2626;">THỨ SÁU</span>
+              <span>ÂM LỊCH</span>
+            </div>
+
+            <!-- Giant Hero Day Numbers & Can Chi 3 Pillars (Wide center column so 06 has generous breathing room from the 2 vertical lines) -->
+            <div class="hero-three-cols py-4 my-auto">
+              <div class="text-left space-y-1 border-r border-slate-200/90 pr-2.5">
+                <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Can Chi</div>
+                <div id="bloc-day-canchi" class="text-xs sm:text-sm font-extrabold text-slate-800 whitespace-nowrap">Giáp Thân</div>
+                <div class="text-[11px] text-slate-600 whitespace-nowrap">Tháng Mậu Tuất</div>
+                <div class="text-[11px] text-slate-600 whitespace-nowrap">Năm Bính Ngọ</div>
+              </div>
+
+              <div class="text-center flex flex-col items-center justify-center px-3 py-1">
+                <div id="bloc-solar-day" class="tall-solar-num font-black transition-colors" style="color: #DC2626;">
+                  06
+                </div>
+              </div>
+
+              <div class="text-right space-y-1 border-l border-slate-200/90 pl-2.5">
+                <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Ngày Âm</div>
+                <div id="bloc-lunar-day" class="tall-lunar-num font-black text-amber-600 py-0.5">
+                  18
+                </div>
+                <div id="bloc-lunar-month" class="text-[11px] font-extrabold text-slate-700 uppercase whitespace-nowrap">
+                  Tháng Chạp
+                </div>
+              </div>
+            </div>
+
+            <!-- Single-Line Aligned Badges Row (Ngũ Hành | Trực • Sao | Cát Thần) — Vừa khít 100% không tràn viền -->
+            <div class="grid grid-cols-3 gap-1 py-2 border-t border-slate-200/70 text-center items-center">
+              <span class="px-1.5 py-1 rounded-md bg-sky-100/90 text-sky-800 text-[10px] font-bold whitespace-nowrap truncate">
+                💧 Tuyền Trung Thủy
+              </span>
+              <span id="bloc-truc-sao" class="px-1.5 py-1 rounded-full bg-amber-100 text-amber-800 text-[10px] font-extrabold whitespace-nowrap truncate">
+                Trực Chấp • Sao Cơ
+              </span>
+              <span class="px-1.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200/70 text-[10px] font-bold whitespace-nowrap truncate">
+                Thiên Đức • Ngọc Đường
+              </span>
+            </div>
+
+            <!-- Quote / Ca Dao + Hướng Xuất Hành gọn dưới chân tờ lịch -->
+            <div class="pt-3 border-t border-slate-200/80 text-center space-y-2.5">
+              <p id="bloc-quote" class="serif-display italic text-xs sm:text-sm text-slate-600">
+                “Thịt mỡ dưa hành câu đối đỏ — Cây nêu tràng pháo bánh chưng xanh.”
+              </p>
+              <div class="grid grid-cols-3 gap-1.5 pt-2 border-t border-dashed border-slate-200/80">
+                <div class="bg-white/90 rounded-lg py-1.5 px-1 border border-slate-200/70 text-center">
+                  <div class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">Hỷ Thần</div>
+                  <div class="text-[11px] font-extrabold text-slate-800 mt-0.5 whitespace-nowrap">↗ Đông Bắc</div>
+                </div>
+                <div class="bg-white/90 rounded-lg py-1.5 px-1 border border-slate-200/70 text-center">
+                  <div class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">Tài Thần</div>
+                  <div class="text-[11px] font-extrabold text-amber-700 mt-0.5 whitespace-nowrap">↘ Đông Nam</div>
+                </div>
+                <div class="bg-white/90 rounded-lg py-1.5 px-1 border border-slate-200/70 text-center">
+                  <div class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">Tuổi hợp</div>
+                  <div class="text-[11px] font-extrabold text-emerald-700 mt-0.5 whitespace-nowrap">Tý, Thìn</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Tear Prev/Next Buttons -->
+          <div class="mt-3.5 pt-1 flex items-center justify-between gap-1.5 whitespace-nowrap">
+            <button onclick="shiftDay(-1)" class="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold transition-colors">
+              ← Xé tờ trước
+            </button>
+            <span class="text-[10px] font-semibold text-slate-500 truncate">Chạm ngày để lật →</span>
+            <button onclick="shiftDay(1)" class="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold transition-colors">
+              Tờ tiếp theo →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT 7 COLS: KHUNG BẢNG LỊCH THÁNG ĐẦY ĐỦ (Ô NGÀY CAO BỰ HƠN) -->
+      <div id="col-right-cal" class="lg:col-span-7 h-full">
+        <div class="h-full bg-white/95 backdrop-blur-xl rounded-3xl border border-slate-200/80 p-3.5 sm:p-5 shadow-xl flex flex-col justify-between">
+          <!-- Month Calendar Header + Quick Filters -->
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-2 border-b border-slate-200/70">
+            <div>
+              <h2 id="grid-title" class="text-base sm:text-lg font-extrabold text-slate-800">📅 Lịch Tháng 1, 2026 — Tết Nguyên Đán</h2>
+              <p class="text-xs text-slate-500">Ô ngày cao rộng • Bấm vào bất kỳ ngày nào để xé Tờ Lịch Bloc 3D</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="setFilter('all')" id="f-all" class="px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm transition-all" style="background-color: #DC2626;">Tất cả</button>
+              <button onclick="setFilter('hd')" id="f-hd" class="px-2.5 sm:px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition-all">★ Hoàng Đạo</button>
+              <button onclick="setFilter('cuoi')" id="f-cuoi" class="px-2.5 sm:px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">💍 Cưới hỏi</button>
+              <button onclick="setFilter('khai')" id="f-khai" class="px-2.5 sm:px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">🏪 Khai trương</button>
+            </div>
+          </div>
+
+          <!-- Weekday Headers -->
+          <div class="grid grid-cols-7 gap-1.5 sm:gap-2 text-center text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-400 mb-2">
+            <div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div class="text-emerald-600">T7</div><div class="text-red-500">CN</div>
+          </div>
+
+          <!-- Interactive 35-Day Calendar Grid (Responsive Mobile/Desktop cells) -->
+          <div id="calendar-grid-cells" class="flex-1 grid grid-cols-7 auto-rows-fr gap-1.5 sm:gap-2 mono-num"></div>
+
+          <!-- Legend Footer -->
+          <div class="mt-3.5 pt-2.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px] sm:text-xs text-slate-500">
+            <div class="flex items-center gap-3 sm:gap-4">
+              <span><strong class="text-amber-500">★</strong> Hoàng Đạo</span>
+              <span><strong class="text-red-600">●</strong> Ngày Lễ / Mùng 1 / Rằm</span>
+              <span><strong class="text-rose-500">✕</strong> Tam Nương / Nguyệt Kỵ</span>
+            </div>
+            <span class="font-semibold text-slate-600">Đổi Âm ↔ Dương 1900–2100</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3B. FLIP-BOARD FULL-WIDTH 12-COLUMN MONTH VIEW -->
+    <section id="section-flip" class="hidden bg-white/95 backdrop-blur-xl rounded-3xl border border-slate-200/80 p-4 sm:p-5 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-200">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-amber-700">Chế độ 2: Lật Mặt Sau Khánh Lịch (12 Cột Toàn Màn Hình)</span>
+          <h2 class="text-lg font-extrabold text-slate-800">📋 Bảng Kế Hoạch Tốt Xấu Chi Tiết Trong Tháng</h2>
+        </div>
+        <button onclick="setLayoutMode('split')" class="px-4 py-2 rounded-xl text-xs font-bold text-white shadow" style="background-color: #DC2626;">
+          ← Quay lại chế độ Song Song
+        </button>
+      </div>
+      <div id="flip-grid-cells" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5"></div>
+    </section>
+
+    <!-- 4. BOTTOM ROW: 6 GIỜ HOÀNG ĐẠO (LEFT 5 COLS) + VIỆC NÊN LÀM & LỊCH NGHỈ LỄ (RIGHT 7 COLS) -->
+    <section id="section-bottom" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
+      <!-- Left 5 Cols: 6 Giờ Hoàng Đạo Trong Ngày -->
+      <div id="col-bot-left" class="lg:col-span-5 h-full bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-2.5 flex-wrap gap-1">
+          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">🕒 6 Giờ Hoàng Đạo Trong Ngày</span>
+          <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">Đang giờ Mùi (13h–15h) ●</span>
+        </div>
+        <div class="grid grid-cols-3 gap-2 mono-num text-center flex-1">
+          <div class="p-2 rounded-xl bg-slate-50/90 border border-slate-200/80 text-xs flex flex-col justify-center"><div class="font-extrabold text-slate-800 whitespace-nowrap">Tý • Thanh Long</div><div class="text-[11px] text-slate-500 mt-0.5">23:00 – 01:00</div></div>
+          <div class="p-2 rounded-xl bg-slate-50/90 border border-slate-200/80 text-xs flex flex-col justify-center"><div class="font-extrabold text-slate-800 whitespace-nowrap">Sửu • Minh Đường</div><div class="text-[11px] text-slate-500 mt-0.5">01:00 – 03:00</div></div>
+          <div class="p-2 rounded-xl bg-slate-50/90 border border-slate-200/80 text-xs flex flex-col justify-center"><div class="font-extrabold text-slate-800 whitespace-nowrap">Thìn • Kim Quỹ</div><div class="text-[11px] text-slate-500 mt-0.5">07:00 – 09:00</div></div>
+          <div class="p-2 rounded-xl bg-slate-50/90 border border-slate-200/80 text-xs flex flex-col justify-center"><div class="font-extrabold text-slate-800 whitespace-nowrap">Tỵ • Bảo Quang</div><div class="text-[11px] text-slate-500 mt-0.5">09:00 – 11:00</div></div>
+          <div id="active-hour-box" class="p-2 rounded-xl text-white text-xs shadow-sm flex flex-col justify-center" style="background-color:#DC2626"><div class="font-extrabold whitespace-nowrap">Mùi ★ Ngọc Đường</div><div class="text-[11px] opacity-90 mt-0.5">13:00 – 15:00</div></div>
+          <div class="p-2 rounded-xl bg-slate-50/90 border border-slate-200/80 text-xs flex flex-col justify-center"><div class="font-extrabold text-slate-800 whitespace-nowrap">Tuất • Tư Mệnh</div><div class="text-[11px] text-slate-500 mt-0.5">19:00 – 21:00</div></div>
+        </div>
+      </div>
+
+      <!-- Right 7 Cols: Việc Nên Làm / Kiêng Kỵ + Lịch Nghỉ Lễ & Tết Chính Thức -->
+      <div id="col-bot-right" class="lg:col-span-7 h-full grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+        <div class="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">📜 Việc Nên Làm & Kiêng Kỵ</span>
+            <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">Ngọc Hạp</span>
+          </div>
+          <div class="space-y-2 flex-1 flex flex-col justify-between">
+            <div class="p-2.5 rounded-xl bg-emerald-50/90 border border-emerald-200/70">
+              <div class="text-xs font-bold text-emerald-800">✓ Nên làm (Cát sự):</div>
+              <p class="text-xs text-emerald-700 mt-0.5">Khai trương, xuất hành, giao dịch, ký hợp đồng, cưới hỏi, cầu phúc, tế tự.</p>
+            </div>
+            <div class="p-2.5 rounded-xl bg-rose-50/90 border border-rose-200/70">
+              <div class="text-xs font-bold text-rose-800">✕ Kiêng kỵ (Hung sự):</div>
+              <p class="text-xs text-rose-700 mt-0.5">Kiện tụng, tranh chấp, động thổ hướng chính Bắc.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">🎉 Lịch Nghỉ Lễ & Tết Chính Thức</span>
+            <span class="text-xs font-bold text-red-600">2026–2027</span>
+          </div>
+          <div class="space-y-2 flex-1 flex flex-col justify-between">
+            <div class="p-2.5 rounded-xl bg-red-50/90 border border-red-200/80 text-xs">
+              <div class="flex justify-between font-bold text-red-700"><span>24/11 • Ngày Văn hóa Việt Nam</span><span>Nghỉ 1 ngày</span></div>
+              <div class="text-slate-600 mt-0.5">Nghỉ lễ chính thức hưởng nguyên lương (NQ 28/2026/QH16)</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-amber-50/90 border border-amber-200/80 text-xs">
+              <div class="flex justify-between font-bold text-amber-900"><span>04/02 – 10/02/2027 • Tết Đinh Mùi</span><span class="text-emerald-700 font-bold">Nghỉ 7 ngày</span></div>
+              <div class="text-slate-600 mt-0.5">Từ 28 tháng Chạp Bính Ngọ đến hết mùng 5 Tết Đinh Mùi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const MONTHS = [
+      { m: 1, name: "Tết Nguyên Đán", season: "MÙA XUÂN • TIẾT TIỂU HÀN", accent: "#DC2626", dark: "#991B1B", bg: "#FEF2F2", motif: "🌸", quote: "“Thịt mỡ dưa hành câu đối đỏ — Cây nêu tràng pháo bánh chưng xanh.”", desc: "Tháng 1: Khai Xuân Đón Tết — Đỏ Chu Sa & Vàng Hoàng Kim", offset: 3, days: 31 },
+      { m: 2, name: "Xuân Về", season: "MÙA XUÂN • TIẾT LẬP XUÂN", accent: "#DB2777", dark: "#9D174D", bg: "#FDF2F8", motif: "🌺", quote: "“Mùng một Tết cha, mùng hai Tết mẹ, mùng ba Tết thầy.”", desc: "Tháng 2: Hương Xuân Lễ Hội — Hồng Đào Phai & Vàng Đồng", offset: 6, days: 28 },
+      { m: 3, name: "Mùa Xuân", season: "MÙA XUÂN • TIẾT KINH TRẬP", accent: "#16A34A", dark: "#166534", bg: "#F0FDF4", motif: "🌿", quote: "“Tháng giêng là tháng ăn chơi, tháng hai trồng đậu, tháng ba trồng cà.”", desc: "Tháng 3: Lộc Biếc Thanh Minh — Xanh Ngọc Bích & Vàng Cốm", offset: 6, days: 31 },
+      { m: 4, name: "Hoa Nở", season: "GIAO MÙA • TIẾT THANH MINH", accent: "#9333EA", dark: "#6B21A8", bg: "#FAF5FF", motif: "🪻", quote: "“Dù ai đi ngược về xuôi — Nhớ ngày Giỗ Tổ mùng mười tháng ba.”", desc: "Tháng 4: Hoa Nở Giao Mùa — Tím Bằng Lăng & Vàng Nắng", offset: 2, days: 30 },
+      { m: 5, name: "Đoan Ngọ", season: "MÙA HẠ • TIẾT LẬP HẠ", accent: "#EA580C", dark: "#9A3412", bg: "#FFF7ED", motif: "🔥", quote: "“Tháng năm chưa nằm đã sáng, tháng mười chưa cười đã tối.”", desc: "Tháng 5: Đoan Ngọ Rực Rỡ — Cam Phượng Vĩ & Hổ Phách", offset: 4, days: 31 },
+      { m: 6, name: "Hè Sang", season: "MÙA HẠ • TIẾT HẠ CHÍ", accent: "#0284C7", dark: "#075985", bg: "#F0F9FF", motif: "🪷", quote: "“Trong đầm gì đẹp bằng sen — Lá xanh bông trắng lại chen nhị vàng.”", desc: "Tháng 6: Hạ Xanh Liên Hoa — Xanh Biển Hạ & Lá Sen", offset: 0, days: 30 },
+      { m: 7, name: "Vu Lan", season: "MÙA THU • TIẾT TIỂU THỬ", accent: "#4F46E5", dark: "#3730A3", bg: "#EEF2FF", motif: "🏮", quote: "“Công cha như núi Thái Sơn — Nghĩa mẹ như nước trong nguồn chảy ra.”", desc: "Tháng 7: Vu Lan Báo Hiếu — Lam Chàm Tĩnh Lặng", offset: 2, days: 31 },
+      { m: 8, name: "Trung Thu", season: "MÙA THU • TIẾT LẬP THU", accent: "#CA8A04", dark: "#854D0E", bg: "#FEFCE8", motif: "🌕", quote: "“Trăng rằm tháng tám sáng trong — Rước đèn phá cỗ ấm lòng trẻ thơ.”", desc: "Tháng 8: Trăng Rằm Đoàn Viên — Vàng Ánh Trăng & Đỏ Đèn Lồng", offset: 5, days: 31 },
+      { m: 9, name: "Thu Sang", season: "MÙA THU • TIẾT THU PHÂN", accent: "#D97706", dark: "#92400E", bg: "#FFFBEB", motif: "🍁", quote: "“Cốm Vòng, gạo tám Mễ Trì — Tương Bần, húng Láng còn gì ngon hơn.”", desc: "Tháng 9: Thu Vàng Cúc Đại Đóa — Vàng Thu Hà Nội", offset: 1, days: 30 },
+      { m: 10, name: "Cuối Thu", season: "CUỐI THU • TIẾT HÀN LỘ", accent: "#0D9488", dark: "#115E59", bg: "#F0FDFA", motif: "🌾", quote: "“Gió heo may thổi lạnh lùng — Hương hoa sữa thoảng cuối cùng chiều thu.”", desc: "Tháng 10: Sương Thu Chuyển Mùa — Xanh Ngọc Lam Trầm", offset: 3, days: 31 },
+      { m: 11, name: "Đông Về", season: "MÙA ĐÔNG • TIẾT SƯƠNG GIÁNG", accent: "#475569", dark: "#1E293B", bg: "#F8FAFC", motif: "❄️", quote: "“Tháng mười có sấm cất mạ, tháng một có sấm đắp bờ.”", desc: "Tháng 11: Lập Đông Gió Bấc — Xanh Đá Phiến & Lửa Ấm", offset: 6, days: 30 },
+      { m: 12, name: "Giáng Sinh", season: "MÙA ĐÔNG • TIẾT ĐÔNG CHÍ", accent: "#059669", dark: "#065F46", bg: "#F0FDF4", motif: "🎄", quote: "“Khép lại năm cũ bình an — Đón mùa lễ hội ngập tràn yêu thương.”", desc: "Tháng 12: Khép Năm An Lành — Xanh Thông Noel & Vàng Kim", offset: 1, days: 31 }
+    ];
+
+    const DOW_NAMES = ["THỨ HAI", "THỨ BA", "THỨ TƯ", "THỨ NĂM", "THỨ SÁU", "THỨ BẢY", "CHỦ NHẬT"];
+    const CAN_CHI = ["Giáp Thân", "Ất Dậu", "Bính Tuất", "Đinh Hợi", "Mậu Tý", "Kỷ Sửu", "Canh Dần", "Tân Mão", "Nhâm Thìn", "Quý Tỵ", "Giáp Ngọ", "Ất Mùi"];
+    const HOANG_DAO = new Set([1, 2, 4, 6, 9, 10, 12, 15, 16, 19, 21, 22, 24, 27, 28, 30]);
+    const TAM_NUONG = new Set([3, 7, 13, 18, 22, 27]);
+
+    let currentMonthIdx = 0;
+    let selectedDay = 6;
+    let activeFilter = 'all';
+    let currentVp = 'desktop';
+
+    function renderMonthButtons() {
+      const container = document.getElementById('month-buttons');
+      container.innerHTML = MONTHS.map((item, idx) => {
+        const isActive = idx === currentMonthIdx;
+        return `<button onclick="selectMonth(${item.m})" class="p-1.5 sm:p-2 rounded-xl border text-center transition-all ${isActive ? 'text-white shadow-md scale-105 font-extrabold' : 'bg-white/80 hover:bg-white text-slate-700 font-semibold'}" style="${isActive ? `background-color:${item.accent}; border-color:${item.accent};` : 'border-color:#e2e8f0;'}">
+          <div class="text-xs">${item.motif} T${item.m}</div>
+          <div class="text-[11px] truncate opacity-90">${item.name}</div>
+        </button>`;
+      }).join('');
+    }
+
+    function renderCalendarGrid() {
+      const t = MONTHS[currentMonthIdx];
+      const grid = document.getElementById('calendar-grid-cells');
+      const flipGrid = document.getElementById('flip-grid-cells');
+      let html = '';
+      let flipHtml = '';
+
+      for (let i = 0; i < t.offset; i++) {
+        html += `<div class="min-h-[56px] sm:min-h-[72px] p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl bg-slate-50/40 border border-transparent opacity-30"></div>`;
+      }
+
+      const maxCells = 35 - t.offset;
+      const daysToShow = Math.min(t.days, maxCells);
+
+      for (let d = 1; d <= daysToShow; d++) {
+        const isSel = d === selectedDay;
+        const lunarD = ((d + 11 + t.m * 2) % 30) + 1;
+        const isHD = HOANG_DAO.has(d) && !TAM_NUONG.has(lunarD);
+        const isBad = TAM_NUONG.has(lunarD) || lunarD === 5 || lunarD === 14 || lunarD === 23;
+        const isHoliday = (t.m === 11 && d === 24) || (t.m === 1 && d === 1) || (t.m === 9 && d === 2) || (t.m === 4 && d === 30);
+
+        let match = true;
+        if (activeFilter === 'hd') match = isHD;
+        if (activeFilter === 'cuoi') match = isHD && d % 2 === 0;
+        if (activeFilter === 'khai') match = isHD && d % 3 !== 0;
+
+        const dowIdx = (t.offset + d - 1) % 7;
+        const dayColor = isSel ? 'text-white' : dowIdx === 6 ? 'text-red-500' : dowIdx === 5 ? 'text-emerald-600' : 'text-slate-800';
+        const hideChiOnMobile = currentVp === 'mobile' ? 'hidden' : 'hidden sm:inline';
+
+        html += `<button onclick="pickDay(${d})" class="min-h-[56px] sm:min-h-[72px] p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl border text-center transition-all flex flex-col items-center justify-between ${
+          isSel
+            ? 'text-white font-black shadow-lg scale-105 z-10'
+            : !match
+            ? 'opacity-25 bg-slate-50 border-slate-100'
+            : isHoliday
+            ? 'bg-red-50/80 border-red-300 hover:bg-red-50'
+            : 'bg-slate-50/70 hover:bg-white border-slate-200/80'
+        }" style="${isSel ? `background-color:${t.accent}; border-color:${t.accent};` : ''}">
+          <div class="flex items-center justify-between w-full px-0.5">
+            <span class="text-sm sm:text-lg font-extrabold ${dayColor}">${d}</span>
+            ${isHoliday ? `<span class="w-2 h-2 rounded-full ${isSel ? 'bg-white' : 'bg-red-500'}"></span>` : isHD ? `<span class="text-[10px] sm:text-xs ${isSel ? 'text-amber-200' : 'text-amber-500'}">★</span>` : ''}
+          </div>
+          <div class="w-full flex items-center justify-between px-0.5 mt-1">
+            <span class="text-[10px] opacity-70 ${hideChiOnMobile} ${isSel ? 'text-white' : 'text-slate-400'}">${CAN_CHI[(d + t.m) % CAN_CHI.length].split(' ')[1]}</span>
+            <span class="text-[11px] sm:text-xs font-bold ml-auto ${
+              isSel
+                ? 'text-white/95'
+                : lunarD === 1 || lunarD === 15
+                ? 'text-red-600'
+                : isBad
+                ? 'text-rose-400'
+                : 'text-amber-700'
+            }">
+              ${lunarD === 1 ? `1/${t.m}` : lunarD === 15 ? 'Rằm' : lunarD}
+            </span>
+          </div>
+        </button>`;
+
+        flipHtml += `<button onclick="pickDay(${d}); setLayoutMode('split');" class="p-3 rounded-2xl border text-left transition-all ${
+          isSel ? 'text-white shadow-md' : isHD ? 'bg-emerald-50/60 border-emerald-200 hover:bg-emerald-50' : 'bg-slate-50 border-slate-200 hover:bg-white'
+        }" style="${isSel ? `background-color:${t.accent}; border-color:${t.accent};` : ''}">
+          <div class="flex items-center justify-between">
+            <span class="text-base font-black">${String(d).padStart(2, '0')}/${String(t.m).padStart(2, '0')}</span>
+            <span class="text-xs font-bold ${isSel ? 'text-amber-200' : 'text-amber-700'}">Âm: ${lunarD}/${t.m}</span>
+          </div>
+          <div class="text-xs font-bold mt-1 ${isSel ? 'text-white' : isHD ? 'text-emerald-700' : 'text-slate-600'}">
+            ${isHD ? '★ Hoàng Đạo (86đ)' : isBad ? '✕ Kỵ khởi sự (48đ)' : '• Bình hòa (65đ)'}
+          </div>
+          <div class="text-xs mt-0.5 opacity-80">${CAN_CHI[(d + t.m) % CAN_CHI.length]}</div>
+        </button>`;
+      }
+      grid.innerHTML = html;
+      if (flipGrid) flipGrid.innerHTML = flipHtml;
+    }
+
+    function pickDay(d) {
+      const t = MONTHS[currentMonthIdx];
+      selectedDay = Math.min(Math.max(1, d), t.days);
+      const sheet = document.getElementById('tear-sheet');
+      sheet.classList.remove('tear-anim');
+      void sheet.offsetWidth;
+      sheet.classList.add('tear-anim');
+
+      const lunarD = ((selectedDay + 11 + t.m * 2) % 30) + 1;
+      const isHD = HOANG_DAO.has(selectedDay) && !TAM_NUONG.has(lunarD);
+      const dowIdx = (t.offset + selectedDay - 1) % 7;
+
+      document.getElementById('bloc-solar-day').textContent = String(selectedDay).padStart(2, '0');
+      document.getElementById('bloc-lunar-day').textContent = String(lunarD).padStart(2, '0');
+      document.getElementById('bloc-weekday').textContent = DOW_NAMES[dowIdx];
+      document.getElementById('bloc-day-canchi').textContent = CAN_CHI[(selectedDay + t.m) % CAN_CHI.length];
+      document.getElementById('bloc-hd-badge').textContent =
+        t.m === 11 && selectedDay === 24
+          ? '🎉 NGÀY VĂN HÓA VN'
+          : isHD
+          ? '★ HOÀNG ĐẠO (86đ)'
+          : '• HẮC ĐẠO (54đ)';
+
+      renderCalendarGrid();
+    }
+
+    function selectMonth(m) {
+      currentMonthIdx = m - 1;
+      const t = MONTHS[currentMonthIdx];
+      document.getElementById('app-body').style.backgroundColor = t.bg;
+      document.getElementById('glow-1').style.background = t.accent;
+      document.getElementById('brand-badge').style.backgroundColor = t.accent;
+      document.getElementById('season-pill').style.backgroundColor = t.accent;
+      document.getElementById('season-pill').textContent = `Tháng ${t.m} • ${t.name}`;
+      document.getElementById('btn-mode-split').style.backgroundColor = t.accent;
+      document.getElementById('active-hour-box').style.backgroundColor = t.accent;
+      document.getElementById('theme-desc').textContent = t.desc;
+
+      if (currentVp === 'desktop') document.getElementById('btn-vp-desktop').style.backgroundColor = t.accent;
+      else document.getElementById('btn-vp-mobile').style.backgroundColor = t.accent;
+
+      document.getElementById('bloc-outer').style.background = `linear-gradient(180deg, ${t.accent} 0%, ${t.dark} 26%, #f8fafc 26%, #ffffff 100%)`;
+      document.getElementById('bloc-outer').style.borderColor = t.accent;
+      document.getElementById('bloc-season-tag').textContent = t.season;
+      document.getElementById('bloc-month-title').textContent = `Tháng ${t.m}, 2026`;
+      document.getElementById('bloc-subtitle').textContent = `${t.name} • Năm Bính Ngọ`;
+      document.getElementById('bloc-motif').textContent = t.motif;
+      document.getElementById('bloc-solar-day').style.color = t.accent;
+      document.getElementById('bloc-weekday').style.color = t.accent;
+      document.getElementById('bloc-lunar-month').textContent = `Tháng ${t.m} Âm`;
+      document.getElementById('bloc-quote').textContent = t.quote;
+      document.getElementById('grid-title').textContent = `📅 Lịch Tháng ${t.m}, 2026 — ${t.name}`;
+
+      if (activeFilter === 'all') {
+        document.getElementById('f-all').style.backgroundColor = t.accent;
+      }
+
+      renderMonthButtons();
+      pickDay(selectedDay);
+    }
+
+    function shiftDay(delta) {
+      const t = MONTHS[currentMonthIdx];
+      let next = selectedDay + delta;
+      if (next < 1) next = t.days;
+      if (next > t.days) next = 1;
+      pickDay(next);
+    }
+
+    function setFilter(f) {
+      activeFilter = f;
+      const t = MONTHS[currentMonthIdx];
+      ['all', 'hd', 'cuoi', 'khai'].forEach((id) => {
+        const btn = document.getElementById('f-' + id);
+        if (id === f) {
+          btn.className = 'px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm transition-all';
+          btn.style.backgroundColor = t.accent;
+        } else {
+          btn.className = 'px-2.5 sm:px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all';
+          btn.style.backgroundColor = '';
+        }
+      });
+      renderCalendarGrid();
+    }
+
+    function setLayoutMode(mode) {
+      const t = MONTHS[currentMonthIdx];
+      const secSplit = document.getElementById('section-split');
+      const secFlip = document.getElementById('section-flip');
+      const bSplit = document.getElementById('btn-mode-split');
+      const bFlip = document.getElementById('btn-mode-flip');
+      if (mode === 'split') {
+        secSplit.classList.remove('hidden');
+        secFlip.classList.add('hidden');
+        bSplit.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-sm transition-all';
+        bSplit.style.backgroundColor = t.accent;
+        bFlip.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/60 transition-all';
+        bFlip.style.backgroundColor = '';
+      } else {
+        secSplit.classList.add('hidden');
+        secFlip.classList.remove('hidden');
+        bFlip.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-sm transition-all';
+        bFlip.style.backgroundColor = t.accent;
+        bSplit.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/60 transition-all';
+        bSplit.style.backgroundColor = '';
+      }
+    }
+
+    function setViewport(vp) {
+      currentVp = vp;
+      const t = MONTHS[currentMonthIdx];
+      const page = document.getElementById('page-container');
+      const cLeft = document.getElementById('col-left-bloc');
+      const cRight = document.getElementById('col-right-cal');
+      const bLeft = document.getElementById('col-bot-left');
+      const bRight = document.getElementById('col-bot-right');
+      const btnD = document.getElementById('btn-vp-desktop');
+      const btnM = document.getElementById('btn-vp-mobile');
+
+      if (vp === 'mobile') {
+        page.style.maxWidth = '410px';
+        cLeft.className = 'col-span-12 h-full';
+        cRight.className = 'col-span-12 h-full';
+        bLeft.className = 'col-span-12 h-full bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col justify-between';
+        bRight.className = 'col-span-12 h-full grid grid-cols-1 gap-4 items-stretch';
+        btnM.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-sm transition-all';
+        btnM.style.backgroundColor = t.accent;
+        btnD.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/60 transition-all';
+        btnD.style.backgroundColor = '';
+      } else {
+        page.style.maxWidth = '80rem';
+        cLeft.className = 'lg:col-span-5 h-full';
+        cRight.className = 'lg:col-span-7 h-full';
+        bLeft.className = 'lg:col-span-5 h-full bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col justify-between';
+        bRight.className = 'lg:col-span-7 h-full grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch';
+        btnD.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-white shadow-sm transition-all';
+        btnD.style.backgroundColor = t.accent;
+        btnM.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-white/60 transition-all';
+        btnM.style.backgroundColor = '';
+      }
+      renderCalendarGrid();
+    }
+
+    renderMonthButtons();
+    pickDay(6);
+  </script>
+</body>
+</html>

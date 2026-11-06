@@ -63,39 +63,43 @@ export default function HolidaysPage() {
 
   return (
     <div
-      className="relative flex flex-col min-h-dvh lg:h-dvh w-full overflow-hidden font-[Manrope] antialiased"
+      className="relative flex flex-col min-h-dvh w-full overflow-x-hidden transition-colors duration-500"
       style={{ backgroundColor: theme.background }}
     >
       {/* Decorative blur circles */}
-      <div
-        className="glow-circle w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] top-[-20%] left-[10%]"
-        style={{ backgroundColor: `${theme.primaryAccent}15` }}
-      />
-      <div
-        className="glow-circle w-[300px] h-[300px] lg:w-[400px] lg:h-[400px] bottom-[-10%] right-[20%]"
-        style={{ backgroundColor: `${theme.accentGold}15` }}
-      />
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div
+          className="absolute -top-28 -left-28 w-[480px] h-[480px] rounded-full blur-[110px] opacity-40"
+          style={{ backgroundColor: theme.blurCircle1 }}
+        />
+        <div
+          className="absolute top-1/3 -right-28 w-[420px] h-[420px] rounded-full blur-[110px] opacity-35"
+          style={{ backgroundColor: theme.blurCircle2 }}
+        />
+      </div>
 
       {/* Top Header */}
-      <TopHeader theme={theme} />
+      <TopHeader theme={theme} monthNumber={today.getMonth() + 1} />
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col overflow-hidden relative z-10">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 py-3 relative z-10">
         {/* Page Header */}
-        <div className="px-4 lg:px-8 py-4 lg:py-6">
-          <div className="max-w-3xl mx-auto">
-              <div className="flex items-center gap-2 text-slate-500 text-sm mb-2">
+        <div className="w-full bg-white/85 backdrop-blur-xl rounded-3xl p-5 sm:p-6 border border-white/80 shadow-sm mb-6">
+          <div className="w-full">
+              <div className="flex items-center gap-2 text-slate-500 text-xs font-bold mb-1.5">
                 <span>Hôm nay</span>
                 <span className="w-1 h-1 rounded-full bg-slate-400" />
-                <span style={{ color: theme.primaryAccent }} className="font-medium">
+                <span style={{ color: theme.primaryAccent }} className="font-extrabold">
                   {format(today, "dd/MM/yyyy", { locale: vi })}
                 </span>
+                <span className="w-1 h-1 rounded-full bg-slate-400" />
+                <span>{theme.motif} {theme.name}</span>
               </div>
-              <h1 className="text-2xl lg:text-3xl font-black text-slate-800 tracking-tight">
-                Sự Kiện & Ngày Lễ
+              <h1 className="serif-display text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
+                Sự Kiện & Ngày Lễ Việt Nam (2026 – 2027)
               </h1>
-              <p className="text-slate-500 text-sm mt-1">
-                Theo dõi các ngày lễ truyền thống và sự kiện quan trọng trong năm.
+              <p className="text-slate-600 text-xs sm:text-sm mt-1">
+                Theo dõi các ngày lễ truyền thống, lịch nghỉ Tết Nguyên Đán, Quốc Khánh và Ngày Văn hóa Việt Nam (24/11).
               </p>
 
               {/* Category Filter with scroll arrows */}
@@ -109,8 +113,8 @@ export default function HolidaysPage() {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto px-4 lg:px-8 pb-8">
-          <div className="max-w-3xl mx-auto flex flex-col gap-6">
+        <div className="pb-4">
+          <div className="w-full flex flex-col gap-6">
               {/* Search bar */}
               <search className="relative">
                 <input
@@ -296,12 +300,12 @@ export default function HolidaysPage() {
                 </button>
               </div>
             )}
-
-            {/* Footer */}
-            <Footer />
           </div>
         </div>
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
