@@ -1,22 +1,24 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
-import { getMonthTheme, type MonthTheme } from "@/lib/theme";
+import { getMonthTheme } from "@/lib/theme";
 import { TopHeader, Footer } from "@/components/layout";
-import { CalendarHeader } from "@/components/calendar/CalendarHeader";
-import { InfoSections } from "@/components/home";
+import { InfoSections } from "@/components/home/InfoSections";
 import { HolidayRepository, getHolidayColor } from "@/lib/holidays";
-import { LunarCalculator, WEEKDAY_NAMES, GIO_DIA_CHI, CON_GIAP } from "@/lib/lunar";
+import { GIO_DIA_CHI, CON_GIAP } from "@/lib/lunar";
 import { parseDateString, formatDateString } from "@/lib/date-utils";
 import type { DayFengShuiData } from "@/lib/fengshui/types";
 import { UniversalDayCalculator } from "@/lib/fengshui/UniversalDayCalculator";
-import { fetchFengShuiByDate, fetchFengShuiByMonth, createFengShuiCache } from "@/lib/fengshui/client";
-import { MaterialIcon } from "@/components/common";
+import {
+  fetchFengShuiByDate,
+  fetchFengShuiByMonth,
+  createFengShuiCache,
+} from "@/lib/fengshui/client";
 
 import { CalendarGridClient } from "./CalendarGridClient";
-import { DayDetailPanelClient } from "./DayDetailPanelClient";
+import { WallCalendarBloc } from "./WallCalendarBloc";
 
 interface HomeClientProps {
   initialFengShuiData: DayFengShuiData | null;
@@ -38,6 +40,7 @@ export function HomeClient({
 
   const [currentDate, setCurrentDate] = useState<Date>(initialParsedDate);
   const [selectedDate, setSelectedDate] = useState<Date>(initialParsedDate);
+  const [isFullMonthView, setIsFullMonthView] = useState(false);
   const [, setCacheVersion] = useState(0);
 
   // Cache for feng shui data
@@ -50,11 +53,10 @@ export function HomeClient({
     return cache;
   }, [initialFengShuiData, initialMonthData]);
 
-  // Initialize directly with server-prefetched data so SSR renders full content (no skeleton flash)
+  // Initialize directly with server-prefetched data so SSR renders full content
   const [fengShuiData, setFengShuiData] = useState<DayFengShuiData | null>(
     initialFengShuiData
   );
-  const [isLoading, setIsLoading] = useState(false);
 
   // Sync with client local date if ISR snapshot is from a previous day
   useEffect(() => {
@@ -65,35 +67,43 @@ export function HomeClient({
     }
   }, [initialParsedDate]);
 
+  const activeMonthNumber = currentDate.getMonth() + 1;
+  const activeYearNumber = currentDate.getFullYear();
+
   const theme = useMemo(
-    () => getMonthTheme(currentDate.getMonth() + 1),
-    [currentDate]
+    () => getMonthTheme(activeMonthNumber),
+    [activeMonthNumber]
   );
 
-  // Get upcoming holidays (next 5)
+  // Get upcoming holidays (next 4)
   const upcomingHolidays = useMemo(() => {
-    return HolidayRepository.getUpcomingFromDate(selectedDate, 5);
+    return HolidayRepository.getUpcomingFromDate(selectedDate, 4);
   }, [selectedDate]);
 
-  // Fetch data for selected date (works for ALL years 1900-2100 via UniversalDayCalculator fallback)
+  // Get 6 Giờ Hoàng Đạo with zodiac icons
+  const hoangDaoHours = useMemo(() => {
+    const hdList = fengShuiData?.hd || [];
+    return GIO_DIA_CHI.filter((gio) => hdList.includes(gio.chi)).map((gio) => ({
+      ...gio,
+      emoji:
+        CON_GIAP[GIO_DIA_CHI.findIndex((g) => g.chi === gio.chi)]?.emoji || "🐉",
+    }));
+  }, [fengShuiData]);
+
+  // Fetch data for selected date (1900-2100 via UniversalDayCalculator fallback)
   const fetchDataForDate = useCallback(
     async (date: Date) => {
       const dateStr = format(date, "yyyy-MM-dd");
 
-      // Check cache first
       const cached = fengShuiCache.get(dateStr);
       if (cached) {
         setFengShuiData(cached);
-        setIsLoading(false);
         return;
       }
 
-      // Immediately compute via UniversalDayCalculator so any date (1900-2100) renders in 0ms
       const computed = UniversalDayCalculator.calculate(date);
       setFengShuiData(computed);
-      setIsLoading(false);
 
-      // Enrich from server API if available
       try {
         const data = await fetchFengShuiByDate(date);
         if (data) {
@@ -129,25 +139,74 @@ export function HomeClient({
     [fengShuiCache]
   );
 
-  // Effect to fetch data when selected date changes
   useEffect(() => {
     fetchDataForDate(selectedDate);
   }, [selectedDate, fetchDataForDate]);
 
-  // Effect to fetch month data when current month changes
   useEffect(() => {
     fetchMonthData(currentDate);
   }, [currentDate, fetchMonthData]);
 
+  const handleSelectMonth = (monthNum: number) => {
+    const targetYear = currentDate.getFullYear();
+    const maxDayInTargetMonth = new Date(targetYear, monthNum, 0).getDate();
+    const targetDay = Math.min(selectedDate.getDate(), maxDayInTargetMonth);
+    const nextDate = new Date(targetYear, monthNum - 1, targetDay, 12, 0, 0);
+    setCurrentDate(new Date(targetYear, monthNum - 1, 1, 12, 0, 0));
+    setSelectedDate(nextDate);
+  };
+
+  const handleSelectYear = (yearNum: number) => {
+    const monthIndex = currentDate.getMonth();
+    const maxDay = new Date(yearNum, monthIndex + 1, 0).getDate();
+    const targetDay = Math.min(selectedDate.getDate(), maxDay);
+    setCurrentDate(new Date(yearNum, monthIndex, 1, 12, 0, 0));
+    setSelectedDate(new Date(yearNum, monthIndex, targetDay, 12, 0, 0));
+  };
+
   const handlePrevMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1, 12, 0, 0)
+    const prev = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 1,
+      1,
+      12,
+      0,
+      0
+    );
+    setCurrentDate(prev);
+    const maxDay = new Date(prev.getFullYear(), prev.getMonth() + 1, 0).getDate();
+    setSelectedDate(
+      new Date(
+        prev.getFullYear(),
+        prev.getMonth(),
+        Math.min(selectedDate.getDate(), maxDay),
+        12,
+        0,
+        0
+      )
     );
   };
 
   const handleNextMonth = () => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1, 12, 0, 0)
+    const next = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      1,
+      12,
+      0,
+      0
+    );
+    setCurrentDate(next);
+    const maxDay = new Date(next.getFullYear(), next.getMonth() + 1, 0).getDate();
+    setSelectedDate(
+      new Date(
+        next.getFullYear(),
+        next.getMonth(),
+        Math.min(selectedDate.getDate(), maxDay),
+        12,
+        0,
+        0
+      )
     );
   };
 
@@ -167,561 +226,350 @@ export function HomeClient({
     }
   };
 
-  // Helper to get cached data for a date (falls back to UniversalDayCalculator for any year 1900-2100)
   const getCachedData = useCallback(
-    (date: Date) => fengShuiCache.get(date) || UniversalDayCalculator.calculate(date),
+    (date: Date) =>
+      fengShuiCache.get(date) || UniversalDayCalculator.calculate(date),
     [fengShuiCache]
   );
 
   return (
     <div
-      className="relative flex flex-col min-h-dvh lg:h-dvh w-full overflow-hidden font-[Manrope] antialiased"
+      className="relative flex flex-col min-h-dvh w-full overflow-x-hidden transition-colors duration-500"
       style={{ backgroundColor: theme.background }}
     >
-      {/* Decorative blur circles */}
-      <div
-        className="glow-circle w-[400px] h-[400px] lg:w-[600px] lg:h-[600px] top-[-100px] lg:top-[-150px] left-[-50px] lg:left-[-100px]"
-        style={{ backgroundColor: theme.blurCircle1 }}
-      />
-      <div
-        className="glow-circle w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] bottom-[-50px] lg:bottom-[-100px] right-[-50px] lg:right-[-100px]"
-        style={{ backgroundColor: theme.blurCircle2 }}
-      />
-      <div
-        className="glow-circle w-[200px] h-[200px] lg:w-[400px] lg:h-[400px] top-[30%] left-[40%] opacity-20"
-        style={{ backgroundColor: theme.blurCircle1 }}
-      />
+      {/* Dynamic Seasonal Ambient Glow Orbs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div
+          className="absolute -top-28 -left-28 w-[480px] h-[480px] rounded-full blur-[110px] opacity-40 transition-all duration-700"
+          style={{ backgroundColor: theme.blurCircle1 }}
+        />
+        <div
+          className="absolute top-1/3 -right-28 w-[420px] h-[420px] rounded-full blur-[110px] opacity-35 transition-all duration-700"
+          style={{ backgroundColor: theme.blurCircle2 }}
+        />
+      </div>
 
-      {/* Top Header with Navigation */}
-      <TopHeader theme={theme} />
+      {/* Global V2 Top Header */}
+      <TopHeader theme={theme} monthNumber={activeMonthNumber} />
 
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col overflow-hidden relative z-10">
-        {/* Content Area */}
-        <div className="flex-1 px-4 lg:px-8 flex flex-col overflow-y-auto pb-6">
-          <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-8">
-            {/* Calendar Section */}
-            <div className="lg:flex-[1.6] lg:max-w-[700px]">
-              {/* Month Navigation - centered above calendar */}
-              <div className="py-4 flex justify-center">
-                <CalendarHeader
-                  currentDate={currentDate}
-                  theme={theme}
-                  onPrevMonth={handlePrevMonth}
-                  onNextMonth={handleNextMonth}
-                  onToday={handleToday}
-                  onSelectDate={handleSelectDate}
-                  isMainHeading
-                />
-              </div>
+      {/* Main Content Container */}
+      <main className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-6 py-2 space-y-5">
+        {/* ========================================================
+            MAIN SPLIT-VIEW ROW:
+            Left (5 cols) 3D Wall Calendar Bloc + Right (7 cols) Month Grid
+            Equal Height (items-stretch)
+            ======================================================== */}
+        {!isFullMonthView ? (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+            {/* LEFT (5 COLS): 3D WALL CALENDAR BLOC */}
+            <div className="lg:col-span-5 h-full">
+              <WallCalendarBloc
+                selectedDate={selectedDate}
+                theme={theme}
+                fengShuiData={fengShuiData}
+                quote={initialQuote}
+                onSelectDate={handleSelectDate}
+                showDetailLink
+                isMainHeading
+              />
+            </div>
 
-              {/* Calendar Grid */}
+            {/* RIGHT (7 COLS): TALL MONTHLY CALENDAR BOARD */}
+            <div className="lg:col-span-7 h-full">
               <CalendarGridClient
                 currentDate={currentDate}
                 selectedDate={selectedDate}
                 theme={theme}
                 onSelectDate={handleSelectDate}
                 getCachedData={getCachedData}
+                onPrevMonth={handlePrevMonth}
+                onNextMonth={handleNextMonth}
+                onToday={handleToday}
+                onSelectMonth={handleSelectMonth}
+                onSelectYear={handleSelectYear}
+                isFullView={false}
+                onToggleFullView={() => setIsFullMonthView(true)}
               />
-
-              {/* Mobile only: Today Button + Day Detail + Upcoming Holidays + Quote + Info */}
-              <div className="lg:hidden">
-                {/* Today Button (Mobile) */}
-                <div className="flex items-center justify-center py-4">
-                  <button
-                    type="button"
-                    onClick={handleToday}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full border transition-all active:scale-95 hover:shadow-md"
-                    style={{
-                      backgroundColor: `${theme.primaryAccent}10`,
-                      borderColor: `${theme.primaryAccent}30`,
-                      color: theme.primaryAccent,
-                    }}
-                  >
-                    <MaterialIcon name="today" className="text-[18px]" />
-                    <span className="text-xs font-bold">Hôm nay</span>
-                  </button>
-                </div>
-
-                {/* Day Detail Panel - Mobile */}
-                <div className="mt-2">
-                  <MobileDayDetail
-                    selectedDate={selectedDate}
-                    theme={theme}
-                    fengShuiData={fengShuiData}
-                    isLoading={isLoading}
-                  />
-                </div>
-
-                {/* Upcoming Holidays Section - Mobile */}
-                {upcomingHolidays.length > 0 && (
-                  <div className="mt-2 glass-panel-light rounded-xl p-4 shadow-sm">
-                    <h3 className="text-[10px] font-black text-slate-500 mb-4 uppercase tracking-widest">
-                      Sắp tới
-                    </h3>
-                    <div className="flex flex-col gap-3">
-                      {upcomingHolidays.map((holiday) => {
-                        const holidayColor = getHolidayColor(
-                          holiday.category,
-                          holiday.type,
-                          holiday.isImportant
-                        );
-                        return (
-                          <Link
-                            key={holiday.id}
-                            href={`/day/${format(holiday.startDate, "yyyy-MM-dd")}`}
-                            prefetch={false}
-                            className="flex items-center gap-3 hover:bg-white/50 rounded-lg p-2 -mx-2 transition-colors"
-                          >
-                            <div
-                              className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 font-bold text-sm"
-                              style={{
-                                backgroundColor: `${holidayColor}20`,
-                                color: holidayColor,
-                              }}
-                            >
-                              {format(holiday.startDate, "d/M")}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p
-                                className="text-sm font-bold truncate"
-                                style={{ color: "#1e293b" }}
-                              >
-                                {holiday.name}
-                              </p>
-                              <p className="text-xs" style={{ color: "#64748b" }}>
-                                {holiday.daysUntil} ngày nữa
-                                {holiday.vacationBadge ? ` • ${holiday.vacationBadge}` : ""}
-                              </p>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
-                {/* Daily Quote - Mobile */}
-                <div className="mt-4 px-2">
-                  <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/40 backdrop-blur-sm border border-white/50">
-                    <MaterialIcon
-                      name="format_quote"
-                      className="text-lg"
-                      style={{ color: theme.accentGold }}
-                    />
-                    <p className="text-sm text-slate-600 italic leading-relaxed text-center">
-                      &ldquo;{initialQuote}&rdquo;
-                    </p>
-                  </div>
-                </div>
-
-                {/* Info Sections - Mobile */}
-                <InfoSections theme={theme} />
-              </div>
-
-              {/* Desktop only: Quote + Info below calendar */}
-              <div className="hidden lg:block">
-                {/* Daily Quote - Desktop */}
-                <div className="mt-4 px-2">
-                  <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/40 backdrop-blur-sm border border-white/50">
-                    <MaterialIcon
-                      name="format_quote"
-                      className="text-lg"
-                      style={{ color: theme.accentGold }}
-                    />
-                    <p className="text-sm text-slate-600 italic leading-relaxed text-center">
-                      &ldquo;{initialQuote}&rdquo;
-                    </p>
-                  </div>
-                </div>
-
-                {/* Info Sections - Desktop */}
-                <InfoSections theme={theme} />
-              </div>
             </div>
-
-            {/* Day Detail Panel - Desktop only */}
-            <div className="hidden lg:flex lg:flex-col lg:flex-1 lg:min-w-[340px] lg:max-w-[400px]">
-              {/* Today Button - centered above detail panel */}
-              <div className="flex items-center justify-center py-4">
+          </div>
+        ) : (
+          /* EXPANDED 12-COL FULL MONTH FLIP-BOARD VIEW */
+          <div className="space-y-4">
+            <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-3.5 border border-white/80 shadow-sm flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-11 h-11 rounded-2xl flex items-center justify-center text-white font-black text-lg shadow-sm"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.primaryAccent}, ${
+                      theme.darkAccent || theme.primaryHover
+                    })`,
+                  }}
+                >
+                  {String(selectedDate.getDate()).padStart(2, "0")}
+                </div>
+                <div>
+                  <div className="text-xs font-extrabold text-slate-800">
+                    Đang chọn: Ngày {format(selectedDate, "dd/MM/yyyy")} • Ngày{" "}
+                    {fengShuiData?.dgz || "—"} (Trực {fengShuiData?.t12 || "—"})
+                  </div>
+                  <div className="text-[11px] text-slate-500">
+                    💧 {fengShuiData?.nh || "—"} •{" "}
+                    {fengShuiData?.t12g === 1 ? "★ Ngày Hoàng Đạo" : "Ngày Hắc Đạo"}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/day/${format(selectedDate, "yyyy-MM-dd")}`}
+                  className="px-3 py-1.5 rounded-xl text-xs font-bold text-white shadow-xs"
+                  style={{ backgroundColor: theme.primaryAccent }}
+                >
+                  Xem chi tiết ngày →
+                </Link>
                 <button
                   type="button"
-                  onClick={handleToday}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-full border transition-all active:scale-95 hover:shadow-md"
-                  style={{
-                    backgroundColor: `${theme.primaryAccent}10`,
-                    borderColor: `${theme.primaryAccent}30`,
-                    color: theme.primaryAccent,
-                  }}
+                  onClick={() => setIsFullMonthView(false)}
+                  className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
                 >
-                  <MaterialIcon name="today" className="text-[18px]" />
-                  <span className="text-xs font-bold">Hôm nay</span>
+                  ◫ Thu về chế độ 2 cột (Bloc + Lịch tháng)
                 </button>
               </div>
-
-              {/* Detail Panel */}
-              <DayDetailPanelClient
-                selectedDate={selectedDate}
-                theme={theme}
-                fengShuiData={fengShuiData}
-                isLoading={isLoading}
-              />
             </div>
+
+            <CalendarGridClient
+              currentDate={currentDate}
+              selectedDate={selectedDate}
+              theme={theme}
+              onSelectDate={handleSelectDate}
+              getCachedData={getCachedData}
+              onPrevMonth={handlePrevMonth}
+              onNextMonth={handleNextMonth}
+              onToday={handleToday}
+              onSelectMonth={handleSelectMonth}
+              onSelectYear={handleSelectYear}
+              isFullView
+              onToggleFullView={() => setIsFullMonthView(false)}
+            />
           </div>
+        )}
 
-          {/* Footer - at bottom, centered full width */}
-          <div className="mt-auto pt-6">
-            <Footer />
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-}
-
-// Mobile Day Detail Component
-interface MobileDayDetailProps {
-  selectedDate: Date;
-  theme: MonthTheme;
-  fengShuiData: DayFengShuiData | null;
-  isLoading: boolean;
-}
-
-function MobileDayDetail({
-  selectedDate,
-  theme,
-  fengShuiData,
-  isLoading,
-}: MobileDayDetailProps) {
-  const lunarDate = useMemo(
-    () => LunarCalculator.toLunar(selectedDate),
-    [selectedDate]
-  );
-  const yearInfo = useMemo(
-    () => LunarCalculator.getYearInfo(lunarDate.year),
-    [lunarDate.year]
-  );
-
-  const weekday = WEEKDAY_NAMES[selectedDate.getDay()];
-  const isHoangDao = fengShuiData?.t12g === 1;
-  const selectedDateHolidays = useMemo(
-    () => HolidayRepository.getByDate(selectedDate),
-    [selectedDate]
-  );
-
-  // Get hoàng đạo hours with zodiac info
-  const hoangDaoHours = useMemo(() => {
-    if (!fengShuiData?.hd) return [];
-    return GIO_DIA_CHI.filter((gio) => fengShuiData.hd.includes(gio.chi)).map(
-      (gio) => ({
-        ...gio,
-        emoji:
-          CON_GIAP[GIO_DIA_CHI.findIndex((g) => g.chi === gio.chi)]?.emoji ||
-          "🐉",
-      })
-    );
-  }, [fengShuiData]);
-
-  if (isLoading) {
-    return (
-      <div className="flex flex-col gap-4">
-        <div className="glass-panel-light rounded-2xl p-5 animate-pulse">
-          <div className="h-6 bg-slate-200 rounded w-1/3 mb-4"></div>
-          <div className="h-10 bg-slate-200 rounded w-1/4 mb-4"></div>
-          <div className="h-4 bg-slate-200 rounded w-2/3"></div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex flex-col gap-4">
-      {/* Date Info Card - Clickable to detail page */}
-      <Link href={`/day/${format(selectedDate, "yyyy-MM-dd")}`} prefetch={false}>
-        <div
-          className="glass-panel-light rounded-2xl p-5 relative overflow-hidden group shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
-          style={{ borderColor: `${theme.primaryAccent}15` }}
-        >
-          <div
-            className="absolute -right-10 -top-10 w-32 h-32 rounded-full blur-2xl"
-            style={{ backgroundColor: `${theme.primaryAccent}15` }}
-          />
-
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              {/* Status badge */}
-              <div className="flex items-center gap-2 mb-2">
-                <span
-                  className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded"
-                  style={{
-                    backgroundColor: isHoangDao
-                      ? `${theme.accentGold}20`
-                      : "rgba(100,100,100,0.15)",
-                    color: isHoangDao ? theme.accentGold : "#475569",
-                  }}
-                >
-                  ★ {isHoangDao ? "HOÀNG ĐẠO" : "HẮC ĐẠO"}
-                </span>
-              </div>
-              <p
-                className="text-lg font-bold mb-1"
-                style={{ color: theme.primaryAccent }}
-              >
-                {weekday}
-              </p>
-              <h2 className="text-4xl font-black text-slate-800 tracking-tight">
-                {selectedDate.getDate()}
-              </h2>
-            </div>
-            <div className="text-right">
-              <div className="text-xs text-slate-500 mb-1 font-semibold uppercase tracking-wider">
-                Âm lịch
-              </div>
-              <div
-                className="text-2xl font-black"
-                style={{ color: theme.accentGold }}
-              >
-                {lunarDate.day}
-              </div>
-              <div className="text-[10px] text-slate-500 font-semibold tracking-wide mt-1 uppercase">
-                Tháng {lunarDate.month}
-              </div>
-            </div>
-          </div>
-
-          {/* Can Chi Info */}
-          <div
-            className="space-y-3 border-t pt-4"
-            style={{ borderColor: `${theme.primaryAccent}20` }}
-          >
-            <div className="flex items-center gap-2">
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: theme.accentGold }}
-              />
-              <p className="text-sm text-slate-600">
-                Ngày{" "}
-                <span className="font-black text-slate-800">
-                  {fengShuiData?.dgz || "—"}
-                </span>
-              </p>
-            </div>
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <span
-                  className="w-2 h-2 rounded-full"
-                  style={{ backgroundColor: `${theme.primaryAccent}60` }}
-                />
-                <p className="text-sm text-slate-500">
-                  Tháng{" "}
-                  <span className="font-bold text-slate-700">
-                    {fengShuiData?.mgz || "—"}
-                  </span>{" "}
-                  • Năm{" "}
-                  <span className="font-bold text-slate-700">
-                    {yearInfo.canChi.full}
-                  </span>
-                </p>
-              </div>
-              <span
-                className="text-xs font-semibold"
-                style={{ color: theme.primaryAccent }}
-              >
-                Chi tiết →
+        {/* ========================================================
+            BOTTOM ROW:
+            Left (5 cols) 6 Giờ Hoàng Đạo + Right (7 cols) Ngọc Hạp & Sự Kiện
+            ======================================================== */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+          {/* LEFT (5 COLS): 6 GIỜ HOÀNG ĐẠO TRONG NGÀY */}
+          <div className="lg:col-span-5 bg-white/90 backdrop-blur-xl rounded-[2rem] p-5 sm:p-6 border border-white/80 shadow-xl flex flex-col justify-between">
+            <div className="flex items-center justify-between pb-2.5 border-b border-slate-100">
+              <span className="text-xs font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                🕒 6 Giờ Hoàng Đạo Trong Ngày
+              </span>
+              <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/60">
+                Tốt cho xuất hành & cầu tài
               </span>
             </div>
 
-            {selectedDateHolidays.length > 0 && (
-              <div className="pt-2 space-y-1.5">
-                {selectedDateHolidays.map((h) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 my-3">
+              {hoangDaoHours.length > 0 ? (
+                hoangDaoHours.map((h) => (
                   <div
-                    key={h.id}
-                    className="flex flex-col gap-0.5 px-3 py-2 rounded-xl bg-red-50/90 border border-red-100"
+                    key={h.chi}
+                    className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/70 flex items-center gap-2.5 hover:bg-amber-50 transition-colors"
                   >
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs font-bold text-red-700">
-                        🎉 {h.name}
-                      </span>
-                      {h.vacationBadge && (
-                        <span className="text-[10px] font-bold text-emerald-700 bg-white px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
-                          {h.vacationBadge}
-                        </span>
-                      )}
+                    <span className="text-xl select-none" aria-hidden="true">
+                      {h.emoji}
+                    </span>
+                    <div>
+                      <div className="text-xs font-extrabold text-slate-800">
+                        Giờ {h.chi}
+                      </div>
+                      <div className="text-[10px] font-bold text-amber-800">
+                        {h.timeRange}
+                      </div>
                     </div>
-                    {h.description && (
-                      <p className="text-[11px] text-slate-600 leading-snug">
-                        {h.description}
-                      </p>
-                    )}
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </Link>
-
-      {/* Hoàng Đạo Hours */}
-      {hoangDaoHours.length > 0 && (
-        <MobileHoangDaoHours hoangDaoHours={hoangDaoHours} theme={theme} />
-      )}
-
-      {/* Good/Bad Activities */}
-      {fengShuiData && (
-        <div className="grid grid-cols-1 gap-3">
-          {/* Good activities */}
-          <div className="bg-white/80 rounded-xl p-4 border border-emerald-100 shadow-sm">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="p-1 rounded-lg bg-emerald-100 text-emerald-600">
-                <MaterialIcon name="check_circle" className="text-sm font-bold" />
-              </div>
-              <h4 className="text-emerald-700 font-bold text-xs">Nên làm</h4>
+                ))
+              ) : (
+                <div className="col-span-full text-xs text-slate-500 py-4 text-center">
+                  Đang tải thông tin giờ Hoàng Đạo...
+                </div>
+              )}
             </div>
-            <div className="flex flex-col gap-1.5">
-              {fengShuiData.ga?.map((activity, index) => (
-                <p
-                  key={index}
-                  className="text-emerald-700 text-xs leading-relaxed"
-                >
-                  {activity}
-                </p>
-              ))}
+
+            <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+              <span>Chọn giờ tốt hợp tuổi để khởi sự hanh thông</span>
+              <Link
+                href={`/day/${format(selectedDate, "yyyy-MM-dd")}`}
+                prefetch={false}
+                className="font-bold hover:underline"
+                style={{ color: theme.primaryAccent }}
+              >
+                Xem cả 12 canh giờ →
+              </Link>
             </div>
           </div>
 
-          {/* Bad activities */}
-          <div className="bg-white/80 rounded-xl p-4 border border-rose-100 shadow-sm">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="p-1 rounded-lg bg-rose-100 text-rose-600">
-                <MaterialIcon name="cancel" className="text-sm font-bold" />
-              </div>
-              <h4 className="text-rose-700 font-bold text-xs">Kiêng kỵ</h4>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              {fengShuiData.ba?.map((activity, index) => (
-                <p
-                  key={index}
-                  className="text-rose-700 text-xs leading-relaxed"
-                >
-                  {activity}
-                </p>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// Mobile Hoàng Đạo Hours with scroll
-interface MobileHoangDaoHoursProps {
-  hoangDaoHours: Array<{
-    chi: string;
-    timeRange: string;
-    emoji: string;
-  }>;
-  theme: MonthTheme;
-}
-
-function MobileHoangDaoHours({
-  hoangDaoHours,
-  theme,
-}: MobileHoangDaoHoursProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-
-  const checkScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
-    }
-  };
-
-  useEffect(() => {
-    checkScroll();
-    const scrollEl = scrollRef.current;
-    if (scrollEl) {
-      scrollEl.addEventListener("scroll", checkScroll);
-      window.addEventListener("resize", checkScroll);
-      return () => {
-        scrollEl.removeEventListener("scroll", checkScroll);
-        window.removeEventListener("resize", checkScroll);
-      };
-    }
-  }, [hoangDaoHours]);
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const scrollAmount = 140;
-      scrollRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-2 px-1">
-        <MaterialIcon
-          name="schedule"
-          className="text-lg font-bold"
-          style={{ color: theme.accentGold }}
-        />
-        <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest">
-          Giờ Hoàng Đạo
-        </h3>
-      </div>
-
-      <div className="relative">
-        {canScrollLeft && (
-          <button
-            type="button"
-            onClick={() => scroll("left")}
-            aria-label="Cuộn giờ hoàng đạo sang trái"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/90 shadow-md flex items-center justify-center"
-            style={{ color: theme.primaryAccent }}
-          >
-            <MaterialIcon name="chevron_left" className="text-[18px]" />
-          </button>
-        )}
-
-        {canScrollRight && (
-          <button
-            type="button"
-            onClick={() => scroll("right")}
-            aria-label="Cuộn giờ hoàng đạo sang phải"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/90 shadow-md flex items-center justify-center"
-            style={{ color: theme.primaryAccent }}
-          >
-            <MaterialIcon name="chevron_right" className="text-[18px]" />
-          </button>
-        )}
-
-        <div
-          ref={scrollRef}
-          className="flex gap-2 overflow-x-auto pb-2 px-1"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        >
-          {hoangDaoHours.map((hour) => (
-            <div
-              key={hour.chi}
-              className="flex-shrink-0 flex items-center gap-3 bg-slate-700/90 rounded-xl p-2 pr-4 shadow-sm min-w-[120px]"
-            >
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/20">
-                <span className="text-lg">{hour.emoji}</span>
-              </div>
+          {/* RIGHT (7 COLS): VIỆC NÊN LÀM & SỰ KIỆN SẮP TỚI */}
+          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+            {/* Card 1: Việc Nên Làm & Kiêng Kỵ (Ngọc Hạp Thông Thư) */}
+            <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-5 border border-white/80 shadow-lg flex flex-col justify-between">
               <div>
-                <div className="text-xs font-bold text-white">{hour.chi}</div>
-                <div className="text-[10px] text-white/70">{hour.timeRange}</div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
+                    📜 Ngọc Hạp Thông Thư
+                  </span>
+                  <span className="text-[11px] font-bold text-slate-400">
+                    Trực {fengShuiData?.t12 || "—"} • Sao {fengShuiData?.s28 || "—"}
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <div className="text-[11px] font-extrabold text-emerald-700 uppercase mb-1.5 flex items-center gap-1">
+                      <span>✓ Việc nên làm (Cát)</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {(fengShuiData?.ga && fengShuiData.ga.length > 0
+                        ? fengShuiData.ga.slice(0, 6)
+                        : ["Cầu phúc, tế tự", "Xuất hành", "Giao dịch"]
+                      ).map((act, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200/60"
+                        >
+                          {act}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100">
+                    <div className="text-[11px] font-extrabold text-rose-700 uppercase mb-1.5 flex items-center gap-1">
+                      <span>✕ Việc kiêng kỵ (Hung)</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {(fengShuiData?.ba && fengShuiData.ba.length > 0
+                        ? fengShuiData.ba.slice(0, 4)
+                        : ["Kiện tụng, tranh chấp"]
+                      ).map((act, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-800 text-xs font-semibold border border-rose-200/60"
+                        >
+                          {act}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                <span className="text-slate-400 font-medium truncate max-w-[60%]">
+                  Sao xấu:{" "}
+                  {fengShuiData?.bs && fengShuiData.bs.length > 0
+                    ? fengShuiData.bs.slice(0, 2).join(", ")
+                    : "Ít hung tinh"}
+                </span>
+                <Link
+                  href="/xem-ngay-tot"
+                  className="font-bold hover:underline shrink-0"
+                  style={{ color: theme.primaryAccent }}
+                >
+                  Xem ngày tốt →
+                </Link>
               </div>
             </div>
-          ))}
+
+            {/* Card 2: Lịch Nghỉ Lễ & Sự Kiện Sắp Tới */}
+            <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-5 border border-white/80 shadow-lg flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
+                    🎉 Sự Kiện & Ngày Lễ Sắp Tới
+                  </span>
+                  <Link
+                    href="/holidays"
+                    className="text-xs font-bold hover:underline"
+                    style={{ color: theme.primaryAccent }}
+                  >
+                    Tất cả →
+                  </Link>
+                </div>
+
+                <div className="space-y-2">
+                  {upcomingHolidays.map((holiday) => {
+                    const holidayColor = getHolidayColor(
+                      holiday.category,
+                      holiday.type,
+                      holiday.isImportant
+                    );
+                    return (
+                      <Link
+                        key={holiday.id}
+                        href={`/day/${format(holiday.startDate, "yyyy-MM-dd")}`}
+                        prefetch={false}
+                        className="p-2.5 rounded-2xl bg-slate-50/90 hover:bg-white border border-slate-200/60 flex items-center justify-between gap-2 transition-colors"
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span
+                            className="w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-xs shrink-0"
+                            style={{
+                              backgroundColor: `${holidayColor}18`,
+                              color: holidayColor,
+                            }}
+                          >
+                            {format(holiday.startDate, "d/M")}
+                          </span>
+                          <div className="min-w-0">
+                            <div className="text-xs font-extrabold text-slate-800 truncate">
+                              {holiday.name}
+                            </div>
+                            <div className="text-[11px] text-slate-500 truncate">
+                              {holiday.vacationBadge ||
+                                (holiday.type === "lunar"
+                                  ? "Lễ truyền thống Âm lịch"
+                                  : "Sự kiện Dương lịch")}
+                            </div>
+                          </div>
+                        </div>
+                        <span
+                          className="px-2 py-1 rounded-lg text-[10px] font-extrabold shrink-0"
+                          style={{
+                            backgroundColor: `${theme.primaryAccent}15`,
+                            color: theme.primaryAccent,
+                          }}
+                        >
+                          {holiday.daysUntil === 0
+                            ? "Hôm nay"
+                            : `${holiday.daysUntil} ngày`}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                <span>Cập nhật chuẩn lịch nghỉ Lễ, Tết 2026–2027</span>
+                <Link
+                  href="/doi-ngay-am-duong"
+                  className="font-bold hover:underline shrink-0"
+                  style={{ color: theme.primaryAccent }}
+                >
+                  Đổi ngày →
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+
+        {/* SEO & Cultural Knowledge Sections */}
+        <InfoSections theme={theme} />
+      </main>
+
+      {/* Global V2 Footer */}
+      <Footer />
     </div>
   );
 }

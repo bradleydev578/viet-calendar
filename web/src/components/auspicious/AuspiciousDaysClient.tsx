@@ -184,41 +184,50 @@ export function AuspiciousDaysClient({ initialDateStr }: AuspiciousDaysClientPro
 
   return (
     <div
-      className="relative flex flex-col min-h-dvh w-full font-[Manrope] antialiased"
+      className="relative flex flex-col min-h-dvh w-full overflow-x-hidden transition-colors duration-500"
       style={{ backgroundColor: theme.background }}
     >
-      <div
-        className="glow-circle w-[450px] h-[450px] top-[-120px] left-[-80px]"
-        style={{ backgroundColor: theme.blurCircle1 }}
-      />
-      <div
-        className="glow-circle w-[400px] h-[400px] bottom-[-80px] right-[-80px]"
-        style={{ backgroundColor: theme.blurCircle2 }}
-      />
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div
+          className="absolute -top-28 -left-28 w-[480px] h-[480px] rounded-full blur-[110px] opacity-40"
+          style={{ backgroundColor: theme.blurCircle1 }}
+        />
+        <div
+          className="absolute top-1/3 -right-28 w-[420px] h-[420px] rounded-full blur-[110px] opacity-35"
+          style={{ backgroundColor: theme.blurCircle2 }}
+        />
+      </div>
 
-      <TopHeader theme={theme} />
+      <TopHeader theme={theme} monthNumber={month} />
 
-      <main className="flex-1 px-4 lg:px-8 py-4 lg:py-6 relative z-10">
-        <div className="w-full max-w-5xl mx-auto space-y-6">
-          {/* Header */}
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <div
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/80 shadow-sm border border-slate-200/70"
-              style={{ color: theme.primaryAccent }}
-            >
-              <MaterialIcon name="event_available" className="text-[16px]" />
-              <span>TRA CỨU NGÀY LÀNH THÁNG TỐT (1900 – 2100)</span>
+      <main className="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 py-2 relative z-10">
+        <div className="w-full space-y-5">
+          {/* Unified Header + Filter Panel */}
+          <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-5 sm:p-6 border-2 border-white shadow-xl space-y-5">
+            <div className="flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-slate-100">
+              <div>
+                <div
+                  className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider mb-1"
+                  style={{
+                    backgroundColor: `${theme.primaryAccent}15`,
+                    color: theme.primaryAccent,
+                  }}
+                >
+                  <MaterialIcon name="event_available" className="text-[14px]" />
+                  <span>Tra cứu ngày lành tháng tốt (1900 – 2100)</span>
+                </div>
+                <h1 className="serif-display text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
+                  Xem Ngày Tốt Theo Công Việc & Tuổi
+                </h1>
+                <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+                  Chọn tháng năm, mục đích công việc và tuổi của bạn để lọc ngày Hoàng Đạo cát tường chuẩn Ngọc Hạp Thông Thư.
+                </p>
+              </div>
+              <span className="text-3xl select-none shrink-0 hidden sm:inline" aria-hidden="true">
+                {theme.motif || "🌸"}
+              </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-800 tracking-tight">
-              Xem Ngày Tốt Theo Công Việc & Tuổi
-            </h1>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Chọn tháng năm, mục đích công việc và tuổi của bạn để lọc ra những ngày Hoàng Đạo cát tường nhất, tránh ngày xung khắc.
-            </p>
-          </div>
 
-          {/* Filter Panel */}
-          <div className="glass-panel-light rounded-3xl p-5 sm:p-6 shadow-xl space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Month & Year */}
               <div>
@@ -467,11 +476,9 @@ export function AuspiciousDaysClient({ initialDateStr }: AuspiciousDaysClientPro
             </div>
           )}
         </div>
-
-        <div className="mt-8">
-          <Footer />
-        </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

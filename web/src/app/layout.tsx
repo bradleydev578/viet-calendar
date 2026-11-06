@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Manrope, Be_Vietnam_Pro, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { WebsiteJsonLd, OrganizationJsonLd } from "@/components/seo";
 import { AnalyticsProvider } from "@/components/providers";
@@ -8,7 +8,24 @@ const manrope = Manrope({
   subsets: ["latin", "vietnamese"],
   variable: "--font-manrope",
   weight: ["300", "400", "500", "600", "700", "800"],
-  display: "swap", // Optimize font loading - show fallback until custom font loads
+  display: "swap",
+  preload: true,
+});
+
+const beVietnamPro = Be_Vietnam_Pro({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-be-vietnam",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  preload: true,
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-playfair",
+  weight: ["600", "700", "800", "900"],
+  style: ["normal", "italic"],
+  display: "swap",
   preload: true,
 });
 
@@ -153,7 +170,7 @@ export default function RootLayout({
         <WebsiteJsonLd />
         <OrganizationJsonLd />
       </head>
-      <body className={`${manrope.variable} font-[Manrope] antialiased`}>
+      <body className={`${manrope.variable} ${beVietnamPro.variable} ${playfairDisplay.variable} font-[var(--font-be-vietnam),sans-serif] antialiased`}>
         <AnalyticsProvider>{children}</AnalyticsProvider>
       </body>
     </html>
