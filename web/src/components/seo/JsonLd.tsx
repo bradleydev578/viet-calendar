@@ -4,19 +4,13 @@ export function WebsiteJsonLd() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': 'https://lichviet.online/#website',
     name: 'Lịch Việt - Vạn Sự An Lành',
     alternateName: 'Lich Viet',
     url: 'https://lichviet.online',
-    description: 'Ứng dụng lịch Việt Nam với âm lịch, phong thủy, giờ hoàng đạo, và thông tin ngày tốt xấu.',
+    description:
+      'Ứng dụng lịch Việt Nam với âm lịch, phong thủy, giờ hoàng đạo, và thông tin ngày tốt xấu.',
     inLanguage: 'vi-VN',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://lichviet.online/day/{search_term_string}',
-      },
-      'query-input': 'required name=search_term_string',
-    },
   };
 
   return (
@@ -31,6 +25,7 @@ export function OrganizationJsonLd() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': 'https://lichviet.online/#organization',
     name: 'Lịch Việt - Vạn Sự An Lành',
     url: 'https://lichviet.online',
     logo: 'https://lichviet.online/icon-512.png',
@@ -40,9 +35,7 @@ export function OrganizationJsonLd() {
       contactType: 'customer service',
       availableLanguage: ['Vietnamese', 'English'],
     },
-    sameAs: [
-      'https://apps.apple.com/app/lich-viet',
-    ],
+    sameAs: ['https://apps.apple.com/app/lich-viet'],
   };
 
   return (
@@ -58,19 +51,17 @@ export function SoftwareApplicationJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Lịch Việt - Vạn Sự An Lành',
-    operatingSystem: 'iOS, Android',
+    operatingSystem: 'iOS',
     applicationCategory: 'UtilitiesApplication',
+    url: 'https://lichviet.online/download',
+    downloadUrl: 'https://apps.apple.com/app/lich-viet',
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'VND',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '1000',
-    },
-    description: 'Ứng dụng lịch âm dương Việt Nam với thông tin phong thủy, giờ hoàng đạo, và hướng dẫn việc nên làm mỗi ngày.',
+    description:
+      'Ứng dụng lịch âm dương Việt Nam với thông tin phong thủy, giờ hoàng đạo, và hướng dẫn việc nên làm mỗi ngày.',
   };
 
   return (
@@ -108,22 +99,50 @@ export function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
 
 interface DayPageJsonLdProps {
   date: string;
+  solarFormatted: string;
   lunarDate: string;
   dayQuality: string;
   goodActivities: string[];
   badActivities: string[];
 }
 
-export function DayPageJsonLd({ date, lunarDate, dayQuality, goodActivities, badActivities }: DayPageJsonLdProps) {
+export function DayPageJsonLd({
+  date,
+  solarFormatted,
+  lunarDate,
+  dayQuality,
+  goodActivities,
+  badActivities,
+}: DayPageJsonLdProps) {
+  const pageUrl = `https://lichviet.online/day/${date}`;
+  const goodSummary =
+    goodActivities.length > 0
+      ? `Việc nên làm: ${goodActivities.slice(0, 3).join(', ')}. `
+      : '';
+  const badSummary =
+    badActivities.length > 0
+      ? `Việc kiêng kỵ: ${badActivities.slice(0, 3).join(', ')}.`
+      : '';
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: `Ngày ${date} - ${lunarDate} - ${dayQuality}`,
-    description: `Thông tin phong thủy ngày ${date}. Việc nên làm: ${goodActivities.slice(0, 3).join(', ')}. Việc không nên: ${badActivities.slice(0, 3).join(', ')}.`,
-    datePublished: new Date().toISOString(),
+    '@id': `${pageUrl}#article`,
+    url: pageUrl,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': pageUrl,
+    },
+    headline: `${solarFormatted} (${lunarDate}) - ${dayQuality}`,
+    description: `Xem âm lịch, can chi, giờ hoàng đạo ngày ${solarFormatted} (${lunarDate}). ${goodSummary}${badSummary}`.trim(),
+    image: ['https://lichviet.online/og-image.webp'],
+    inLanguage: 'vi-VN',
+    datePublished: '2025-01-01T00:00:00.000Z',
+    dateModified: '2026-01-01T00:00:00.000Z',
     author: {
       '@type': 'Organization',
       name: 'Lịch Việt - Vạn Sự An Lành',
+      url: 'https://lichviet.online',
     },
     publisher: {
       '@type': 'Organization',

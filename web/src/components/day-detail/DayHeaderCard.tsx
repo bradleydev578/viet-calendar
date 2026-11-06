@@ -27,6 +27,7 @@ export function DayHeaderCard({
 }: DayHeaderCardProps) {
   const weekday = WEEKDAY_NAMES[date.getDay()];
   const monthName = format(date, "MMMM", { locale: vi });
+  const dayCanChi = fengShuiData?.dgz || "";
 
   // Determine if it's a good day based on 12 Trực
   const isGoodDay = fengShuiData?.t12g === 1;
@@ -41,21 +42,23 @@ export function DayHeaderCard({
       <div className="flex items-start justify-between">
         {/* Left side - Solar date */}
         <div className="flex-1">
-          <p className="text-sm font-medium opacity-90 tracking-wider uppercase">
-            {weekday}
-          </p>
-          <p className="text-7xl font-bold leading-none mt-1">
-            {date.getDate()}
-          </p>
-          <p className="text-lg opacity-90 mt-1 capitalize">
-            {monthName}, {date.getFullYear()}
-          </p>
+          <h1 className="flex flex-col">
+            <span className="text-sm font-medium opacity-90 tracking-wider uppercase">
+              {weekday}
+            </span>
+            <span className="text-7xl font-bold leading-none mt-1">
+              {date.getDate()}
+            </span>
+            <span className="text-lg opacity-90 mt-1 capitalize font-normal">
+              {monthName}, {date.getFullYear()}
+            </span>
+          </h1>
 
           {/* Can Chi badges */}
           <div className="flex flex-wrap gap-2 mt-3">
-            {fengShuiData?.dgz && (
+            {dayCanChi && (
               <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
-                Ngày {fengShuiData.dgz}
+                Ngày {dayCanChi}
               </span>
             )}
             {fengShuiData?.mgz && (
@@ -87,22 +90,24 @@ export function DayHeaderCard({
       </div>
 
       {/* Day type badge */}
-      <div className="mt-4 flex items-center gap-2">
-        <span
-          className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
-            isGoodDay
-              ? "bg-emerald-400/30 text-emerald-100"
-              : "bg-orange-400/30 text-orange-100"
-          }`}
-        >
+      {fengShuiData && (
+        <div className="mt-4 flex items-center gap-2">
           <span
-            className={`w-2 h-2 rounded-full ${
-              isGoodDay ? "bg-emerald-300" : "bg-orange-300"
+            className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
+              isGoodDay
+                ? "bg-emerald-400/30 text-emerald-100"
+                : "bg-orange-400/30 text-orange-100"
             }`}
-          />
-          {isGoodDay ? "Ngày Hoàng Đạo" : "Ngày Hắc Đạo"} • {fengShuiData?.t12}
-        </span>
-      </div>
+          >
+            <span
+              className={`w-2 h-2 rounded-full ${
+                isGoodDay ? "bg-emerald-300" : "bg-orange-300"
+              }`}
+            />
+            {isGoodDay ? "Ngày Hoàng Đạo" : "Ngày Hắc Đạo"} • {fengShuiData.t12}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { MonthTheme } from "@/lib/theme";
+import { MaterialIcon } from "@/components/common";
 
 interface TopHeaderProps {
   theme: MonthTheme;
@@ -21,33 +22,41 @@ export function TopHeader({ theme }: TopHeaderProps) {
       <div className="w-full max-w-6xl flex items-center justify-between">
         {/* Logo - aligned with calendar left edge */}
         <div className="flex items-center gap-3 lg:flex-[1.6] lg:max-w-[700px]">
-          <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
+          <Link
+            href="/"
+            aria-label="Lịch Việt - Trang chủ"
+            className="flex items-center gap-3 hover:opacity-90 transition-opacity"
+          >
             <div
               className="size-10 rounded-xl flex items-center justify-center shadow-md shrink-0"
               style={{
                 background: `linear-gradient(135deg, ${theme.primaryAccent}, ${theme.primaryAccent}cc)`,
               }}
             >
-              <span className="material-symbols-outlined text-white font-light" style={{ fontSize: 28, fontVariationSettings: "'wght' 300" }}>
-                dark_mode
-              </span>
+              <MaterialIcon
+                name="dark_mode"
+                className="text-white"
+                style={{ fontSize: 24 }}
+              />
             </div>
-            <h1 className="text-lg font-bold text-slate-800 tracking-tight hidden sm:block">
+            <span className="text-lg font-bold text-slate-800 tracking-tight hidden sm:block">
               Lịch Việt
-            </h1>
+            </span>
           </Link>
-          
+
           {/* Navigation - next to logo */}
-          <nav className="flex items-center gap-1 ml-4">
+          <nav aria-label="Điều hướng chính" className="flex items-center gap-1 ml-4">
             {navItems.map((item) => {
-              // Check if active: exact match for "/" or startsWith for other routes
-              const isActive = item.href === "/" 
-                ? pathname === "/" || pathname.startsWith("/day/")
-                : pathname === item.href || pathname.startsWith(item.href + "/");
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/" || pathname.startsWith("/day/")
+                  : pathname === item.href || pathname.startsWith(item.href + "/");
               return (
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-label={item.label}
+                  aria-current={isActive ? "page" : undefined}
                   className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
                     isActive
                       ? "text-white font-semibold shadow-md"
@@ -61,9 +70,7 @@ export function TopHeader({ theme }: TopHeaderProps) {
                       : {}
                   }
                 >
-                  <span className="material-symbols-outlined text-[20px]">
-                    {item.icon}
-                  </span>
+                  <MaterialIcon name={item.icon} className="text-[20px]" />
                   <span className="text-sm hidden sm:inline">{item.label}</span>
                 </Link>
               );

@@ -1,11 +1,15 @@
 import { MetadataRoute } from 'next';
+import { FengShuiServerRepository } from '@/lib/fengshui/FengShuiServerRepository';
 
-// Generate dates for the next 2 years
+// Generate dates strictly for years available in the Feng Shui dataset (2025-2027)
 function generateDates(): string[] {
   const dates: string[] = [];
-  const today = new Date();
-  const startDate = new Date(today.getFullYear(), 0, 1); // Start of current year
-  const endDate = new Date(today.getFullYear() + 2, 11, 31); // End of year + 2
+  const availableYears = FengShuiServerRepository.getAvailableYears();
+  const minYear = Math.min(...availableYears);
+  const maxYear = Math.max(...availableYears);
+
+  const startDate = new Date(minYear, 0, 1, 12, 0, 0);
+  const endDate = new Date(maxYear, 11, 31, 12, 0, 0);
 
   const currentDate = new Date(startDate);
   while (currentDate <= endDate) {
@@ -21,6 +25,7 @@ function generateDates(): string[] {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://lichviet.online';
+  const lastMod = new Date('2026-01-01T00:00:00.000Z');
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
@@ -32,35 +37,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/holidays`,
-      lastModified: new Date(),
+      lastModified: lastMod,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/download`,
-      lastModified: new Date(),
+      lastModified: lastMod,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
+      lastModified: lastMod,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: new Date(),
+      lastModified: lastMod,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
   ];
 
-  // Dynamic day pages - generate for current year and next year
+  // Dynamic day pages - strictly for years with verified data
   const dates = generateDates();
   const dayPages: MetadataRoute.Sitemap = dates.map((date) => ({
     url: `${baseUrl}/day/${date}`,
-    lastModified: new Date(),
+    lastModified: lastMod,
     changeFrequency: 'yearly' as const,
     priority: 0.6,
   }));

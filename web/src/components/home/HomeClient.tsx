@@ -5,15 +5,15 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { getMonthTheme, type MonthTheme } from "@/lib/theme";
 import { TopHeader, Footer } from "@/components/layout";
-// Import CalendarHeader directly to avoid tree-shaking issues with barrel exports
 import { CalendarHeader } from "@/components/calendar/CalendarHeader";
 import { InfoSections } from "@/components/home";
 import { HolidayRepository, getHolidayColor } from "@/lib/holidays";
 import { LunarCalculator, WEEKDAY_NAMES, GIO_DIA_CHI, CON_GIAP } from "@/lib/lunar";
+import { parseDateString, formatDateString } from "@/lib/date-utils";
 import type { DayFengShuiData } from "@/lib/fengshui/types";
 import { fetchFengShuiByDate, fetchFengShuiByMonth, createFengShuiCache } from "@/lib/fengshui/client";
+import { MaterialIcon } from "@/components/common";
 
-// Import calendar components that don't use FengShuiRepository directly
 import { CalendarGridClient } from "./CalendarGridClient";
 import { DayDetailPanelClient } from "./DayDetailPanelClient";
 
@@ -21,7 +21,7 @@ interface HomeClientProps {
   initialFengShuiData: DayFengShuiData | null;
   initialMonthData: DayFengShuiData[];
   initialQuote: string;
-  initialDate: string; // ISO date string
+  initialDate: string; // YYYY-MM-DD date string from server (Vietnam timezone)
 }
 
 export function HomeClient({
@@ -30,15 +30,18 @@ export function HomeClient({
   initialQuote,
   initialDate,
 }: HomeClientProps) {
-  // Use client-side date to avoid static build date mismatch
-  // initialDate is only used as fallback for SSR hydration
-  const [currentDate, setCurrentDate] = useState(() => new Date());
-  const [selectedDate, setSelectedDate] = useState(() => new Date());
+  const initialParsedDate = useMemo(
+    () => parseDateString(initialDate) || new Date(),
+    [initialDate]
+  );
+
+  const [currentDate, setCurrentDate] = useState<Date>(initialParsedDate);
+  const [selectedDate, setSelectedDate] = useState<Date>(initialParsedDate);
+  const [, setCacheVersion] = useState(0);
 
   // Cache for feng shui data
   const fengShuiCache = useMemo(() => {
     const cache = createFengShuiCache();
-    // Pre-populate cache with initial data
     if (initialFengShuiData) {
       cache.set(initialFengShuiData);
     }
@@ -46,10 +49,20 @@ export function HomeClient({
     return cache;
   }, [initialFengShuiData, initialMonthData]);
 
-  // Current feng shui data for selected date
-  // Start with null to trigger fetch for actual today's date (client-side)
-  const [fengShuiData, setFengShuiData] = useState<DayFengShuiData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Initialize directly with server-prefetched data so SSR renders full content (no skeleton flash)
+  const [fengShuiData, setFengShuiData] = useState<DayFengShuiData | null>(
+    initialFengShuiData
+  );
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Sync with client local date if ISR snapshot is from a previous day
+  useEffect(() => {
+    const clientToday = new Date();
+    if (formatDateString(clientToday) !== formatDateString(initialParsedDate)) {
+      setCurrentDate(clientToday);
+      setSelectedDate(clientToday);
+    }
+  }, [initialParsedDate]);
 
   const theme = useMemo(
     () => getMonthTheme(currentDate.getMonth() + 1),
@@ -58,55 +71,60 @@ export function HomeClient({
 
   // Get upcoming holidays (next 5)
   const upcomingHolidays = useMemo(() => {
-    return HolidayRepository.getUpcomingFromDate(new Date(), 5);
-  }, []);
+    return HolidayRepository.getUpcomingFromDate(selectedDate, 5);
+  }, [selectedDate]);
 
   // Fetch data for selected date
-  const fetchDataForDate = useCallback(async (date: Date) => {
-    const dateStr = format(date, "yyyy-MM-dd");
+  const fetchDataForDate = useCallback(
+    async (date: Date) => {
+      const dateStr = format(date, "yyyy-MM-dd");
 
-    // Check cache first
-    const cached = fengShuiCache.get(dateStr);
-    if (cached) {
-      setFengShuiData(cached);
-      setIsLoading(false);
-      return;
-    }
-
-    // Fetch from API
-    setIsLoading(true);
-    try {
-      const data = await fetchFengShuiByDate(date);
-      if (data) {
-        fengShuiCache.set(data);
-        setFengShuiData(data);
-      } else {
-        setFengShuiData(null);
+      // Check cache first
+      const cached = fengShuiCache.get(dateStr);
+      if (cached) {
+        setFengShuiData(cached);
+        setIsLoading(false);
+        return;
       }
-    } finally {
-      setIsLoading(false);
-    }
-  }, [fengShuiCache]);
+
+      // Fetch from API
+      setIsLoading(true);
+      try {
+        const data = await fetchFengShuiByDate(date);
+        if (data) {
+          fengShuiCache.set(data);
+          setFengShuiData(data);
+        } else {
+          setFengShuiData(null);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [fengShuiCache]
+  );
 
   // Fetch month data when month changes
-  const fetchMonthData = useCallback(async (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
+  const fetchMonthData = useCallback(
+    async (date: Date) => {
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
 
-    // Check if we have any data for this month in cache
-    const firstDayStr = `${year}-${String(month).padStart(2, "0")}-01`;
-    if (fengShuiCache.has(firstDayStr)) {
-      // We already have this month's data
-      return;
-    }
+      const firstDayStr = `${year}-${String(month).padStart(2, "0")}-01`;
+      if (fengShuiCache.has(firstDayStr)) {
+        return;
+      }
 
-    try {
-      const data = await fetchFengShuiByMonth(year, month);
-      fengShuiCache.setMany(data);
-    } catch (error) {
-      console.error("Error fetching month data:", error);
-    }
-  }, [fengShuiCache]);
+      try {
+        const data = await fetchFengShuiByMonth(year, month);
+        fengShuiCache.setMany(data);
+        setCacheVersion((v) => v + 1);
+      } catch (error) {
+        console.error("Error fetching month data:", error);
+      }
+    },
+    [fengShuiCache]
+  );
 
   // Effect to fetch data when selected date changes
   useEffect(() => {
@@ -120,13 +138,13 @@ export function HomeClient({
 
   const handlePrevMonth = () => {
     setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1, 12, 0, 0)
     );
   };
 
   const handleNextMonth = () => {
     setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1, 12, 0, 0)
     );
   };
 
@@ -138,6 +156,12 @@ export function HomeClient({
 
   const handleSelectDate = (date: Date) => {
     setSelectedDate(date);
+    if (
+      date.getMonth() !== currentDate.getMonth() ||
+      date.getFullYear() !== currentDate.getFullYear()
+    ) {
+      setCurrentDate(new Date(date.getFullYear(), date.getMonth(), 1, 12, 0, 0));
+    }
   };
 
   // Helper to get cached data for a date
@@ -148,7 +172,7 @@ export function HomeClient({
 
   return (
     <div
-      className="relative flex flex-col h-screen w-full overflow-hidden font-[Manrope] antialiased"
+      className="relative flex flex-col min-h-dvh lg:h-dvh w-full overflow-hidden font-[Manrope] antialiased"
       style={{ backgroundColor: theme.background }}
     >
       {/* Decorative blur circles */}
@@ -183,6 +207,8 @@ export function HomeClient({
                   onPrevMonth={handlePrevMonth}
                   onNextMonth={handleNextMonth}
                   onToday={handleToday}
+                  onSelectDate={handleSelectDate}
+                  isMainHeading
                 />
               </div>
 
@@ -200,6 +226,7 @@ export function HomeClient({
                 {/* Today Button */}
                 <div className="flex justify-center py-4">
                   <button
+                    type="button"
                     onClick={handleToday}
                     className="flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all active:scale-95 hover:shadow-md"
                     style={{
@@ -208,7 +235,7 @@ export function HomeClient({
                       color: theme.primaryAccent,
                     }}
                   >
-                    <span className="material-symbols-outlined text-[18px]">today</span>
+                    <MaterialIcon name="today" className="text-[18px]" />
                     <span className="text-sm font-bold">Hôm nay</span>
                   </button>
                 </div>
@@ -240,6 +267,7 @@ export function HomeClient({
                           <Link
                             key={holiday.id}
                             href={`/day/${format(holiday.startDate, "yyyy-MM-dd")}`}
+                            prefetch={false}
                             className="flex items-center gap-3 hover:bg-white/50 rounded-lg p-2 -mx-2 transition-colors"
                           >
                             <div
@@ -272,14 +300,13 @@ export function HomeClient({
                 {/* Daily Quote - Mobile */}
                 <div className="mt-4 px-2">
                   <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/40 backdrop-blur-sm border border-white/50">
-                    <span
-                      className="material-symbols-outlined text-lg"
+                    <MaterialIcon
+                      name="format_quote"
+                      className="text-lg"
                       style={{ color: theme.accentGold }}
-                    >
-                      format_quote
-                    </span>
+                    />
                     <p className="text-sm text-slate-600 italic leading-relaxed text-center">
-                      "{initialQuote}"
+                      &ldquo;{initialQuote}&rdquo;
                     </p>
                   </div>
                 </div>
@@ -293,14 +320,13 @@ export function HomeClient({
                 {/* Daily Quote - Desktop */}
                 <div className="mt-4 px-2">
                   <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/40 backdrop-blur-sm border border-white/50">
-                    <span
-                      className="material-symbols-outlined text-lg"
+                    <MaterialIcon
+                      name="format_quote"
+                      className="text-lg"
                       style={{ color: theme.accentGold }}
-                    >
-                      format_quote
-                    </span>
+                    />
                     <p className="text-sm text-slate-600 italic leading-relaxed text-center">
-                      "{initialQuote}"
+                      &ldquo;{initialQuote}&rdquo;
                     </p>
                   </div>
                 </div>
@@ -315,6 +341,7 @@ export function HomeClient({
               {/* Today Button - centered above detail panel */}
               <div className="flex justify-center py-4">
                 <button
+                  type="button"
                   onClick={handleToday}
                   className="flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all active:scale-95 hover:shadow-md"
                   style={{
@@ -323,7 +350,7 @@ export function HomeClient({
                     color: theme.primaryAccent,
                   }}
                 >
-                  <span className="material-symbols-outlined text-[18px]">today</span>
+                  <MaterialIcon name="today" className="text-[18px]" />
                   <span className="text-sm font-bold">Hôm nay</span>
                 </button>
               </div>
@@ -402,9 +429,9 @@ function MobileDayDetail({
   return (
     <div className="flex flex-col gap-4">
       {/* Date Info Card - Clickable to detail page */}
-      <Link href={`/day/${format(selectedDate, "yyyy-MM-dd")}`}>
+      <Link href={`/day/${format(selectedDate, "yyyy-MM-dd")}`} prefetch={false}>
         <div
-          className="glass-panel-light rounded-2xl p-5 relative overflow-hidden shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
+          className="glass-panel-light rounded-2xl p-5 relative overflow-hidden group shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
           style={{ borderColor: `${theme.primaryAccent}15` }}
         >
           <div
@@ -421,8 +448,8 @@ function MobileDayDetail({
                   style={{
                     backgroundColor: isHoangDao
                       ? `${theme.accentGold}20`
-                      : "rgba(100,100,100,0.2)",
-                    color: isHoangDao ? theme.accentGold : "#888",
+                      : "rgba(100,100,100,0.15)",
+                    color: isHoangDao ? theme.accentGold : "#475569",
                   }}
                 >
                   ★ {isHoangDao ? "HOÀNG ĐẠO" : "HẮC ĐẠO"}
@@ -471,21 +498,29 @@ function MobileDayDetail({
                 </span>
               </p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{ backgroundColor: `${theme.primaryAccent}60` }}
+                />
+                <p className="text-sm text-slate-500">
+                  Tháng{" "}
+                  <span className="font-bold text-slate-700">
+                    {fengShuiData?.mgz || "—"}
+                  </span>{" "}
+                  • Năm{" "}
+                  <span className="font-bold text-slate-700">
+                    {yearInfo.canChi.full}
+                  </span>
+                </p>
+              </div>
               <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: `${theme.primaryAccent}60` }}
-              />
-              <p className="text-sm text-slate-500">
-                Tháng{" "}
-                <span className="font-bold text-slate-700">
-                  {fengShuiData?.mgz || "—"}
-                </span>{" "}
-                • Năm{" "}
-                <span className="font-bold text-slate-700">
-                  {yearInfo.canChi.full}
-                </span>
-              </p>
+                className="text-xs font-semibold"
+                style={{ color: theme.primaryAccent }}
+              >
+                Chi tiết →
+              </span>
             </div>
           </div>
         </div>
@@ -503,9 +538,7 @@ function MobileDayDetail({
           <div className="bg-white/80 rounded-xl p-4 border border-emerald-100 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="p-1 rounded-lg bg-emerald-100 text-emerald-600">
-                <span className="material-symbols-outlined text-sm font-bold">
-                  check_circle
-                </span>
+                <MaterialIcon name="check_circle" className="text-sm font-bold" />
               </div>
               <h4 className="text-emerald-700 font-bold text-xs">Nên làm</h4>
             </div>
@@ -525,9 +558,7 @@ function MobileDayDetail({
           <div className="bg-white/80 rounded-xl p-4 border border-rose-100 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="p-1 rounded-lg bg-rose-100 text-rose-600">
-                <span className="material-symbols-outlined text-sm font-bold">
-                  cancel
-                </span>
+                <MaterialIcon name="cancel" className="text-sm font-bold" />
               </div>
               <h4 className="text-rose-700 font-bold text-xs">Kiêng kỵ</h4>
             </div>
@@ -600,12 +631,11 @@ function MobileHoangDaoHours({
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-2 px-1">
-        <span
-          className="material-symbols-outlined text-lg font-bold"
+        <MaterialIcon
+          name="schedule"
+          className="text-lg font-bold"
           style={{ color: theme.accentGold }}
-        >
-          schedule
-        </span>
+        />
         <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest">
           Giờ Hoàng Đạo
         </h3>
@@ -614,25 +644,25 @@ function MobileHoangDaoHours({
       <div className="relative">
         {canScrollLeft && (
           <button
+            type="button"
             onClick={() => scroll("left")}
+            aria-label="Cuộn giờ hoàng đạo sang trái"
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/90 shadow-md flex items-center justify-center"
             style={{ color: theme.primaryAccent }}
           >
-            <span className="material-symbols-outlined text-[18px]">
-              chevron_left
-            </span>
+            <MaterialIcon name="chevron_left" className="text-[18px]" />
           </button>
         )}
 
         {canScrollRight && (
           <button
+            type="button"
             onClick={() => scroll("right")}
+            aria-label="Cuộn giờ hoàng đạo sang phải"
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/90 shadow-md flex items-center justify-center"
             style={{ color: theme.primaryAccent }}
           >
-            <span className="material-symbols-outlined text-[18px]">
-              chevron_right
-            </span>
+            <MaterialIcon name="chevron_right" className="text-[18px]" />
           </button>
         )}
 

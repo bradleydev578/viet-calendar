@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { getAnalyticsInstance, trackPageView } from "@/lib/firebase";
 
-export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
+function AnalyticsTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -15,7 +15,8 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
 
   // Track page views on route change
   useEffect(() => {
-    const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
+    const url =
+      pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
 
     // Get page title based on pathname
     let pageTitle = "Lịch Việt";
@@ -33,5 +34,16 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
     trackPageView(pageTitle, url);
   }, [pathname, searchParams]);
 
-  return <>{children}</>;
+  return null;
+}
+
+export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <Suspense fallback={null}>
+        <AnalyticsTracker />
+      </Suspense>
+      {children}
+    </>
+  );
 }

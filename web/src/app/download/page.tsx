@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { getMonthTheme } from "@/lib/theme";
 import { TopHeader, Footer } from "@/components/layout";
+import { MaterialIcon } from "@/components/common";
 
 export default function DownloadPage() {
   const today = new Date();
@@ -11,7 +12,7 @@ export default function DownloadPage() {
 
   return (
     <div
-      className="relative flex flex-col min-h-screen w-full overflow-hidden font-[Manrope] antialiased"
+      className="relative flex flex-col min-h-dvh w-full overflow-hidden font-[Manrope] antialiased"
       style={{ backgroundColor: theme.background }}
     >
       {/* Decorative blur circles */}
@@ -41,9 +42,7 @@ export default function DownloadPage() {
                   boxShadow: `0 20px 40px ${theme.primaryAccent}40`,
                 }}
               >
-                <span className="material-symbols-outlined text-white text-5xl lg:text-6xl">
-                  balance
-                </span>
+                <MaterialIcon name="balance" className="text-white text-5xl lg:text-6xl" />
               </div>
 
               <h1 className="text-3xl lg:text-4xl font-black text-slate-800 tracking-tight mb-3">
@@ -87,7 +86,7 @@ export default function DownloadPage() {
                   className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-white font-bold transition-all hover:opacity-90 active:scale-98"
                   style={{ backgroundColor: theme.primaryAccent }}
                 >
-                  <span className="material-symbols-outlined text-xl">download</span>
+                  <MaterialIcon name="download" className="text-xl" />
                   Tải App iOS
                 </a>
 
@@ -122,7 +121,7 @@ export default function DownloadPage() {
                   disabled
                   className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-300 text-slate-500 font-bold cursor-not-allowed"
                 >
-                  <span className="material-symbols-outlined text-xl">schedule</span>
+                  <MaterialIcon name="schedule" className="text-xl" />
                   Sắp ra mắt
                 </button>
 
@@ -150,12 +149,11 @@ export default function DownloadPage() {
                     key={feature.label}
                     className="bg-white/60 backdrop-blur-sm rounded-xl p-4 text-center border border-slate-100"
                   >
-                    <span
-                      className="material-symbols-outlined text-3xl mb-2"
+                    <MaterialIcon
+                      name={feature.icon}
+                      className="text-3xl mb-2"
                       style={{ color: theme.primaryAccent }}
-                    >
-                      {feature.icon}
-                    </span>
+                    />
                     <p className="text-sm font-medium text-slate-700">{feature.label}</p>
                   </div>
                 ))}
@@ -171,9 +169,7 @@ export default function DownloadPage() {
                 <div className="size-40 bg-slate-100 rounded-xl mx-auto flex items-center justify-center">
                   {/* Placeholder for QR Code */}
                   <div className="text-center">
-                    <span className="material-symbols-outlined text-4xl text-slate-400">
-                      qr_code_2
-                    </span>
+                    <MaterialIcon name="qr_code_2" className="text-4xl text-slate-400" />
                     <p className="text-xs text-slate-400 mt-2">QR Code</p>
                   </div>
                 </div>

@@ -2,12 +2,12 @@
 
 import { useMemo, useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { format, isToday } from "date-fns";
+import { format } from "date-fns";
 import { LunarCalculator, WEEKDAY_NAMES, GIO_DIA_CHI, CON_GIAP } from "@/lib/lunar";
-import { DayScore } from "@/lib/fengshui";
 import { HolidayRepository, getHolidayColor } from "@/lib/holidays";
 import type { MonthTheme } from "@/lib/theme";
 import type { DayFengShuiData } from "@/lib/fengshui/types";
+import { MaterialIcon } from "@/components/common";
 
 interface DayDetailPanelClientProps {
   selectedDate: Date;
@@ -30,25 +30,13 @@ export function DayDetailPanelClient({
     () => LunarCalculator.getYearInfo(lunarDate.year),
     [lunarDate.year]
   );
-  const dayScore = useMemo(() => {
-    if (!fengShuiData) return null;
-    return DayScore.calculate(fengShuiData);
-  }, [fengShuiData]);
-  const holidays = useMemo(
-    () => HolidayRepository.getByDate(selectedDate),
-    [selectedDate]
-  );
 
-  // Get upcoming holidays (next 5)
+  // Get upcoming holidays (next 5) relative to selectedDate
   const upcomingHolidays = useMemo(() => {
-    const allHolidays = HolidayRepository.getAllHolidays();
-    return allHolidays
-      .filter((h) => !h.isPast && h.daysUntil > 0)
-      .slice(0, 5);
-  }, []);
+    return HolidayRepository.getUpcomingFromDate(selectedDate, 5);
+  }, [selectedDate]);
 
   const weekday = WEEKDAY_NAMES[selectedDate.getDay()];
-  const isTodayDate = isToday(selectedDate);
   const isHoangDao = fengShuiData?.t12g === 1;
 
   // Get hoàng đạo hours with zodiac info (all hours, not just first 3)
@@ -79,9 +67,9 @@ export function DayDetailPanelClient({
   return (
     <div className="flex-1 min-w-[300px] max-w-[380px] flex flex-col gap-4 overflow-y-auto pr-2 pb-4 scrollbar-hide pt-1">
       {/* Date Info Card - Clickable to detail page */}
-      <Link href={`/day/${format(selectedDate, "yyyy-MM-dd")}`}>
+      <Link href={`/day/${format(selectedDate, "yyyy-MM-dd")}`} prefetch={false}>
         <div
-          className="glass-panel-light dark:glass-panel-dark rounded-2xl lg:rounded-3xl p-5 lg:p-6 relative overflow-hidden group shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
+          className="glass-panel-light rounded-2xl lg:rounded-3xl p-5 lg:p-6 relative overflow-hidden group shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
           style={{ borderColor: `${theme.primaryAccent}15` }}
         >
           <div
@@ -98,8 +86,8 @@ export function DayDetailPanelClient({
                   style={{
                     backgroundColor: isHoangDao
                       ? `${theme.accentGold}20`
-                      : "rgba(100,100,100,0.2)",
-                    color: isHoangDao ? theme.accentGold : "#888",
+                      : "rgba(100,100,100,0.15)",
+                    color: isHoangDao ? theme.accentGold : "#475569",
                   }}
                 >
                   ★ {isHoangDao ? "HOÀNG ĐẠO" : "HẮC ĐẠO"}
@@ -148,21 +136,29 @@ export function DayDetailPanelClient({
                 </span>
               </p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{ backgroundColor: `${theme.primaryAccent}60` }}
+                />
+                <p className="text-sm text-slate-500">
+                  Tháng{" "}
+                  <span className="font-bold text-slate-700">
+                    {fengShuiData?.mgz || "—"}
+                  </span>{" "}
+                  • Năm{" "}
+                  <span className="font-bold text-slate-700">
+                    {yearInfo.canChi.full}
+                  </span>
+                </p>
+              </div>
               <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: `${theme.primaryAccent}60` }}
-              />
-              <p className="text-sm text-slate-500">
-                Tháng{" "}
-                <span className="font-bold text-slate-700">
-                  {fengShuiData?.mgz || "—"}
-                </span>{" "}
-                • Năm{" "}
-                <span className="font-bold text-slate-700">
-                  {yearInfo.canChi.full}
-                </span>
-              </p>
+                className="text-xs font-semibold opacity-75 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all"
+                style={{ color: theme.primaryAccent }}
+              >
+                Chi tiết →
+              </span>
             </div>
           </div>
         </div>
@@ -177,22 +173,18 @@ export function DayDetailPanelClient({
       {fengShuiData && (
         <div className="grid grid-cols-1 gap-3">
           {/* Good activities */}
-          <div className="bg-white/80 dark:bg-[#1a2e2b] rounded-xl lg:rounded-2xl p-4 border border-emerald-100 dark:border-emerald-500/20 shadow-sm">
+          <div className="bg-white/80 rounded-xl lg:rounded-2xl p-4 border border-emerald-100 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
-              <div className="p-1 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
-                <span className="material-symbols-outlined text-sm font-bold">
-                  check_circle
-                </span>
+              <div className="p-1 rounded-lg bg-emerald-100 text-emerald-600">
+                <MaterialIcon name="check_circle" className="text-sm font-bold" />
               </div>
-              <h4 className="text-emerald-700 dark:text-emerald-400 font-bold text-xs">
-                Nên làm
-              </h4>
+              <h4 className="text-emerald-700 font-bold text-xs">Nên làm</h4>
             </div>
             <div className="flex flex-col gap-1.5">
               {fengShuiData.ga?.map((activity, index) => (
                 <p
                   key={index}
-                  className="text-emerald-700 dark:text-emerald-400 text-xs leading-relaxed"
+                  className="text-emerald-700 text-xs leading-relaxed"
                 >
                   {activity}
                 </p>
@@ -201,22 +193,18 @@ export function DayDetailPanelClient({
           </div>
 
           {/* Bad activities */}
-          <div className="bg-white/80 dark:bg-[#2a1d1d] rounded-xl lg:rounded-2xl p-4 border border-rose-100 dark:border-red-500/20 shadow-sm">
+          <div className="bg-white/80 rounded-xl lg:rounded-2xl p-4 border border-rose-100 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
-              <div className="p-1 rounded-lg bg-rose-100 dark:bg-red-500/20 text-rose-600 dark:text-red-400">
-                <span className="material-symbols-outlined text-sm font-bold">
-                  cancel
-                </span>
+              <div className="p-1 rounded-lg bg-rose-100 text-rose-600">
+                <MaterialIcon name="cancel" className="text-sm font-bold" />
               </div>
-              <h4 className="text-rose-700 dark:text-red-400 font-bold text-xs">
-                Kiêng kỵ
-              </h4>
+              <h4 className="text-rose-700 font-bold text-xs">Kiêng kỵ</h4>
             </div>
             <div className="flex flex-col gap-1.5">
               {fengShuiData.ba?.map((activity, index) => (
                 <p
                   key={index}
-                  className="text-rose-700 dark:text-red-400 text-xs leading-relaxed"
+                  className="text-rose-700 text-xs leading-relaxed"
                 >
                   {activity}
                 </p>
@@ -228,8 +216,8 @@ export function DayDetailPanelClient({
 
       {/* Upcoming Holidays Section */}
       {upcomingHolidays.length > 0 && (
-        <div className="glass-panel-light dark:glass-panel-dark rounded-xl lg:rounded-2xl p-4 lg:p-5 shadow-sm">
-          <h3 className="text-[10px] font-black text-slate-500 dark:text-[#9cbab2] mb-4 uppercase tracking-widest">
+        <div className="glass-panel-light rounded-xl lg:rounded-2xl p-4 lg:p-5 shadow-sm">
+          <h3 className="text-[10px] font-black text-slate-500 mb-4 uppercase tracking-widest">
             Sắp tới
           </h3>
           <div className="flex flex-col gap-3">
@@ -243,6 +231,7 @@ export function DayDetailPanelClient({
                 <Link
                   key={holiday.id}
                   href={`/day/${format(holiday.startDate, "yyyy-MM-dd")}`}
+                  prefetch={false}
                   className="flex items-center gap-3 hover:bg-white/50 rounded-lg p-2 -mx-2 transition-colors"
                 >
                   <div
@@ -255,10 +244,10 @@ export function DayDetailPanelClient({
                     {format(holiday.startDate, "d/M")}
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-bold" style={{ color: "#1e293b" }}>
+                    <p className="text-sm font-bold text-slate-800">
                       {holiday.name}
                     </p>
-                    <p className="text-xs" style={{ color: "#64748b" }}>
+                    <p className="text-xs text-slate-500">
                       {holiday.daysUntil} ngày nữa
                     </p>
                   </div>
@@ -304,7 +293,6 @@ function HoangDaoHoursSection({
     const scrollEl = scrollRef.current;
     if (scrollEl) {
       scrollEl.addEventListener("scroll", checkScroll);
-      // Also check on resize
       window.addEventListener("resize", checkScroll);
       return () => {
         scrollEl.removeEventListener("scroll", checkScroll);
@@ -315,7 +303,7 @@ function HoangDaoHoursSection({
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
-      const scrollAmount = 140; // Approximate width of one card
+      const scrollAmount = 140;
       scrollRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -326,13 +314,12 @@ function HoangDaoHoursSection({
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-2 px-1">
-        <span
-          className="material-symbols-outlined text-lg font-bold"
+        <MaterialIcon
+          name="schedule"
+          className="text-lg font-bold"
           style={{ color: theme.accentGold }}
-        >
-          schedule
-        </span>
-        <h3 className="text-[11px] font-black text-slate-500 dark:text-[#9cbab2] uppercase tracking-widest">
+        />
+        <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest">
           Giờ Hoàng Đạo
         </h3>
       </div>
@@ -342,26 +329,26 @@ function HoangDaoHoursSection({
         {/* Left arrow */}
         {canScrollLeft && (
           <button
+            type="button"
             onClick={() => scroll("left")}
+            aria-label="Cuộn giờ hoàng đạo sang trái"
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/90 shadow-md flex items-center justify-center hover:bg-white transition-colors"
             style={{ color: theme.primaryAccent }}
           >
-            <span className="material-symbols-outlined text-[18px]">
-              chevron_left
-            </span>
+            <MaterialIcon name="chevron_left" className="text-[18px]" />
           </button>
         )}
 
         {/* Right arrow */}
         {canScrollRight && (
           <button
+            type="button"
             onClick={() => scroll("right")}
+            aria-label="Cuộn giờ hoàng đạo sang phải"
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/90 shadow-md flex items-center justify-center hover:bg-white transition-colors"
             style={{ color: theme.primaryAccent }}
           >
-            <span className="material-symbols-outlined text-[18px]">
-              chevron_right
-            </span>
+            <MaterialIcon name="chevron_right" className="text-[18px]" />
           </button>
         )}
 

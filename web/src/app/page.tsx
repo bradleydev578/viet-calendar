@@ -14,11 +14,14 @@
 import { HomeClient } from "@/components/home";
 import { FengShuiServerRepository } from "@/lib/fengshui/FengShuiServerRepository";
 import { QuoteServerRepository } from "@/lib/quotes/QuoteServerRepository";
+import { getVietnamToday, formatDateString } from "@/lib/date-utils";
+
+export const revalidate = 3600;
 
 export default async function Home() {
-  // Get today's date (server-side)
-  const today = new Date();
-  const todayStr = today.toISOString();
+  // Get today's date in Vietnam timezone (UTC+7)
+  const today = getVietnamToday();
+  const todayStr = formatDateString(today);
 
   // Fetch initial data on server
   const initialFengShuiData = FengShuiServerRepository.getByDate(today);

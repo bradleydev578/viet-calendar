@@ -13,12 +13,12 @@ import {
   type YearlyFestival,
 } from './constants';
 import { LunarCalculator } from '@/lib/lunar';
+import { parseDateString } from '@/lib/date-utils';
 import {
   differenceInDays,
   startOfDay,
   isBefore,
   addDays,
-  format,
 } from 'date-fns';
 
 /**
@@ -98,8 +98,8 @@ export class HolidayRepository {
     const yearDates = festival.dates[year];
     if (!yearDates) return null;
 
-    const startDate = new Date(yearDates.startDate);
-    const endDate = new Date(yearDates.endDate);
+    const startDate = parseDateString(yearDates.startDate) || new Date(yearDates.startDate);
+    const endDate = parseDateString(yearDates.endDate) || new Date(yearDates.endDate);
     const totalDays = differenceInDays(endDate, startDate) + 1;
     const daysUntil = differenceInDays(startDate, today);
 
@@ -236,7 +236,8 @@ export class HolidayRepository {
    */
   static getByDate(date: Date): ProcessedHoliday[] {
     const targetDate = startOfDay(date);
-    return this.getAllHolidays().filter((h) => {
+    const yearHolidays = this.getHolidaysForYear(date.getFullYear());
+    return yearHolidays.filter((h) => {
       const start = startOfDay(h.startDate);
       const end = startOfDay(h.endDate);
       return targetDate >= start && targetDate <= end;
