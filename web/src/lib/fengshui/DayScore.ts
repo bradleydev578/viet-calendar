@@ -20,25 +20,32 @@ export class DayScore {
     const base = 50;
 
     // 28 Sao (28 Constellations)
-    const star28 = data.s28g === 1 ? 20 : -15;
+    const star28 = data.s28g === 1 ? 16 : -12;
 
-    // 12 Trực (12 Day Officers)
-    const truc12 = data.t12g === 1 ? 15 : -10;
+    // Ngày Hoàng Đạo / Hắc Đạo (12 Thần Hoàng Đạo) + 12 Trực
+    const badTruc = ['Phá', 'Nguy', 'Bế'].includes(data.t12);
+    const veryGoodTruc = ['Khai', 'Thành', 'Mãn', 'Định'].includes(data.t12);
+    const truc12 =
+      (data.t12g === 1 ? 18 : -14) +
+      (badTruc ? -12 : veryGoodTruc ? 6 : 2);
 
-    // Good stars (each adds 2 points)
-    const goodStars = (data.gs?.length || 0) * 2;
+    // Good stars (each adds 2 points, capped at +16)
+    const goodStars = Math.min(16, (data.gs?.length || 0) * 2);
 
-    // Bad stars (each subtracts 2 points)
-    const badStars = (data.bs?.length || 0) * -2;
+    // Bad stars + Đại Kỵ penalties (Tam Nương, Nguyệt Kỵ, Dương Công Kỵ, Thụ tử, Sát chủ, Nguyệt phá)
+    const bsList = data.bs || [];
+    const daiKyStars = ['Tam Nương', 'Nguyệt Kỵ', 'Dương Công Kỵ', 'Thụ tử', 'Sát chủ', 'Nguyệt phá'];
+    const daiKyCount = bsList.filter((s) => daiKyStars.includes(s)).length;
+    const badStars = Math.max(-32, bsList.length * -2 + daiKyCount * -10);
 
     // Good activities (each adds 1 point)
-    const goodActivities = (data.ga?.length || 0) * 1;
+    const goodActivities = Math.min(4, (data.ga?.length || 0) * 1);
 
     // Bad activities (each subtracts 1 point)
-    const badActivities = (data.ba?.length || 0) * -1;
+    const badActivities = Math.max(-4, (data.ba?.length || 0) * -1);
 
-    // Hoàng đạo hours (each adds 1 point)
-    const hoangDaoHours = (data.hd?.length || 0) * 1;
+    // Hoàng đạo hours (6 hours = +6)
+    const hoangDaoHours = Math.min(6, (data.hd?.length || 0) * 1);
 
     // Calculate total score
     const totalScore =
@@ -51,8 +58,9 @@ export class DayScore {
       badActivities +
       hoangDaoHours;
 
-    // Clamp between 0 and 100
-    const score = Math.max(0, Math.min(100, totalScore));
+    // Clamp between 15 and 98 (and cap at 62 if any Đại Kỵ is present)
+    const rawClamped = Math.max(15, Math.min(98, totalScore));
+    const score = daiKyCount > 0 ? Math.min(62, rawClamped) : rawClamped;
 
     // Determine quality rating
     const quality = this.getQuality(score);

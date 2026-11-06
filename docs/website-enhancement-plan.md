@@ -144,6 +144,21 @@ flowchart LR
 
 ---
 
+## 🌟 PHASE 6: Giải Pháp 3 Lớp Hiển Thị Đổi Ngày Vạn Niên (1900–2100) & Trang Xem Ngày Tốt
+
+- [x] **6.1. Bộ máy tính toán độc lập `UniversalDayCalculator` (1900–2100)**:
+  - Tạo [UniversalDayCalculator.ts](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/lib/fengshui/UniversalDayCalculator.ts) tính toán đầy đủ Âm lịch (kể cả Tháng Nhuận), Can Chi Ngày/Tháng/Năm, Nhị Thập Bát Tú (28 Sao), Thập Nhị Trực (12 Trực), 24 Tiết Khí, 6 Giờ Hoàng Đạo, Hướng Xuất Hành (Hỷ Thần, Tài Thần), Tuổi Xung Khắc và Việc Nên Làm / Kiêng Kỵ cho **mọi ngày từ năm 1900 đến 2100** không phụ thuộc vào file JSON tĩnh.
+  - Tích hợp làm fallback tức thì (`0ms`) trong [FengShuiServerRepository.ts](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/lib/fengshui/FengShuiServerRepository.ts), `/api/fengshui`, `/api/fengshui/month` và [HomeClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/home/HomeClient.tsx).
+- [x] **6.2. Lớp 1 — Nút bấm trực diện trên Lịch ([CalendarHeader.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/calendar/CalendarHeader.tsx) & [HomeClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/home/HomeClient.tsx))**:
+  - Đặt nút **`⇄ Đổi ngày Âm ↔ Dương`** nổi bật ngay trên `CalendarHeader` và cạnh nút `Hôm nay` trên Trang chủ.
+- [x] **6.3. Lớp 2 — Mở rộng Thanh Menu Chính ([TopHeader.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/layout/TopHeader.tsx))**:
+  - Nâng cấp thanh điều hướng chính lên 4 mục cốt lõi: **Lịch** (`/`), **Đổi Ngày** (`/doi-ngay-am-duong`), **Ngày Tốt** (`/xem-ngay-tot`), **Sự Kiện** (`/holidays`).
+- [x] **6.4. Lớp 3 — Trang Đích SEO `/doi-ngay-am-duong` & `/xem-ngay-tot`**:
+  - Tạo trang [doi-ngay-am-duong/page.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/app/doi-ngay-am-duong/page.tsx) ([DateConverterClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/converter/DateConverterClient.tsx)) hỗ trợ đổi lịch 2 chiều `1900–2100`, tự động nhận diện **Tháng Nhuận**, kèm bảng tra nhanh **Mùng 1 & Ngày Rằm** cả năm.
+  - Tạo trang [xem-ngay-tot/page.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/app/xem-ngay-tot/page.tsx) ([AuspiciousDaysClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/auspicious/AuspiciousDaysClient.tsx)) lọc ngày tốt theo công việc (*Cưới hỏi, Khai trương, Động thổ, Xuất hành, Nhập trạch*) và **lọc tránh ngày xung tuổi gia chủ** (lưu `localStorage`).
+
+---
+
 ## ✅ Kết Quả Kiểm Thử & Xác Minh (Verification Results — Đã hoàn tất 100%)
 
 1. **Kiểm tra Build & Type-check**:

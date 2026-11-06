@@ -95,8 +95,10 @@ class LichNgayTotParser:
             logger.error(f"Error parsing {target_date}: {e}")
             return None
 
-    # Mapping tên tháng âm lịch sang số
+    # Mapping tên tháng âm lịch sang số (ưu tiên cụm dài trước để tránh 'mười' match trước 'mười một'/'mười hai')
     LUNAR_MONTH_MAP = {
+        'mười một': 11,
+        'mười hai': 12, 'chạp': 12,
         'giêng': 1, 'một': 1, 'nhất': 1,
         'hai': 2, 'nhị': 2,
         'ba': 3, 'tam': 3,
@@ -107,8 +109,6 @@ class LichNgayTotParser:
         'tám': 8,
         'chín': 9,
         'mười': 10,
-        'mười một': 11,
-        'mười hai': 12, 'chạp': 12,
     }
 
     def _parse_lunar_date(self, soup: BeautifulSoup, target_date: date) -> LunarDate:
@@ -160,9 +160,9 @@ class LichNgayTotParser:
                     lunar_month = int(match.group(2))
                     break
 
-        # Check tháng nhuận
-        text = soup.get_text()
-        if re.search(r'tháng\s+nhuận|nhuận', text, re.I):
+        # Check tháng nhuận (chỉ kiểm tra trong calendar_info2 hoặc cụm 'tháng ... nhuận')
+        leap_scope = calendar_info2.get_text() if calendar_info2 else ''
+        if re.search(r'nhuận', leap_scope, re.I) or re.search(r'tháng\s+(?:\d+|giêng|hai|ba|tư|bốn|năm|sáu|bảy|tám|chín|mười|chạp)\s+nhuận', soup.get_text(), re.I):
             is_leap = True
 
         # Năm âm lịch (có thể khác năm dương nếu trước Tết)
@@ -189,6 +189,7 @@ class LichNgayTotParser:
         day_can, day_chi = 'Giáp', 'Tý'
         month_can, month_chi = 'Giáp', 'Tý'
         year_can, year_chi = 'Giáp', 'Thìn'
+        parsed_day_in_box = False
 
         def normalize_chi(chi: str) -> str:
             """Normalize chi - Tị -> Tỵ"""
@@ -216,25 +217,26 @@ class LichNgayTotParser:
             if day_match:
                 day_can = day_match.group(1)
                 day_chi = normalize_chi(day_match.group(2))
+                parsed_day_in_box = True
 
         # Method 2: Fallback - tìm trong toàn bộ text
-        if day_can == 'Giáp' and day_chi == 'Tý':
+        if not parsed_day_in_box:
             text = soup.get_text()
 
             day_match = re.search(rf'[Nn]gày[:\s]*({can_pattern})\s*({chi_pattern})', text)
             if day_match:
                 day_can = day_match.group(1)
-                day_chi = day_match.group(2)
+                day_chi = normalize_chi(day_match.group(2))
 
             month_match = re.search(rf'[Tt]háng[:\s]*({can_pattern})\s*({chi_pattern})', text)
             if month_match:
                 month_can = month_match.group(1)
-                month_chi = month_match.group(2)
+                month_chi = normalize_chi(month_match.group(2))
 
             year_match = re.search(rf'[Nn]ăm[:\s]*({can_pattern})\s*({chi_pattern})', text)
             if year_match:
                 year_can = year_match.group(1)
-                year_chi = year_match.group(2)
+                year_chi = normalize_chi(year_match.group(2))
 
         # Xác định ngũ hành của ngày
         can_ngu_hanh = {
@@ -290,13 +292,13 @@ class LichNgayTotParser:
         """Parse 28 Sao."""
         text = soup.get_text()
 
-        # Pattern: "Sao Giác", "Nhị thập bát tú: Giác"
-        star_names = list(self.STAR_28_RATING.keys())
-        pattern = r'[Ss]ao\s+(' + '|'.join(star_names) + ')'
+        # Pattern: "Sao Giác", "Nhị thập bát tú: Giác" (hỗ trợ cả Vĩ / Vỉ)
+        star_names = list(self.STAR_28_RATING.keys()) + ['Vỉ']
+        pattern = r'[Ss]ao\s+(' + '|'.join(star_names) + r')\b'
 
         match = re.search(pattern, text)
         if match:
-            name = match.group(1)
+            name = 'Vĩ' if match.group(1) == 'Vỉ' else match.group(1)
             return Star28Info(
                 name=name,
                 is_good=self.STAR_28_RATING.get(name, True),
@@ -309,7 +311,8 @@ class LichNgayTotParser:
         text = soup.get_text()
 
         truc_names = list(self.TRUC_12_RATING.keys())
-        pattern = r'[Tt]rực[:\s]*(' + '|'.join(truc_names) + ')'
+        # Tránh match nhầm "Trực tuyến ... Khai trương" trên menu
+        pattern = r'(?:[Tt]rực\s*[:]\s*|[Nn]gày\s+trực\s+)(' + '|'.join(truc_names) + r')\b'
 
         match = re.search(pattern, text)
         if match:
@@ -348,10 +351,11 @@ class LichNgayTotParser:
         for col2 in calendar_col2_list:
             col2_text = col2.get_text()
             if 'Hoàng Đạo' in col2_text or 'hoàng đạo' in col2_text.lower():
-                # Tìm tất cả địa chi trong section này
+                # Tìm tất cả địa chi trong section này (hỗ trợ cả Tỵ và Tị)
                 for chi, _ in chi_hours:
-                    # Match patterns like "Giáp Tý", "Ất Sửu" trong giờ hoàng đạo
-                    if re.search(rf'\b\w+\s+{chi}\s*\(', col2_text):
+                    chi_alt = '(?:Tỵ|Tị)' if chi == 'Tỵ' else chi
+                    # Match patterns like "Giáp Tý", "Ất Sửu", "Ất Tị" trong giờ hoàng đạo
+                    if re.search(rf'\b\w+\s+{chi_alt}\s*\(', col2_text):
                         hoang_dao_chis.add(chi)
 
         # Method 2: Tìm trong toàn bộ text với pattern cụ thể hơn
@@ -508,7 +512,7 @@ class LichNgayTotParser:
             section_text = text[:5000]  # Limit to first 5000 chars as fallback
 
         # Cát tinh: extract star names before colon, after "sao tốt là"
-        cat_match = re.search(r'sao tốt là\s*([^C]+?)(?:Các sao xấu|$)', section_text)
+        cat_match = re.search(r'sao tốt là\s*(.+?)(?:Các sao xấu|$)', section_text, re.DOTALL)
         if cat_match:
             stars_text = cat_match.group(1)
             # Pattern: "Nguyệt Đức: Tốt mọi việc;" -> extract "Nguyệt Đức"

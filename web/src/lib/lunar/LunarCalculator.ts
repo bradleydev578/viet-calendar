@@ -1,4 +1,4 @@
-import { Solar, Lunar } from 'lunar-javascript';
+import { Solar, Lunar, LunarYear, LunarMonth } from 'lunar-javascript';
 import type { LunarDate, YearInfo, CanChiResult } from './types';
 import { CON_GIAP, THIEN_CAN, DIA_CHI, CAN_NGU_HANH } from './constants';
 
@@ -31,14 +31,20 @@ export class LunarCalculator {
    * Chuyển đổi ngày âm sang dương lịch
    */
   static toSolar(lunarDate: LunarDate): Date {
+    const maxDays = this.getDaysInLunarMonth(
+      lunarDate.year,
+      lunarDate.month,
+      lunarDate.isLeapMonth
+    );
+    const safeDay = Math.min(Math.max(1, lunarDate.day), maxDays);
     const lunar = Lunar.fromYmd(
       lunarDate.year,
       lunarDate.isLeapMonth ? -lunarDate.month : lunarDate.month,
-      lunarDate.day
+      safeDay
     );
     const solar = lunar.getSolar();
 
-    return new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay());
+    return new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay(), 12, 0, 0);
   }
 
   /**
@@ -90,18 +96,20 @@ export class LunarCalculator {
   }
 
   /**
-   * Lấy Can Chi của tháng
+   * Lấy Can Chi của tháng (theo phép Ngũ Hổ Độn chuẩn Lịch Vạn Niên Việt Nam)
    */
   static getMonthCanChi(solarDate: Date): CanChiResult {
     const solar = Solar.fromDate(solarDate);
     const lunar = solar.getLunar();
-    const ganZhi = lunar.getMonthInGanZhi();
-    
-    const can = ganZhi.charAt(0);
-    const chi = ganZhi.charAt(1);
-    
-    const canVi = this.mapCanToVietnamese(can);
-    const chiVi = this.mapChiToVietnamese(chi);
+    const lunarMonth = Math.abs(lunar.getMonth());
+    const yearGanZhi = lunar.getYearInGanZhi();
+    const yearCanVi = this.mapCanToVietnamese(yearGanZhi.charAt(0));
+
+    // Tháng Giêng (1) là tháng Dần (index 2 trong DIA_CHI)
+    const chiVi = DIA_CHI[(lunarMonth + 1) % 12];
+    const yearCanIdx = THIEN_CAN.indexOf(yearCanVi as (typeof THIEN_CAN)[number]);
+    const startCanIdx = yearCanIdx !== -1 ? ((yearCanIdx % 5) * 2 + 2) % 10 : 0;
+    const canVi = THIEN_CAN[(startCanIdx + (lunarMonth - 1)) % 10];
 
     return {
       can: canVi,
@@ -137,16 +145,16 @@ export class LunarCalculator {
    * Lấy số ngày trong tháng âm lịch
    */
   static getDaysInLunarMonth(year: number, month: number, isLeapMonth: boolean = false): number {
-    const lunar = Lunar.fromYmd(year, isLeapMonth ? -month : month, 1);
-    return lunar.getMonthDayCount();
+    const lm = LunarMonth.fromYm(year, isLeapMonth ? -month : month);
+    return lm ? lm.getDayCount() : 29;
   }
 
   /**
    * Kiểm tra năm có tháng nhuận không
    */
   static getLeapMonth(year: number): number {
-    const lunar = Lunar.fromYmd(year, 1, 1);
-    return lunar.getLeapMonth();
+    const ly = LunarYear.fromYear(year);
+    return ly ? ly.getLeapMonth() : 0;
   }
 
   /**

@@ -13,6 +13,8 @@
 import 'server-only';
 import type { DayFengShuiData, FengShuiDataSet } from './types';
 import { format } from 'date-fns';
+import { UniversalDayCalculator } from './UniversalDayCalculator';
+import { parseDateString } from '@/lib/date-utils';
 
 // Server-side only imports
 import fengShuiData2025 from '@/data/fengshui_2025.json';
@@ -44,8 +46,26 @@ export class FengShuiServerRepository {
    * @returns DayFengShuiData or null if not found
    */
   static getByDate(date: Date): DayFengShuiData | null {
+    const year = date.getFullYear();
+    if (year < 1900 || year > 2100) {
+      return null;
+    }
     const dateKey = format(date, 'yyyy-MM-dd');
-    return dataMap.get(dateKey) || null;
+    const cached = dataMap.get(dateKey);
+    if (cached) {
+      if (!cached.s28 || !cached.age) {
+        const computed = UniversalDayCalculator.calculate(date);
+        return {
+          ...cached,
+          s28: cached.s28 || computed.s28,
+          s28g: cached.s28 ? cached.s28g : computed.s28g,
+          age: cached.age || computed.age,
+          score: cached.score ?? computed.score,
+        };
+      }
+      return cached;
+    }
+    return UniversalDayCalculator.calculate(date);
   }
 
   /**
@@ -54,7 +74,11 @@ export class FengShuiServerRepository {
    * @returns DayFengShuiData or null if not found
    */
   static getByDateString(dateStr: string): DayFengShuiData | null {
-    return dataMap.get(dateStr) || null;
+    const parsed = parseDateString(dateStr);
+    if (!parsed) {
+      return null;
+    }
+    return this.getByDate(parsed);
   }
 
   /**

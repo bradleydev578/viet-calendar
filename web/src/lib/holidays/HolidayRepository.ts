@@ -45,45 +45,72 @@ export class HolidayRepository {
 
   /**
    * Process a holiday template into a ProcessedHoliday for a specific year
+   * Note: For lunar holidays, `lunarYear` is the lunar year to convert, and `solarYear`
+   * is the target solar year for yearly schedule overrides.
    */
   private static processHolidayTemplate(
     template: HolidayTemplate,
     year: number,
-    today: Date
+    today: Date,
+    lunarYearOverride?: number
   ): ProcessedHoliday {
     let startDate: Date;
     let endDate: Date;
+    let lunarDateStr: string | undefined;
 
     if (template.type === 'lunar' && template.lunarDate) {
-      startDate = this.lunarToSolar(
-        year,
-        template.lunarDate.day,
-        template.lunarDate.month
-      );
+      const targetLunarYear = lunarYearOverride ?? year;
+      if (template.isLunarYearEnd) {
+        // Last day of lunar year `targetLunarYear` is 1 day before 1/1 of `targetLunarYear + 1`
+        const nextTet = this.lunarToSolar(targetLunarYear + 1, 1, 1);
+        startDate = addDays(nextTet, -1);
+        const actualLunar = LunarCalculator.toLunar(startDate);
+        lunarDateStr = `${actualLunar.day}/${actualLunar.month} Âm lịch`;
+      } else {
+        startDate = this.lunarToSolar(
+          targetLunarYear,
+          template.lunarDate.day,
+          template.lunarDate.month
+        );
+        lunarDateStr = `${template.lunarDate.day}/${template.lunarDate.month} Âm lịch`;
+      }
     } else if (template.solarDate) {
       startDate = new Date(year, template.solarDate.month - 1, template.solarDate.day);
     } else {
       startDate = new Date(year, 0, 1);
     }
 
-    const totalDays = template.totalDays || 1;
-    endDate = totalDays > 1 ? addDays(startDate, totalDays - 1) : startDate;
+    const solarYear = startDate.getFullYear();
+    const yearSchedule = template.yearlySchedules?.[solarYear];
+
+    if (yearSchedule?.startDate) {
+      startDate = parseDateString(yearSchedule.startDate) || startDate;
+    }
+
+    const totalDays = yearSchedule?.totalDays ?? template.totalDays ?? 1;
+    if (yearSchedule?.endDate) {
+      endDate = parseDateString(yearSchedule.endDate) || addDays(startDate, totalDays - 1);
+    } else {
+      endDate = totalDays > 1 ? addDays(startDate, totalDays - 1) : startDate;
+    }
 
     const daysUntil = differenceInDays(startDate, today);
 
     return {
-      id: `${template.id}-${year}`,
+      id: `${template.id}-${solarYear}-${startDate.getMonth() + 1}-${startDate.getDate()}`,
       name: template.name,
       category: template.category,
       startDate,
       endDate,
       totalDays,
-      description: template.description,
+      description: yearSchedule?.description || template.description,
       location: template.location,
       daysUntil,
       isPast: isBefore(endDate, today),
       isImportant: template.isImportant,
       type: template.type,
+      lunarDateStr,
+      vacationBadge: yearSchedule?.vacationBadge || template.vacationBadge,
     };
   }
 
@@ -110,17 +137,18 @@ export class HolidayRepository {
       startDate,
       endDate,
       totalDays,
-      description: festival.description,
+      description: yearDates.description || festival.description,
       location: festival.location,
       daysUntil,
       isPast: isBefore(endDate, today),
       isImportant: festival.isImportant,
       type: 'lunar',
+      vacationBadge: yearDates.vacationBadge || festival.vacationBadge,
     };
   }
 
   /**
-   * Get all holidays for a specific year
+   * Get all holidays for a specific solar year
    */
   static getHolidaysForYear(year: number): ProcessedHoliday[] {
     // Check cache
@@ -131,9 +159,20 @@ export class HolidayRepository {
     const today = startOfDay(new Date());
     const holidays: ProcessedHoliday[] = [];
 
-    // Process lunar holidays
+    // Process lunar holidays: check both (year - 1) and (year) lunar years
+    // because Month 12 of Lunar Year (year - 1) falls in Jan/Feb of Solar Year (year).
     LUNAR_HOLIDAYS.forEach((template) => {
-      holidays.push(this.processHolidayTemplate(template, year, today));
+      for (const candidateLunarYear of [year - 1, year]) {
+        const processed = this.processHolidayTemplate(
+          template,
+          year,
+          today,
+          candidateLunarYear
+        );
+        if (processed.startDate.getFullYear() === year) {
+          holidays.push(processed);
+        }
+      }
     });
 
     // Process solar holidays

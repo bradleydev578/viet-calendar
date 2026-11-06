@@ -11,6 +11,14 @@ export type HolidayCategory =
   | 'REVOLUTIONARY_ANNIVERSARIES'
   | 'HISTORICAL_FIGURES';
 
+export interface HolidayYearlySchedule {
+  startDate?: string;
+  endDate?: string;
+  totalDays?: number;
+  description?: string;
+  vacationBadge?: string;
+}
+
 export interface HolidayTemplate {
   id: string;
   name: string;
@@ -22,6 +30,11 @@ export interface HolidayTemplate {
   isImportant: boolean;
   totalDays?: number;
   location?: string;
+  vacationBadge?: string;
+  isLunarYearEnd?: boolean;
+  yearlySchedules?: {
+    [year: number]: HolidayYearlySchedule;
+  };
 }
 
 /**
@@ -34,18 +47,48 @@ export const LUNAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'lunar',
     category: 'PUBLIC_HOLIDAYS',
     lunarDate: { day: 1, month: 1 },
-    description: 'Tết Âm lịch - Năm mới truyền thống',
+    description: 'Tết Âm lịch - Năm mới truyền thống của dân tộc Việt Nam',
     isImportant: true,
-    totalDays: 9,
+    totalDays: 5,
+    vacationBadge: 'Nghỉ lễ chính thức',
+    yearlySchedules: {
+      2025: {
+        totalDays: 9,
+        vacationBadge: 'Nghỉ 9 ngày (25/01 – 02/02)',
+        description:
+          'Mùng 1 Tết Ất Tỵ (29/01/2025) • Lịch nghỉ Tết chính thức 9 ngày liên tục từ 25/01/2025 đến hết 02/02/2025 (26 tháng Chạp đến mùng 5 Tết)',
+      },
+      2026: {
+        totalDays: 9,
+        vacationBadge: 'Nghỉ 9 ngày (14/02 – 22/02)',
+        description:
+          'Mùng 1 Tết Bính Ngọ (17/02/2026) • Lịch nghỉ Tết chính thức 9 ngày liên tục từ thứ Bảy 14/02/2026 đến hết Chủ Nhật 22/02/2026 (27 tháng Chạp Ất Tỵ đến mùng 6 Tết Bính Ngọ)',
+      },
+      2027: {
+        totalDays: 7,
+        vacationBadge: 'Nghỉ 7 ngày (04/02 – 10/02)',
+        description:
+          'Mùng 1 Tết Đinh Mùi (06/02/2027) • Lịch nghỉ Tết chính thức 7 ngày liên tục từ thứ Năm 04/02/2027 đến hết thứ Tư 10/02/2027 (28 tháng Chạp Bính Ngọ đến mùng 5 Tết Đinh Mùi)',
+      },
+    },
+  },
+  {
+    id: 'ngay-via-than-tai',
+    name: 'Ngày Vía Thần Tài',
+    type: 'lunar',
+    category: 'CULTURAL_ETHNIC_FESTIVALS',
+    lunarDate: { day: 10, month: 1 },
+    description: 'Mùng 10 tháng Giêng — Ngày cúng Thần Tài cầu tài lộc, may mắn, kinh doanh hanh thông đầu năm',
+    isImportant: true,
   },
   {
     id: 'tet-nguyen-tieu',
-    name: 'Tết Nguyên Tiêu',
+    name: 'Tết Nguyên Tiêu (Rằm tháng Giêng)',
     type: 'lunar',
     category: 'CULTURAL_ETHNIC_FESTIVALS',
     lunarDate: { day: 15, month: 1 },
-    description: 'Rằm tháng Giêng',
-    isImportant: false,
+    description: 'Lễ Thượng Nguyên — Rằm tháng Giêng cầu bình an, phúc lộc đầu năm',
+    isImportant: true,
   },
   {
     id: 'tet-han-thuc',
@@ -53,7 +96,7 @@ export const LUNAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'lunar',
     category: 'CULTURAL_ETHNIC_FESTIVALS',
     lunarDate: { day: 3, month: 3 },
-    description: 'Tết Thanh Minh',
+    description: 'Ngày 3/3 Âm lịch — Dâng bánh trôi, bánh chay tưởng nhớ cội nguồn',
     isImportant: false,
   },
   {
@@ -62,9 +105,33 @@ export const LUNAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'lunar',
     category: 'PUBLIC_HOLIDAYS',
     lunarDate: { day: 10, month: 3 },
-    description: 'Ngày Giỗ Tổ Hùng Vương (10/3 Âm lịch)',
+    description: 'Ngày Giỗ Tổ Hùng Vương (10/3 Âm lịch) — Nghỉ lễ chính thức hưởng nguyên lương',
     isImportant: true,
     totalDays: 1,
+    vacationBadge: 'Nghỉ lễ chính thức',
+    yearlySchedules: {
+      2026: {
+        totalDays: 3,
+        vacationBadge: 'Nghỉ 3 ngày (25/04 – 27/04)',
+        description:
+          'Ngày Giỗ Tổ Hùng Vương (10/3 Âm lịch) • Năm 2026 rơi vào Chủ Nhật (26/04) nên được nghỉ 3 ngày liên tục từ 25/04/2026 đến hết thứ Hai 27/04/2026',
+      },
+      2027: {
+        totalDays: 3,
+        vacationBadge: 'Nghỉ 3 ngày (16/04 – 18/04)',
+        description:
+          'Ngày Giỗ Tổ Hùng Vương (10/3 Âm lịch) • Năm 2027 rơi vào thứ Sáu (16/04) nên được nghỉ 3 ngày liên tục từ 16/04/2027 đến hết Chủ Nhật 18/04/2027',
+      },
+    },
+  },
+  {
+    id: 'le-phat-dan',
+    name: 'Đại lễ Phật Đản',
+    type: 'lunar',
+    category: 'CULTURAL_ETHNIC_FESTIVALS',
+    lunarDate: { day: 15, month: 4 },
+    description: 'Rằm tháng Tư — Kỷ niệm ngày Đức Phật Thích Ca Mâu Ni đản sinh',
+    isImportant: true,
   },
   {
     id: 'tet-doan-ngo',
@@ -72,16 +139,16 @@ export const LUNAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'lunar',
     category: 'CULTURAL_ETHNIC_FESTIVALS',
     lunarDate: { day: 5, month: 5 },
-    description: 'Tết diệt sâu bọ',
-    isImportant: false,
+    description: 'Mùng 5 tháng 5 Âm lịch — Tết diệt sâu bọ, cầu sức khỏe bình an',
+    isImportant: true,
   },
   {
     id: 'vu-lan',
-    name: 'Lễ Vu Lan',
+    name: 'Lễ Vu Lan Báo Hiếu',
     type: 'lunar',
     category: 'CULTURAL_ETHNIC_FESTIVALS',
     lunarDate: { day: 15, month: 7 },
-    description: 'Ngày lễ báo hiếu',
+    description: 'Rằm tháng Bảy — Đại lễ báo hiếu cha mẹ, tổ tiên',
     isImportant: true,
   },
   {
@@ -90,7 +157,7 @@ export const LUNAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'lunar',
     category: 'CULTURAL_ETHNIC_FESTIVALS',
     lunarDate: { day: 15, month: 8 },
-    description: 'Tết thiếu nhi',
+    description: 'Rằm tháng Tám — Tết Đoàn viên, trông trăng và phá cỗ thiếu nhi',
     isImportant: true,
   },
   {
@@ -99,7 +166,7 @@ export const LUNAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'lunar',
     category: 'CULTURAL_ETHNIC_FESTIVALS',
     lunarDate: { day: 9, month: 9 },
-    description: 'Lễ trùng dương',
+    description: 'Ngày 9/9 Âm lịch — Lễ Trùng dương cầu trường thọ',
     isImportant: false,
   },
   {
@@ -108,7 +175,7 @@ export const LUNAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'lunar',
     category: 'CULTURAL_ETHNIC_FESTIVALS',
     lunarDate: { day: 15, month: 10 },
-    description: 'Rằm tháng Mười',
+    description: 'Rằm tháng Mười — Lễ mừng lúa mới, tạ ơn thần nông',
     isImportant: false,
   },
   {
@@ -117,8 +184,18 @@ export const LUNAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'lunar',
     category: 'CULTURAL_ETHNIC_FESTIVALS',
     lunarDate: { day: 23, month: 12 },
-    description: 'Tiễn Táo quân về trời',
-    isImportant: false,
+    description: '23 tháng Chạp — Lễ cúng tiễn Ông Công Ông Táo chầu trời',
+    isImportant: true,
+  },
+  {
+    id: 'dem-giao-thua',
+    name: 'Lễ Tất Niên & Đêm Giao Thừa',
+    type: 'lunar',
+    category: 'CULTURAL_ETHNIC_FESTIVALS',
+    lunarDate: { day: 30, month: 12 },
+    isLunarYearEnd: true,
+    description: 'Ngày cuối năm Âm lịch (29 hoặc 30 Tết) — Lễ cúng Tất niên và đón Giao thừa',
+    isImportant: true,
   },
 ];
 
@@ -133,39 +210,123 @@ export const SOLAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'solar',
     category: 'PUBLIC_HOLIDAYS',
     solarDate: { day: 1, month: 1 },
-    description: 'Năm mới Dương lịch',
+    description: 'Năm mới Dương lịch — Nghỉ lễ chính thức hưởng nguyên lương',
     isImportant: true,
     totalDays: 1,
+    vacationBadge: 'Nghỉ lễ chính thức',
+    yearlySchedules: {
+      2026: {
+        totalDays: 4,
+        vacationBadge: 'Nghỉ 4 ngày (01/01 – 04/01)',
+        description:
+          'Tết Dương lịch 2026 • Nghỉ 4 ngày liên tục từ thứ Năm 01/01/2026 đến hết Chủ Nhật 04/01/2026 (hoán đổi ngày làm việc thứ Sáu 02/01)',
+      },
+      2027: {
+        totalDays: 3,
+        vacationBadge: 'Nghỉ 3 ngày (01/01 – 03/01)',
+        description:
+          'Tết Dương lịch 2027 • Nghỉ 3 ngày liên tục từ thứ Sáu 01/01/2027 đến hết Chủ Nhật 03/01/2027',
+      },
+    },
   },
   {
     id: 'giai-phong-mien-nam',
-    name: 'Ngày Giải phóng miền Nam',
+    name: 'Ngày Giải phóng miền Nam 30/4',
     type: 'solar',
     category: 'PUBLIC_HOLIDAYS',
     solarDate: { day: 30, month: 4 },
-    description: 'Ngày thống nhất đất nước',
+    description: 'Ngày Giải phóng miền Nam, thống nhất đất nước (30/04/1975)',
     isImportant: true,
     totalDays: 1,
+    vacationBadge: 'Nghỉ lễ chính thức',
+    yearlySchedules: {
+      2026: {
+        totalDays: 4,
+        vacationBadge: 'Nghỉ 4 ngày (30/04 – 03/05)',
+        description:
+          'Kỳ nghỉ lễ 30/4 & 1/5 năm 2026 • Nghỉ 4 ngày liên tục từ thứ Năm 30/04/2026 đến hết Chủ Nhật 03/05/2026',
+      },
+      2027: {
+        totalDays: 4,
+        vacationBadge: 'Nghỉ 4 ngày (30/04 – 03/05)',
+        description:
+          'Kỳ nghỉ lễ 30/4 & 1/5 năm 2027 • Nghỉ 4 ngày liên tục từ thứ Sáu 30/04/2027 đến hết thứ Hai 03/05/2027 (nghỉ bù ngày 1/5 trùng thứ Bảy)',
+      },
+    },
   },
   {
     id: 'quoc-te-lao-dong',
-    name: 'Quốc tế Lao động',
+    name: 'Ngày Quốc tế Lao động 1/5',
     type: 'solar',
     category: 'PUBLIC_HOLIDAYS',
     solarDate: { day: 1, month: 5 },
-    description: 'Ngày Quốc tế Lao động',
+    description: 'Ngày Quốc tế Lao động (01/05) — Nghỉ lễ chính thức hưởng nguyên lương',
     isImportant: true,
     totalDays: 1,
+    vacationBadge: 'Nghỉ lễ chính thức',
+    yearlySchedules: {
+      2026: {
+        vacationBadge: 'Nghỉ chung kỳ lễ 30/4 - 1/5 (4 ngày)',
+        description:
+          'Ngày Quốc tế Lao động 1/5 • Nằm trong kỳ nghỉ lễ 4 ngày liên tục từ 30/04/2026 đến 03/05/2026',
+      },
+      2027: {
+        vacationBadge: 'Nghỉ bù thứ Hai 03/05 (4 ngày)',
+        description:
+          'Ngày Quốc tế Lao động 1/5 • Năm 2027 trùng thứ Bảy nên được nghỉ bù vào thứ Hai 03/05/2027 (tổng cộng 4 ngày từ 30/04 đến 03/05/2027)',
+      },
+    },
   },
   {
     id: 'quoc-khanh',
-    name: 'Lễ Quốc khánh',
+    name: 'Lễ Quốc khánh 2/9',
     type: 'solar',
     category: 'PUBLIC_HOLIDAYS',
     solarDate: { day: 2, month: 9 },
-    description: 'Ngày Quốc khánh Việt Nam',
+    description: 'Ngày Quốc khánh nước CHXHCN Việt Nam (02/09/1945)',
     isImportant: true,
     totalDays: 2,
+    vacationBadge: 'Nghỉ lễ chính thức',
+    yearlySchedules: {
+      2026: {
+        totalDays: 5,
+        vacationBadge: 'Nghỉ 5 ngày (29/08 – 02/09)',
+        description:
+          'Kỳ nghỉ Lễ Quốc khánh 2026 • Nghỉ 5 ngày liên tục từ thứ Bảy 29/08/2026 đến hết thứ Tư 02/09/2026',
+      },
+      2027: {
+        totalDays: 4,
+        vacationBadge: 'Nghỉ 4 ngày (02/09 – 05/09)',
+        description:
+          'Kỳ nghỉ Lễ Quốc khánh 2027 • Nghỉ 4 ngày liên tục từ thứ Năm 02/09/2027 đến hết Chủ Nhật 05/09/2027 (gồm 2 ngày lễ Quốc khánh và 2 ngày cuối tuần)',
+      },
+    },
+  },
+  {
+    id: 'ngay-van-hoa-viet-nam',
+    name: 'Ngày Văn hóa Việt Nam',
+    type: 'solar',
+    category: 'PUBLIC_HOLIDAYS',
+    solarDate: { day: 24, month: 11 },
+    description:
+      'Ngày lễ chính thức được nghỉ làm việc, hưởng nguyên lương (theo Nghị quyết 80-NQ/TW & Nghị quyết 28/2026/QH16) — Kỷ niệm Hội nghị Văn hóa toàn quốc lần thứ nhất (24/11/1946)',
+    isImportant: true,
+    totalDays: 1,
+    vacationBadge: 'Nghỉ 1 ngày hưởng nguyên lương',
+    yearlySchedules: {
+      2026: {
+        totalDays: 1,
+        vacationBadge: 'Nghỉ 1 ngày (Thứ Ba 24/11)',
+        description:
+          'Ngày Văn hóa Việt Nam (24/11/2026) • Ngày lễ chính thức mới theo Nghị quyết 80-NQ/TW & Nghị quyết 28/2026/QH16 — Người lao động được nghỉ 1 ngày (thứ Ba 24/11/2026) và hưởng nguyên lương',
+      },
+      2027: {
+        totalDays: 1,
+        vacationBadge: 'Nghỉ 1 ngày (Thứ Tư 24/11)',
+        description:
+          'Ngày Văn hóa Việt Nam (24/11/2027) • Ngày lễ chính thức theo Nghị quyết 80-NQ/TW & Nghị quyết 28/2026/QH16 — Người lao động được nghỉ 1 ngày (thứ Tư 24/11/2027) và hưởng nguyên lương',
+      },
+    },
   },
 
   // SECTOR ANNIVERSARIES
@@ -341,6 +502,15 @@ export const SOLAR_HOLIDAYS: HolidayTemplate[] = [
     isImportant: false,
   },
   {
+    id: 'ngay-chuyen-doi-so',
+    name: 'Ngày Chuyển đổi số Quốc gia',
+    type: 'solar',
+    category: 'SECTOR_ANNIVERSARIES',
+    solarDate: { day: 10, month: 10 },
+    description: 'Ngày Chuyển đổi số Quốc gia Việt Nam (theo Quyết định 505/QĐ-TTg)',
+    isImportant: false,
+  },
+  {
     id: 'ngay-luat-su-in',
     name: 'Ngày truyền thống Luật sư & Ngành In',
     type: 'solar',
@@ -355,7 +525,7 @@ export const SOLAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'solar',
     category: 'SECTOR_ANNIVERSARIES',
     solarDate: { day: 13, month: 10 },
-    description: 'Ngày Doanh nhân Việt Nam',
+    description: 'Ngày Doanh nhân Việt Nam (13/10)',
     isImportant: false,
   },
   {
@@ -369,11 +539,11 @@ export const SOLAR_HOLIDAYS: HolidayTemplate[] = [
   },
   {
     id: 'ngay-phu-nu',
-    name: 'Ngày Phụ nữ Việt Nam',
+    name: 'Ngày Phụ nữ Việt Nam 20/10',
     type: 'solar',
     category: 'SECTOR_ANNIVERSARIES',
     solarDate: { day: 20, month: 10 },
-    description: 'Ngày Phụ nữ Việt Nam',
+    description: 'Ngày thành lập Hội Liên hiệp Phụ nữ Việt Nam (20/10/1930)',
     isImportant: true,
   },
   {
@@ -382,16 +552,25 @@ export const SOLAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'solar',
     category: 'SECTOR_ANNIVERSARIES',
     solarDate: { day: 9, month: 11 },
-    description: 'Ngày Pháp luật Việt Nam',
+    description: 'Ngày Pháp luật nước CHXHCN Việt Nam (09/11)',
     isImportant: false,
   },
   {
+    id: 'ngay-dai-doan-ket',
+    name: 'Ngày hội Đại đoàn kết toàn dân tộc',
+    type: 'solar',
+    category: 'SECTOR_ANNIVERSARIES',
+    solarDate: { day: 18, month: 11 },
+    description: 'Ngày truyền thống Mặt trận Tổ quốc Việt Nam (18/11/1930) & Ngày hội Đại đoàn kết toàn dân tộc',
+    isImportant: true,
+  },
+  {
     id: 'ngay-nha-giao',
-    name: 'Ngày Nhà giáo Việt Nam',
+    name: 'Ngày Nhà giáo Việt Nam 20/11',
     type: 'solar',
     category: 'SECTOR_ANNIVERSARIES',
     solarDate: { day: 20, month: 11 },
-    description: 'Ngày Nhà giáo Việt Nam',
+    description: 'Ngày tôn vinh các thầy cô giáo và ngành Giáo dục Việt Nam (20/11)',
     isImportant: true,
   },
   {
@@ -400,17 +579,46 @@ export const SOLAR_HOLIDAYS: HolidayTemplate[] = [
     type: 'solar',
     category: 'SECTOR_ANNIVERSARIES',
     solarDate: { day: 23, month: 11 },
-    description: 'Ngày Di sản Văn hóa Việt Nam',
+    description: 'Ngày Di sản Văn hóa Việt Nam (23/11)',
     isImportant: false,
   },
   {
     id: 'ngay-quan-doi',
-    name: 'Ngày thành lập Quân đội nhân dân',
+    name: 'Ngày thành lập Quân đội nhân dân Việt Nam',
     type: 'solar',
     category: 'SECTOR_ANNIVERSARIES',
     solarDate: { day: 22, month: 12 },
-    description: 'Ngày thành lập Quân đội nhân dân Việt Nam',
+    description: 'Ngày thành lập Quân đội nhân dân Việt Nam (22/12/1944) & Ngày hội Quốc phòng toàn dân',
+    isImportant: true,
+  },
+
+  // CULTURAL / INTERNATIONAL CELEBRATIONS IN VIETNAM
+  {
+    id: 'quoc-te-phu-nu',
+    name: 'Ngày Quốc tế Phụ nữ 8/3',
+    type: 'solar',
+    category: 'CULTURAL_ETHNIC_FESTIVALS',
+    solarDate: { day: 8, month: 3 },
+    description: 'Ngày Quốc tế Phụ nữ (08/03)',
+    isImportant: true,
+  },
+  {
+    id: 'quoc-te-thieu-nhi',
+    name: 'Ngày Quốc tế Thiếu nhi 1/6',
+    type: 'solar',
+    category: 'CULTURAL_ETHNIC_FESTIVALS',
+    solarDate: { day: 1, month: 6 },
+    description: 'Ngày Quốc tế Thiếu nhi (01/06)',
     isImportant: false,
+  },
+  {
+    id: 'le-giang-sinh',
+    name: 'Lễ Giáng Sinh (Noel)',
+    type: 'solar',
+    category: 'CULTURAL_ETHNIC_FESTIVALS',
+    solarDate: { day: 25, month: 12 },
+    description: 'Lễ Giáng Sinh — Mùa lễ hội an lành cuối năm (24–25/12)',
+    isImportant: true,
   },
 
   // REVOLUTIONARY_ANNIVERSARIES
@@ -644,24 +852,57 @@ export const SOLAR_HOLIDAYS: HolidayTemplate[] = [
 ];
 
 /**
- * Cultural and Ethnic Festivals (with specific dates for each year)
+ * Cultural, Ethnic Festivals and Yearly Official Vacation Schedules
  */
 export interface YearlyFestival {
   id: string;
   name: string;
-  category: 'CULTURAL_ETHNIC_FESTIVALS';
+  category: HolidayCategory;
   location?: string;
   description?: string;
   isImportant: boolean;
+  vacationBadge?: string;
   dates: {
     [year: number]: {
       startDate: string;
       endDate: string;
+      description?: string;
+      vacationBadge?: string;
     };
   };
 }
 
 export const YEARLY_FESTIVALS: YearlyFestival[] = [
+  {
+    id: 'lich-nghi-tet-am-lich',
+    name: 'Kỳ nghỉ Tết Nguyên Đán chính thức',
+    category: 'PUBLIC_HOLIDAYS',
+    description: 'Lịch nghỉ Tết Âm lịch chính thức theo thông báo của Bộ Nội vụ & Chính phủ',
+    isImportant: true,
+    dates: {
+      2025: {
+        startDate: '2025-01-25',
+        endDate: '2025-02-02',
+        vacationBadge: 'Nghỉ 9 ngày liên tục (25/01 – 02/02)',
+        description:
+          'Lịch nghỉ Tết Nguyên Đán Ất Tỵ 2025: Nghỉ 9 ngày liên tục từ thứ Bảy 25/01/2025 (26 tháng Chạp) đến hết Chủ Nhật 02/02/2025 (mùng 5 tháng Giêng)',
+      },
+      2026: {
+        startDate: '2026-02-14',
+        endDate: '2026-02-22',
+        vacationBadge: 'Nghỉ 9 ngày liên tục (14/02 – 22/02)',
+        description:
+          'Lịch nghỉ Tết Nguyên Đán Bính Ngọ 2026: Nghỉ 9 ngày liên tục từ thứ Bảy 14/02/2026 (27 tháng Chạp Ất Tỵ) đến hết Chủ Nhật 22/02/2026 (mùng 6 tháng Giêng Bính Ngọ)',
+      },
+      2027: {
+        startDate: '2027-02-04',
+        endDate: '2027-02-10',
+        vacationBadge: 'Nghỉ 7 ngày liên tục (04/02 – 10/02)',
+        description:
+          'Lịch nghỉ Tết Nguyên Đán Đinh Mùi 2027 (Thông báo 11483/TB-BNV): Nghỉ 7 ngày liên tục từ thứ Năm 04/02/2027 (28 tháng Chạp Bính Ngọ) đến hết thứ Tư 10/02/2027 (mùng 5 tháng Giêng Đinh Mùi)',
+      },
+    },
+  },
   {
     id: 'le-hoi-chua-huong',
     name: 'Lễ hội Chùa Hương',

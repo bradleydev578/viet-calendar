@@ -11,6 +11,7 @@ import { HolidayRepository, getHolidayColor } from "@/lib/holidays";
 import { LunarCalculator, WEEKDAY_NAMES, GIO_DIA_CHI, CON_GIAP } from "@/lib/lunar";
 import { parseDateString, formatDateString } from "@/lib/date-utils";
 import type { DayFengShuiData } from "@/lib/fengshui/types";
+import { UniversalDayCalculator } from "@/lib/fengshui/UniversalDayCalculator";
 import { fetchFengShuiByDate, fetchFengShuiByMonth, createFengShuiCache } from "@/lib/fengshui/client";
 import { MaterialIcon } from "@/components/common";
 
@@ -74,7 +75,7 @@ export function HomeClient({
     return HolidayRepository.getUpcomingFromDate(selectedDate, 5);
   }, [selectedDate]);
 
-  // Fetch data for selected date
+  // Fetch data for selected date (works for ALL years 1900-2100 via UniversalDayCalculator fallback)
   const fetchDataForDate = useCallback(
     async (date: Date) => {
       const dateStr = format(date, "yyyy-MM-dd");
@@ -87,18 +88,20 @@ export function HomeClient({
         return;
       }
 
-      // Fetch from API
-      setIsLoading(true);
+      // Immediately compute via UniversalDayCalculator so any date (1900-2100) renders in 0ms
+      const computed = UniversalDayCalculator.calculate(date);
+      setFengShuiData(computed);
+      setIsLoading(false);
+
+      // Enrich from server API if available
       try {
         const data = await fetchFengShuiByDate(date);
         if (data) {
           fengShuiCache.set(data);
           setFengShuiData(data);
-        } else {
-          setFengShuiData(null);
         }
-      } finally {
-        setIsLoading(false);
+      } catch {
+        // Keep computed data on error
       }
     },
     [fengShuiCache]
@@ -164,9 +167,9 @@ export function HomeClient({
     }
   };
 
-  // Helper to get cached data for a date
+  // Helper to get cached data for a date (falls back to UniversalDayCalculator for any year 1900-2100)
   const getCachedData = useCallback(
-    (date: Date) => fengShuiCache.get(date),
+    (date: Date) => fengShuiCache.get(date) || UniversalDayCalculator.calculate(date),
     [fengShuiCache]
   );
 
@@ -223,12 +226,12 @@ export function HomeClient({
 
               {/* Mobile only: Today Button + Day Detail + Upcoming Holidays + Quote + Info */}
               <div className="lg:hidden">
-                {/* Today Button */}
-                <div className="flex justify-center py-4">
+                {/* Today Button (Mobile) */}
+                <div className="flex items-center justify-center py-4">
                   <button
                     type="button"
                     onClick={handleToday}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all active:scale-95 hover:shadow-md"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border transition-all active:scale-95 hover:shadow-md"
                     style={{
                       backgroundColor: `${theme.primaryAccent}10`,
                       borderColor: `${theme.primaryAccent}30`,
@@ -236,7 +239,7 @@ export function HomeClient({
                     }}
                   >
                     <MaterialIcon name="today" className="text-[18px]" />
-                    <span className="text-sm font-bold">Hôm nay</span>
+                    <span className="text-xs font-bold">Hôm nay</span>
                   </button>
                 </div>
 
@@ -279,15 +282,16 @@ export function HomeClient({
                             >
                               {format(holiday.startDate, "d/M")}
                             </div>
-                            <div className="flex-1">
+                            <div className="flex-1 min-w-0">
                               <p
-                                className="text-sm font-bold"
+                                className="text-sm font-bold truncate"
                                 style={{ color: "#1e293b" }}
                               >
                                 {holiday.name}
                               </p>
                               <p className="text-xs" style={{ color: "#64748b" }}>
                                 {holiday.daysUntil} ngày nữa
+                                {holiday.vacationBadge ? ` • ${holiday.vacationBadge}` : ""}
                               </p>
                             </div>
                           </Link>
@@ -339,11 +343,11 @@ export function HomeClient({
             {/* Day Detail Panel - Desktop only */}
             <div className="hidden lg:flex lg:flex-col lg:flex-1 lg:min-w-[340px] lg:max-w-[400px]">
               {/* Today Button - centered above detail panel */}
-              <div className="flex justify-center py-4">
+              <div className="flex items-center justify-center py-4">
                 <button
                   type="button"
                   onClick={handleToday}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all active:scale-95 hover:shadow-md"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-full border transition-all active:scale-95 hover:shadow-md"
                   style={{
                     backgroundColor: `${theme.primaryAccent}10`,
                     borderColor: `${theme.primaryAccent}30`,
@@ -351,7 +355,7 @@ export function HomeClient({
                   }}
                 >
                   <MaterialIcon name="today" className="text-[18px]" />
-                  <span className="text-sm font-bold">Hôm nay</span>
+                  <span className="text-xs font-bold">Hôm nay</span>
                 </button>
               </div>
 
@@ -400,6 +404,10 @@ function MobileDayDetail({
 
   const weekday = WEEKDAY_NAMES[selectedDate.getDay()];
   const isHoangDao = fengShuiData?.t12g === 1;
+  const selectedDateHolidays = useMemo(
+    () => HolidayRepository.getByDate(selectedDate),
+    [selectedDate]
+  );
 
   // Get hoàng đạo hours with zodiac info
   const hoangDaoHours = useMemo(() => {
@@ -522,6 +530,33 @@ function MobileDayDetail({
                 Chi tiết →
               </span>
             </div>
+
+            {selectedDateHolidays.length > 0 && (
+              <div className="pt-2 space-y-1.5">
+                {selectedDateHolidays.map((h) => (
+                  <div
+                    key={h.id}
+                    className="flex flex-col gap-0.5 px-3 py-2 rounded-xl bg-red-50/90 border border-red-100"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-bold text-red-700">
+                        🎉 {h.name}
+                      </span>
+                      {h.vacationBadge && (
+                        <span className="text-[10px] font-bold text-emerald-700 bg-white px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
+                          {h.vacationBadge}
+                        </span>
+                      )}
+                    </div>
+                    {h.description && (
+                      <p className="text-[11px] text-slate-600 leading-snug">
+                        {h.description}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </Link>

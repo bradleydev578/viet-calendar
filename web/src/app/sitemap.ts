@@ -36,6 +36,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${baseUrl}/doi-ngay-am-duong`,
+      lastModified: lastMod,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/xem-ngay-tot`,
+      lastModified: lastMod,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
       url: `${baseUrl}/holidays`,
       lastModified: lastMod,
       changeFrequency: 'weekly',

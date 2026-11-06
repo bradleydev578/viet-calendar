@@ -35,6 +35,24 @@ export function Footer() {
       {/* Main Footer Links */}
       <div className="flex items-center justify-center gap-4 text-sm flex-wrap">
         <Link
+          href="/doi-ngay-am-duong"
+          className="text-slate-600 hover:text-slate-900 underline transition-colors font-semibold"
+        >
+          Đổi ngày Âm Dương
+        </Link>
+        <span className="text-slate-400" aria-hidden="true">
+          •
+        </span>
+        <Link
+          href="/xem-ngay-tot"
+          className="text-slate-600 hover:text-slate-900 underline transition-colors font-semibold"
+        >
+          Xem ngày tốt
+        </Link>
+        <span className="text-slate-400" aria-hidden="true">
+          •
+        </span>
+        <Link
           href="/holidays"
           className="text-slate-600 hover:text-slate-900 underline transition-colors"
         >

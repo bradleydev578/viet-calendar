@@ -48,11 +48,18 @@ export default function HolidaysPage() {
   }, [allHolidays, selectedCategory, searchQuery]);
 
   // Group by upcoming/past
-  const { upcomingHolidays, pastHolidays } = useMemo(() => {
+  const { upcomingHolidays, pastHolidays, upcomingPublicHolidays } = useMemo(() => {
     const upcoming = filteredHolidays.filter((h) => !h.isPast);
     const past = filteredHolidays.filter((h) => h.isPast);
-    return { upcomingHolidays: upcoming, pastHolidays: past };
-  }, [filteredHolidays]);
+    const publicUpcoming = allHolidays
+      .filter((h) => !h.isPast && h.category === "PUBLIC_HOLIDAYS")
+      .slice(0, 6);
+    return {
+      upcomingHolidays: upcoming,
+      pastHolidays: past,
+      upcomingPublicHolidays: publicUpcoming,
+    };
+  }, [filteredHolidays, allHolidays]);
 
   return (
     <div
@@ -156,6 +163,70 @@ export default function HolidaysPage() {
                   </button>
                 )}
               </div>
+
+              {/* Official Public Holidays & Tết Vacation Highlight */}
+              {!searchQuery &&
+                (!selectedCategory || selectedCategory === "PUBLIC_HOLIDAYS") &&
+                upcomingPublicHolidays.length > 0 && (
+                  <section className="bg-white/90 backdrop-blur-md rounded-2xl p-4 lg:p-5 border border-red-100 shadow-sm">
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="p-1.5 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+                          <MaterialIcon name="event_available" className="text-base" />
+                        </span>
+                        <div>
+                          <h2 className="text-sm lg:text-base font-extrabold text-slate-800">
+                            Lịch Nghỉ Lễ & Tết Chính Thức Sắp Tới
+                          </h2>
+                          <p className="text-xs text-slate-500">
+                            Các ngày lễ, Tết người lao động được nghỉ làm việc và hưởng nguyên lương
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {upcomingPublicHolidays.map((item) => (
+                        <Link
+                          key={`highlight-${item.id}`}
+                          href={`/day/${format(item.startDate, "yyyy-MM-dd")}`}
+                          prefetch={false}
+                          className="flex items-start gap-3 p-3 rounded-xl bg-red-50/40 hover:bg-red-50/80 border border-red-100/80 transition-all"
+                        >
+                          <div className="w-12 h-12 rounded-xl bg-red-600 text-white flex flex-col items-center justify-center shrink-0 shadow-sm">
+                            <span className="text-xs font-extrabold leading-none">
+                              {format(item.startDate, "dd/MM")}
+                            </span>
+                            <span className="text-[10px] opacity-85 mt-0.5">
+                              {format(item.startDate, "yyyy")}
+                            </span>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-1">
+                              <p className="text-xs lg:text-sm font-bold text-slate-800 truncate">
+                                {item.name}
+                              </p>
+                              <span className="text-[10px] font-bold text-red-600 bg-white px-2 py-0.5 rounded-full border border-red-100 shrink-0">
+                                {item.daysUntil <= 0
+                                  ? "Đang diễn ra"
+                                  : `Còn ${item.daysUntil} ngày`}
+                              </span>
+                            </div>
+                            {item.vacationBadge && (
+                              <p className="text-[11px] font-semibold text-emerald-700 mt-0.5">
+                                ✓ {item.vacationBadge}
+                              </p>
+                            )}
+                            {item.lunarDateStr && (
+                              <p className="text-[10px] text-slate-500 mt-0.5">
+                                Âm lịch: {item.lunarDateStr}
+                              </p>
+                            )}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                )}
 
               {/* Upcoming Events */}
               {upcomingHolidays.length > 0 && (
@@ -426,20 +497,37 @@ function EventCard({ holiday, theme, isPast = false }: EventCardProps) {
           >
             {/* Header row: Date + Category + Countdown */}
             <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <time
                   dateTime={format(holiday.startDate, "yyyy-MM-dd")}
                   className="font-bold text-xs"
                   style={{ color: isPast ? "#64748b" : theme.primaryAccent }}
                 >
-                  {format(holiday.startDate, "dd/MM", { locale: vi })}
+                  {format(holiday.startDate, "dd/MM/yyyy", { locale: vi })}
+                  {holiday.totalDays > 1 &&
+                    format(holiday.endDate, "yyyy-MM-dd") !==
+                      format(holiday.startDate, "yyyy-MM-dd") &&
+                    ` – ${format(holiday.endDate, "dd/MM/yyyy", { locale: vi })}`}
                 </time>
+                {holiday.lunarDateStr && (
+                  <>
+                    <span className="w-1 h-1 rounded-full bg-slate-300" />
+                    <span className="text-[11px] font-semibold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">
+                      {holiday.lunarDateStr}
+                    </span>
+                  </>
+                )}
                 <span className="w-1 h-1 rounded-full bg-slate-300" />
                 <span
                   className={`text-[10px] uppercase font-bold tracking-wider ${categoryColor} text-white px-1.5 py-0.5 rounded`}
                 >
                   {categoryName}
                 </span>
+                {holiday.vacationBadge && (
+                  <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                    {holiday.vacationBadge}
+                  </span>
+                )}
               </div>
               {!isPast && (
                 <span
