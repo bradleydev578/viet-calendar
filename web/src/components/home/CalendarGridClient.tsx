@@ -37,6 +37,15 @@ const ACTIVITY_FILTERS: { id: ActivityFilter; label: string }[] = [
   { id: "xuathanh", label: "Xuất hành" },
 ];
 
+const DAI_KY_STARS = new Set([
+  "Tam Nương",
+  "Nguyệt Kỵ",
+  "Dương Công Kỵ",
+  "Thụ tử",
+  "Sát chủ",
+  "Nguyệt phá",
+]);
+
 function matchesActivityFilter(
   filter: ActivityFilter,
   data?: DayFengShuiData
@@ -46,22 +55,37 @@ function matchesActivityFilter(
   const isHoangDao = data.t12g === 1;
   if (filter === "hoangdao") return isHoangDao;
 
+  if (!isHoangDao) return false;
+  if (["Phá", "Nguy", "Bế"].includes(data.t12)) return false;
+  if ((data.bs || []).some((s) => DAI_KY_STARS.has(s))) return false;
+
   const gaText = (data.ga || []).join(" ");
   const baText = (data.ba || []).join(" ");
 
   switch (filter) {
     case "cuoihoi":
-      return isHoangDao && /cưới|hôn|gả/i.test(gaText) && !/cưới|hôn|gả/i.test(baText);
+      return (
+        data.t12 !== "Trừ" &&
+        /cưới|hôn|gả|trăm việc đều tốt|mọi việc đều tốt/i.test(gaText) &&
+        !/cưới|hôn|gả/i.test(baText)
+      );
     case "khaitruong":
-      return isHoangDao && /khai trương|giao dịch|mở|cầu tài|ký kết/i.test(gaText);
+      return (
+        /khai trương|kinh doanh|giao dịch|tài|trăm việc đều tốt|mọi việc đều tốt/i.test(gaText) &&
+        !/khai trương/i.test(baText)
+      );
     case "xaydung":
       return (
-        isHoangDao &&
-        /xây|sửa|động thổ|nhập trạch|dựng|khởi tạo/i.test(gaText) &&
-        !/xây|động thổ|dựng/i.test(baText)
+        !["Kiến", "Mãn", "Thu"].includes(data.t12) &&
+        /xây|cất|khởi tạo|khởi công|trổ cửa|sửa chữa|trăm việc đều tốt|mọi việc đều tốt/i.test(gaText) &&
+        !/xây cất|khởi tạo|động thổ/i.test(baText)
       );
     case "xuathanh":
-      return isHoangDao && /xuất hành|di chuyển/i.test(gaText) && !/xuất hành/i.test(baText);
+      return (
+        !["Trừ", "Định", "Chấp", "Thu"].includes(data.t12) &&
+        /xuất hành|đi|trăm việc đều tốt|mọi việc đều tốt/i.test(gaText) &&
+        !/xuất hành/i.test(baText)
+      );
     default:
       return true;
   }

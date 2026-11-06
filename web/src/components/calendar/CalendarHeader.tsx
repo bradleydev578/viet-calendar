@@ -2,9 +2,11 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { LunarCalculator } from "@/lib/lunar";
+import { UniversalDayCalculator } from "@/lib/fengshui/UniversalDayCalculator";
 import { formatDateString } from "@/lib/date-utils";
 import type { MonthTheme } from "@/lib/theme";
 import { MaterialIcon } from "@/components/common";
@@ -34,7 +36,8 @@ const MONTHS = [
   "Tháng 12",
 ];
 
-const AVAILABLE_YEARS = [2025, 2026, 2027];
+const QUICK_YEARS = [2025, 2026, 2027];
+const ALL_YEARS = Array.from({ length: 201 }, (_, i) => 1900 + i);
 
 export function CalendarHeader({
   currentDate,
@@ -50,14 +53,29 @@ export function CalendarHeader({
   const [activeTab, setActiveTab] = useState<"month" | "convert">("month");
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Converter state
+  // Converter state (supports all dates 1900 - 2100)
   const [convertDirection, setConvertDirection] = useState<"solarToLunar" | "lunarToSolar">("solarToLunar");
   const [inputDay, setInputDay] = useState(() => currentDate.getDate());
   const [inputMonth, setInputMonth] = useState(() => currentDate.getMonth() + 1);
   const [inputYear, setInputYear] = useState(() => currentDate.getFullYear());
+  const [inputLeapMonth, setInputLeapMonth] = useState(false);
 
   const lunarDate = useMemo(() => LunarCalculator.toLunar(currentDate), [currentDate]);
   const yearInfo = useMemo(() => LunarCalculator.getYearInfo(lunarDate.year), [lunarDate.year]);
+
+  // Check if the selected lunar year has a leap month
+  const leapMonthOfSelectedYear = useMemo(() => {
+    try {
+      return LunarCalculator.getLeapMonth(inputYear);
+    } catch {
+      return 0;
+    }
+  }, [inputYear]);
+
+  const canBeLeapMonth =
+    convertDirection === "lunarToSolar" &&
+    leapMonthOfSelectedYear > 0 &&
+    leapMonthOfSelectedYear === inputMonth;
 
   // Close popover when clicking outside
   useEffect(() => {
@@ -78,7 +96,7 @@ export function CalendarHeader({
     };
   }, [isOpen]);
 
-  // Compute converted result
+  // Compute converted result for ANY date (1900 - 2100) using UniversalDayCalculator
   const convertedResult = useMemo(() => {
     try {
       if (convertDirection === "solarToLunar") {
@@ -90,43 +108,51 @@ export function CalendarHeader({
         ) {
           return null;
         }
-        const lunar = LunarCalculator.toLunar(solar);
-        const yInfo = LunarCalculator.getYearInfo(lunar.year);
-        const dayCanChi = LunarCalculator.getDayCanChi(solar);
+        const dayData = UniversalDayCalculator.calculate(solar);
         return {
           solarDate: solar,
-          lunarDay: lunar.day,
-          lunarMonth: lunar.month,
-          lunarYear: lunar.year,
-          isLeapMonth: lunar.isLeapMonth,
-          yearCanChi: yInfo.canChi.full,
-          dayCanChi: dayCanChi.full,
+          lunarDay: dayData.ld,
+          lunarMonth: dayData.lm,
+          lunarYear: dayData.ly,
+          isLeapMonth: dayData.lp === 1,
+          dayCanChi: dayData.dgz,
+          monthCanChi: dayData.mgz,
+          yearCanChi: dayData.ygz,
+          isHoangDao: dayData.t12g === 1,
+          truc: dayData.t12,
+          sao: dayData.s28,
+          hoangDaoHours: dayData.hd.slice(0, 4).join(", "),
         };
       } else {
-        const maxDays = LunarCalculator.getDaysInLunarMonth(inputYear, inputMonth, false);
+        const useLeap = canBeLeapMonth && inputLeapMonth;
+        const maxDays = LunarCalculator.getDaysInLunarMonth(inputYear, inputMonth, useLeap);
         const safeDay = Math.min(inputDay, maxDays);
         const solar = LunarCalculator.toSolar({
           day: safeDay,
           month: inputMonth,
           year: inputYear,
-          isLeapMonth: false,
+          isLeapMonth: useLeap,
         });
-        const yInfo = LunarCalculator.getYearInfo(inputYear);
-        const dayCanChi = LunarCalculator.getDayCanChi(solar);
+        const dayData = UniversalDayCalculator.calculate(solar);
         return {
-          solarDate: new Date(solar.getFullYear(), solar.getMonth() - 1, solar.getDate(), 12, 0, 0),
+          solarDate: solar,
           lunarDay: safeDay,
           lunarMonth: inputMonth,
           lunarYear: inputYear,
-          isLeapMonth: false,
-          yearCanChi: yInfo.canChi.full,
-          dayCanChi: dayCanChi.full,
+          isLeapMonth: useLeap,
+          dayCanChi: dayData.dgz,
+          monthCanChi: dayData.mgz,
+          yearCanChi: dayData.ygz,
+          isHoangDao: dayData.t12g === 1,
+          truc: dayData.t12,
+          sao: dayData.s28,
+          hoangDaoHours: dayData.hd.slice(0, 4).join(", "),
         };
       }
     } catch {
       return null;
     }
-  }, [convertDirection, inputDay, inputMonth, inputYear]);
+  }, [convertDirection, inputDay, inputMonth, inputYear, canBeLeapMonth, inputLeapMonth]);
 
   const handleJumpToMonth = (monthIndex: number, year: number) => {
     const newDate = new Date(year, monthIndex, 1, 12, 0, 0);
@@ -148,66 +174,77 @@ export function CalendarHeader({
     setIsOpen(false);
   };
 
-  return (
-    <div className="relative flex items-center gap-3" ref={popoverRef}>
-      {/* Prev Month */}
-      <button
-        type="button"
-        onClick={onPrevMonth}
-        aria-label="Tháng trước"
-        className="p-2 rounded-full hover:bg-white/60 transition-colors flex items-center justify-center group active:scale-95"
-        style={{ color: theme.primaryAccent }}
-      >
-        <MaterialIcon
-          name="chevron_left"
-          className="text-2xl group-hover:-translate-x-0.5 transition-transform"
-        />
-      </button>
+  const openTab = (tab: "month" | "convert") => {
+    if (isOpen && activeTab === tab) {
+      setIsOpen(false);
+    } else {
+      setActiveTab(tab);
+      setIsOpen(true);
+    }
+  };
 
-      {/* Month & Year Trigger */}
-      <button
-        type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
-        aria-expanded={isOpen}
-        aria-label="Chọn tháng năm hoặc đổi ngày Âm Dương"
-        className="flex flex-col items-center min-w-[180px] lg:min-w-[220px] px-3 py-1 rounded-xl hover:bg-white/50 transition-colors cursor-pointer"
-      >
-        <div className="flex items-center gap-1">
-          <HeadingTag className="text-xl lg:text-2xl font-extrabold text-slate-800 leading-none capitalize">
-            {format(currentDate, "MMMM, yyyy", { locale: vi })}
-          </HeadingTag>
-          <MaterialIcon
-            name="expand_more"
-            className={`text-slate-500 text-[18px] transition-transform ${
-              isOpen ? "rotate-180" : ""
-            }`}
-          />
-        </div>
-        <p
-          className="text-[10px] lg:text-xs font-bold uppercase tracking-wider mt-1"
+  return (
+    <div className="relative flex flex-col sm:flex-row items-center gap-2 sm:gap-3" ref={popoverRef}>
+      <div className="flex items-center gap-2 sm:gap-3">
+        {/* Prev Month */}
+        <button
+          type="button"
+          onClick={onPrevMonth}
+          aria-label="Tháng trước"
+          className="p-2 rounded-full hover:bg-white/60 transition-colors flex items-center justify-center group active:scale-95"
           style={{ color: theme.primaryAccent }}
         >
-          {theme.name} • {yearInfo.canChi.full}
-        </p>
-      </button>
+          <MaterialIcon
+            name="chevron_left"
+            className="text-2xl group-hover:-translate-x-0.5 transition-transform"
+          />
+        </button>
 
-      {/* Next Month */}
-      <button
-        type="button"
-        onClick={onNextMonth}
-        aria-label="Tháng sau"
-        className="p-2 rounded-full hover:bg-white/60 transition-colors flex items-center justify-center group active:scale-95"
-        style={{ color: theme.primaryAccent }}
-      >
-        <MaterialIcon
-          name="chevron_right"
-          className="text-2xl group-hover:translate-x-0.5 transition-transform"
-        />
-      </button>
+        {/* Month & Year Trigger */}
+        <button
+          type="button"
+          onClick={() => openTab("month")}
+          aria-expanded={isOpen && activeTab === "month"}
+          aria-label="Chọn tháng năm"
+          className="flex flex-col items-center min-w-[175px] lg:min-w-[210px] px-3 py-1 rounded-xl hover:bg-white/50 transition-colors cursor-pointer"
+        >
+          <div className="flex items-center gap-1">
+            <HeadingTag className="text-xl lg:text-2xl font-extrabold text-slate-800 leading-none capitalize">
+              {format(currentDate, "MMMM, yyyy", { locale: vi })}
+            </HeadingTag>
+            <MaterialIcon
+              name="expand_more"
+              className={`text-slate-500 text-[18px] transition-transform ${
+                isOpen && activeTab === "month" ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+          <p
+            className="text-[10px] lg:text-xs font-bold uppercase tracking-wider mt-1"
+            style={{ color: theme.primaryAccent }}
+          >
+            {theme.name} • {yearInfo.canChi.full}
+          </p>
+        </button>
+
+        {/* Next Month */}
+        <button
+          type="button"
+          onClick={onNextMonth}
+          aria-label="Tháng sau"
+          className="p-2 rounded-full hover:bg-white/60 transition-colors flex items-center justify-center group active:scale-95"
+          style={{ color: theme.primaryAccent }}
+        >
+          <MaterialIcon
+            name="chevron_right"
+            className="text-2xl group-hover:translate-x-0.5 transition-transform"
+          />
+        </button>
+      </div>
 
       {/* Quick Picker & Lunar-Solar Converter Popover */}
       {isOpen && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[310px] sm:w-[340px] bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200/80 p-4 text-left">
+        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-50 w-[320px] sm:w-[360px] bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200/80 p-4 text-left">
           {/* Tabs */}
           <div className="grid grid-cols-2 gap-1 p-1 bg-slate-100 rounded-xl mb-3">
             <button
@@ -236,26 +273,40 @@ export function CalendarHeader({
 
           {activeTab === "month" ? (
             <div className="space-y-3">
-              {/* Year selector */}
-              <div className="flex items-center justify-center gap-2">
-                {AVAILABLE_YEARS.map((yr) => {
-                  const isCurrentYr = currentDate.getFullYear() === yr;
-                  return (
-                    <button
-                      key={yr}
-                      type="button"
-                      onClick={() => handleJumpToMonth(currentDate.getMonth(), yr)}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                        isCurrentYr
-                          ? "text-white shadow-sm"
-                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                      }`}
-                      style={isCurrentYr ? { backgroundColor: theme.primaryAccent } : {}}
-                    >
-                      Năm {yr}
-                    </button>
-                  );
-                })}
+              {/* Year selector (Quick buttons + Any year 1900-2100 select) */}
+              <div className="flex items-center justify-between gap-1.5">
+                <div className="flex items-center gap-1">
+                  {QUICK_YEARS.map((yr) => {
+                    const isCurrentYr = currentDate.getFullYear() === yr;
+                    return (
+                      <button
+                        key={yr}
+                        type="button"
+                        onClick={() => handleJumpToMonth(currentDate.getMonth(), yr)}
+                        className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                          isCurrentYr
+                            ? "text-white shadow-sm"
+                            : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                        }`}
+                        style={isCurrentYr ? { backgroundColor: theme.primaryAccent } : {}}
+                      >
+                        {yr}
+                      </button>
+                    );
+                  })}
+                </div>
+                <select
+                  aria-label="Chọn năm bất kỳ (1900 - 2100)"
+                  value={currentDate.getFullYear()}
+                  onChange={(e) => handleJumpToMonth(currentDate.getMonth(), Number(e.target.value))}
+                  className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-bold text-slate-700 outline-none"
+                >
+                  {ALL_YEARS.map((y) => (
+                    <option key={y} value={y}>
+                      Năm {y}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               {/* 12 Months grid */}
@@ -318,7 +369,7 @@ export function CalendarHeader({
                 </button>
               </div>
 
-              {/* Date Inputs */}
+              {/* Date Inputs (1900 - 2100) */}
               <div className="grid grid-cols-3 gap-2">
                 <div>
                   <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">
@@ -356,7 +407,7 @@ export function CalendarHeader({
                 </div>
                 <div>
                   <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">
-                    Năm
+                    Năm (1900-2100)
                   </label>
                   <select
                     aria-label="Chọn năm"
@@ -364,7 +415,7 @@ export function CalendarHeader({
                     onChange={(e) => setInputYear(Number(e.target.value))}
                     className="w-full rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs font-semibold text-slate-800 outline-none"
                   >
-                    {Array.from({ length: 81 }, (_, i) => 1960 + i).map((y) => (
+                    {ALL_YEARS.map((y) => (
                       <option key={y} value={y}>
                         {y}
                       </option>
@@ -372,6 +423,19 @@ export function CalendarHeader({
                   </select>
                 </div>
               </div>
+
+              {/* Leap Month Checkbox if applicable */}
+              {canBeLeapMonth && (
+                <label className="flex items-center gap-2 text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-1.5 rounded-lg border border-amber-200 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={inputLeapMonth}
+                    onChange={(e) => setInputLeapMonth(e.target.checked)}
+                    className="rounded"
+                  />
+                  <span>Tháng {inputMonth} Nhuận (năm {inputYear})</span>
+                </label>
+              )}
 
               {/* Result Box */}
               {convertedResult ? (
@@ -392,16 +456,46 @@ export function CalendarHeader({
                   </div>
                   <div className="flex items-center justify-between text-[11px] text-slate-600 pt-1 border-t border-slate-200/60">
                     <span>Ngày {convertedResult.dayCanChi}</span>
-                    <span>Năm {convertedResult.yearCanChi}</span>
+                    <span
+                      className={`font-bold ${
+                        convertedResult.isHoangDao ? "text-amber-600" : "text-slate-500"
+                      }`}
+                    >
+                      {convertedResult.isHoangDao ? "★ Hoàng Đạo" : "Hắc Đạo"} • Trực{" "}
+                      {convertedResult.truc}
+                    </span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={handleGoToConvertedDate}
-                    className="w-full mt-2 py-2 rounded-lg text-xs font-bold text-white transition-opacity hover:opacity-90"
-                    style={{ backgroundColor: theme.primaryAccent }}
-                  >
-                    Xem chi tiết ngày này →
-                  </button>
+                  <div className="grid grid-cols-2 gap-2 pt-1.5">
+                    <button
+                      type="button"
+                      onClick={handleGoToConvertedDate}
+                      className="py-2 px-2 rounded-lg text-xs font-bold text-white transition-opacity hover:opacity-90"
+                      style={{ backgroundColor: theme.primaryAccent }}
+                    >
+                      Chọn trên lịch
+                    </button>
+                    <Link
+                      href={`/day/${formatDateString(convertedResult.solarDate)}`}
+                      prefetch={false}
+                      onClick={() => setIsOpen(false)}
+                      className="py-2 px-2 rounded-lg text-xs font-bold text-center border transition-colors hover:bg-white"
+                      style={{
+                        borderColor: `${theme.primaryAccent}40`,
+                        color: theme.primaryAccent,
+                      }}
+                    >
+                      Xem chi tiết →
+                    </Link>
+                  </div>
+                  <div className="pt-1 text-center">
+                    <Link
+                      href="/doi-ngay-am-duong"
+                      onClick={() => setIsOpen(false)}
+                      className="text-[11px] font-semibold text-slate-500 hover:text-slate-800 underline"
+                    >
+                      Mở trang Đổi Ngày Âm Dương đầy đủ →
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 <p className="text-xs text-rose-600 text-center py-2">

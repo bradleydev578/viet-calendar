@@ -20,6 +20,8 @@ export interface ProcessedHoliday {
   isPast: boolean;
   isImportant: boolean;
   type: 'lunar' | 'solar';
+  lunarDateStr?: string;
+  vacationBadge?: string;
 }
 
 // Holiday category names in Vietnamese

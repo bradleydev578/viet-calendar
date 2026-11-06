@@ -31,10 +31,16 @@ export class LunarCalculator {
    * Chuyển đổi ngày âm sang dương lịch
    */
   static toSolar(lunarDate: LunarDate): Date {
+    const maxDays = this.getDaysInLunarMonth(
+      lunarDate.year,
+      lunarDate.month,
+      lunarDate.isLeapMonth
+    );
+    const safeDay = Math.min(Math.max(1, lunarDate.day), maxDays);
     const lunar = Lunar.fromYmd(
       lunarDate.year,
       lunarDate.isLeapMonth ? -lunarDate.month : lunarDate.month,
-      lunarDate.day
+      safeDay
     );
     const solar = lunar.getSolar();
 

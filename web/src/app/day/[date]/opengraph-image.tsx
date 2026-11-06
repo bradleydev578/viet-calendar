@@ -29,7 +29,7 @@ export default async function Image({
     fengShuiData?.mgz || LunarCalculator.getMonthCanChi(dateObj).full;
   const isHoangDao = fengShuiData ? fengShuiData.t12g === 1 : true;
   const statusText = fengShuiData
-    ? `${isHoangDao ? "★ NGÀY HOÀNG ĐẠO" : "NGÀY HẮC ĐẠO"} • TRỰC ${(
+    ? `${isHoangDao ? "NGÀY HOÀNG ĐẠO" : "NGÀY HẮC ĐẠO"} • TRỰC ${(
         fengShuiData.t12 || ""
       ).toUpperCase()}`
     : "LỊCH ÂM DƯƠNG VIỆT NAM";

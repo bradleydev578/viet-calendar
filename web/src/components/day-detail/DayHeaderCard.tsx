@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import type { LunarDate, YearInfo } from "@/lib/lunar";
@@ -7,6 +8,7 @@ import type { DayFengShuiData, DayScoreResult } from "@/lib/fengshui";
 import type { MonthTheme } from "@/lib/theme";
 import { DayScoreCircle } from "@/components/common/DayScoreCircle";
 import { WEEKDAY_NAMES } from "@/lib/lunar";
+import { HolidayRepository } from "@/lib/holidays";
 
 interface DayHeaderCardProps {
   date: Date;
@@ -31,6 +33,9 @@ export function DayHeaderCard({
 
   // Determine if it's a good day based on 12 Trực
   const isGoodDay = fengShuiData?.t12g === 1;
+
+  // Holidays on this day
+  const dayHolidays = useMemo(() => HolidayRepository.getByDate(date), [date]);
 
   return (
     <div
@@ -91,7 +96,7 @@ export function DayHeaderCard({
 
       {/* Day type badge */}
       {fengShuiData && (
-        <div className="mt-4 flex items-center gap-2">
+        <div className="mt-4 flex items-center gap-2 flex-wrap">
           <span
             className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
               isGoodDay
@@ -106,6 +111,34 @@ export function DayHeaderCard({
             />
             {isGoodDay ? "Ngày Hoàng Đạo" : "Ngày Hắc Đạo"} • {fengShuiData.t12}
           </span>
+        </div>
+      )}
+
+      {/* Holidays occurring on this date */}
+      {dayHolidays.length > 0 && (
+        <div className="mt-4 pt-4 border-t border-white/20 space-y-2">
+          {dayHolidays.map((h) => (
+            <div
+              key={h.id}
+              className="flex flex-col gap-1 bg-white/15 backdrop-blur-sm rounded-xl p-3"
+            >
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <span className="text-sm font-extrabold text-white">
+                  🎉 {h.name}
+                </span>
+                {h.vacationBadge && (
+                  <span className="text-xs font-bold bg-white text-red-600 px-2.5 py-0.5 rounded-full">
+                    {h.vacationBadge}
+                  </span>
+                )}
+              </div>
+              {h.description && (
+                <p className="text-xs text-white/90 leading-relaxed">
+                  {h.description}
+                </p>
+              )}
+            </div>
+          ))}
         </div>
       )}
     </div>

@@ -31,6 +31,11 @@ export function DayDetailPanelClient({
     [lunarDate.year]
   );
 
+  // Holidays occurring on selectedDate
+  const selectedDateHolidays = useMemo(() => {
+    return HolidayRepository.getByDate(selectedDate);
+  }, [selectedDate]);
+
   // Get upcoming holidays (next 5) relative to selectedDate
   const upcomingHolidays = useMemo(() => {
     return HolidayRepository.getUpcomingFromDate(selectedDate, 5);
@@ -160,6 +165,33 @@ export function DayDetailPanelClient({
                 Chi tiết →
               </span>
             </div>
+
+            {selectedDateHolidays.length > 0 && (
+              <div className="pt-2 space-y-1.5">
+                {selectedDateHolidays.map((h) => (
+                  <div
+                    key={h.id}
+                    className="flex flex-col gap-0.5 px-3 py-2 rounded-xl bg-red-50/90 border border-red-100"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-bold text-red-700">
+                        🎉 {h.name}
+                      </span>
+                      {h.vacationBadge && (
+                        <span className="text-[10px] font-bold text-emerald-700 bg-white px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
+                          {h.vacationBadge}
+                        </span>
+                      )}
+                    </div>
+                    {h.description && (
+                      <p className="text-[11px] text-slate-600 leading-snug">
+                        {h.description}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </Link>
@@ -243,12 +275,13 @@ export function DayDetailPanelClient({
                   >
                     {format(holiday.startDate, "d/M")}
                   </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-bold text-slate-800">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-slate-800 truncate">
                       {holiday.name}
                     </p>
                     <p className="text-xs text-slate-500">
                       {holiday.daysUntil} ngày nữa
+                      {holiday.vacationBadge ? ` • ${holiday.vacationBadge}` : ""}
                     </p>
                   </div>
                 </Link>

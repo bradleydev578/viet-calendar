@@ -21,6 +21,8 @@ export interface DayFengShuiData {
   gs: string[];   // Good stars (sao tốt)
   bs: string[];   // Bad stars (sao xấu)
   sc?: string | null;    // Special comment - optional
+  age?: string[]; // Conflicting ages (tuổi xung khắc) - optional
+  score?: number; // Computed quality score (0-100) - optional
 }
 
 // Direction with rating
