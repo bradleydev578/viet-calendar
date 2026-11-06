@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import type { MonthTheme } from "@/lib/theme";
+import { MaterialIcon } from "@/components/common";
 
 interface InfoSectionsProps {
   theme: MonthTheme;
@@ -27,7 +27,7 @@ const INFO_DATA: InfoItem[] = [
     title: "28 Sao (Nhị Thập Bát Tú)",
     shortDesc: "28 chòm sao trong phong thủy",
     icon: "star",
-    iconColor: "#FFD700",
+    iconColor: "#D97706",
     content: [
       {
         heading: "Nhị Thập Bát Tú là gì?",
@@ -59,7 +59,7 @@ const INFO_DATA: InfoItem[] = [
     title: "12 Trực (Kiến Trừ)",
     shortDesc: "12 vị trí của ngày",
     icon: "calendar_view_day",
-    iconColor: "#FF9800",
+    iconColor: "#EA580C",
     content: [
       {
         heading: "12 Trực là gì?",
@@ -97,7 +97,7 @@ const INFO_DATA: InfoItem[] = [
     title: "Giờ Hoàng Đạo",
     shortDesc: "Các giờ tốt trong ngày",
     icon: "schedule",
-    iconColor: "#9C27B0",
+    iconColor: "#9333EA",
     content: [
       {
         heading: "Giờ Hoàng Đạo là gì?",
@@ -129,96 +129,79 @@ const INFO_DATA: InfoItem[] = [
 ];
 
 export function InfoSections({ theme }: InfoSectionsProps) {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-
-  const toggleExpand = (id: string) => {
-    setExpandedId(expandedId === id ? null : id);
-  };
-
   return (
     <div className="mt-6 space-y-3">
-      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest px-2 mb-3">
+      <h3 className="text-xs font-bold text-slate-600 uppercase tracking-widest px-2 mb-3">
         Thông tin hữu ích
       </h3>
-      
+
       {INFO_DATA.map((item) => (
-        <div
+        <details
           key={item.id}
-          className="bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 overflow-hidden transition-all"
+          className="group bg-white/60 backdrop-blur-sm rounded-xl border border-white/50 overflow-hidden transition-all"
         >
-          {/* Header - clickable */}
-          <button
-            onClick={() => toggleExpand(item.id)}
-            className="w-full flex items-center gap-3 p-4 text-left hover:bg-white/40 transition-colors"
-          >
+          {/* Header - native summary for SEO & Find-in-page accessibility */}
+          <summary className="w-full flex items-center gap-3 p-4 text-left hover:bg-white/40 transition-colors cursor-pointer list-none [&::-webkit-details-marker]:hidden">
             <div
               className="size-10 rounded-xl flex items-center justify-center flex-shrink-0"
               style={{ backgroundColor: `${item.iconColor}20` }}
             >
-              <span
-                className="material-symbols-outlined text-xl"
+              <MaterialIcon
+                name={item.icon}
+                className="text-xl"
                 style={{ color: item.iconColor }}
-              >
-                {item.icon}
-              </span>
+              />
             </div>
             <div className="flex-1 min-w-0">
               <h4 className="text-sm font-bold text-slate-800">{item.title}</h4>
               <p className="text-xs text-slate-500">{item.shortDesc}</p>
             </div>
-            <span
-              className={`material-symbols-outlined text-slate-400 transition-transform ${
-                expandedId === item.id ? "rotate-180" : ""
-              }`}
-            >
-              expand_more
-            </span>
-          </button>
+            <MaterialIcon
+              name="expand_more"
+              className="text-2xl text-slate-500 transition-transform group-open:rotate-180"
+            />
+          </summary>
 
-          {/* Expanded content */}
-          {expandedId === item.id && (
-            <div className="px-4 pb-4 pt-0 border-t border-slate-100">
-              <div className="space-y-4 mt-4">
-                {item.content.map((section, idx) => (
-                  <div key={idx}>
-                    <h5
-                      className="text-xs font-bold uppercase tracking-wider mb-2"
-                      style={{ color: theme.primaryAccent }}
-                    >
-                      {section.heading}
-                    </h5>
-                    <p className="text-sm text-slate-600 leading-relaxed">
-                      {section.text}
-                    </p>
-                    {section.list && (
-                      <ul className="mt-2 space-y-1">
-                        {section.list.map((listItem, listIdx) => (
-                          <li
-                            key={listIdx}
-                            className="text-sm text-slate-600 flex items-start gap-2"
-                          >
-                            <span
-                              className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
-                              style={{ backgroundColor: item.iconColor }}
-                            />
-                            {listItem}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ))}
-              </div>
-              
-              {/* Source */}
-              <div className="mt-4 pt-3 border-t border-slate-100">
-                <p className="text-[10px] text-slate-400">
-                  Nguồn: {item.source}
-                </p>
-              </div>
+          {/* Expanded content - rendered in SSR DOM */}
+          <div className="px-4 pb-4 pt-0 border-t border-slate-100">
+            <div className="space-y-4 mt-4">
+              {item.content.map((section, idx) => (
+                <div key={idx}>
+                  <h5
+                    className="text-xs font-bold uppercase tracking-wider mb-2"
+                    style={{ color: theme.primaryAccent }}
+                  >
+                    {section.heading}
+                  </h5>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    {section.text}
+                  </p>
+                  {section.list && (
+                    <ul className="mt-2 space-y-1">
+                      {section.list.map((listItem, listIdx) => (
+                        <li
+                          key={listIdx}
+                          className="text-sm text-slate-600 flex items-start gap-2"
+                        >
+                          <span
+                            className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
+                            style={{ backgroundColor: item.iconColor }}
+                          />
+                          {listItem}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
             </div>
-          )}
-        </div>
+
+            {/* Source */}
+            <div className="mt-4 pt-3 border-t border-slate-100">
+              <p className="text-[11px] text-slate-500">Nguồn: {item.source}</p>
+            </div>
+          </div>
+        </details>
       ))}
     </div>
   );

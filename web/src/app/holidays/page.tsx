@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { getMonthTheme } from "@/lib/theme";
 import { TopHeader, Footer } from "@/components/layout";
+import { MaterialIcon } from "@/components/common";
 import {
   HolidayRepository,
   CATEGORY_NAMES,
@@ -55,7 +56,7 @@ export default function HolidaysPage() {
 
   return (
     <div
-      className="relative flex flex-col h-screen w-full overflow-hidden font-[Manrope] antialiased"
+      className="relative flex flex-col min-h-dvh lg:h-dvh w-full overflow-hidden font-[Manrope] antialiased"
       style={{ backgroundColor: theme.background }}
     >
       {/* Decorative blur circles */}
@@ -104,28 +105,30 @@ export default function HolidaysPage() {
         <div className="flex-1 overflow-y-auto px-4 lg:px-8 pb-8">
           <div className="max-w-3xl mx-auto flex flex-col gap-6">
               {/* Search bar */}
-              <div className="relative">
+              <search className="relative">
                 <input
-                  type="text"
+                  type="search"
+                  aria-label="Tìm kiếm sự kiện và ngày lễ"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Tìm kiếm sự kiện..."
                   className="w-full px-4 py-3 pl-10 bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200 focus:border-slate-300 focus:ring-2 focus:ring-slate-100 outline-none transition-all text-slate-800 placeholder-slate-400"
                 />
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
-                  search
-                </span>
+                <MaterialIcon
+                  name="search"
+                  className="text-xl absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                />
                 {searchQuery && (
                   <button
+                    type="button"
+                    aria-label="Xóa từ khóa tìm kiếm"
                     onClick={() => setSearchQuery("")}
                     className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-100 rounded-full"
                   >
-                    <span className="material-symbols-outlined text-slate-400 text-sm">
-                      close
-                    </span>
+                    <MaterialIcon name="close" className="text-slate-400 text-sm" />
                   </button>
                 )}
-              </div>
+              </search>
 
               {/* Results count */}
               <div className="flex items-center justify-between">
@@ -203,9 +206,10 @@ export default function HolidaysPage() {
             {/* No results */}
             {filteredHolidays.length === 0 && (
               <div className="text-center py-12">
-                <span className="material-symbols-outlined text-6xl text-slate-300 mb-4">
-                  search_off
-                </span>
+                <MaterialIcon
+                  name="search_off"
+                  className="text-6xl text-slate-300 mb-4"
+                />
                 <p className="text-slate-500">
                   Không tìm thấy sự kiện nào phù hợp
                 </p>
@@ -282,22 +286,26 @@ function CategoryFilter({ categories, selectedCategory, onSelectCategory, theme 
       {/* Left arrow */}
       {canScrollLeft && (
         <button
+          type="button"
+          aria-label="Cuộn danh mục sang trái"
           onClick={() => scroll('left')}
           className="absolute left-0 z-10 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-slate-50 transition-colors"
           style={{ color: theme.primaryAccent }}
         >
-          <span className="material-symbols-outlined text-[20px]">chevron_left</span>
+          <MaterialIcon name="chevron_left" className="text-[20px]" />
         </button>
       )}
       
       {/* Right arrow */}
       {canScrollRight && (
         <button
+          type="button"
+          aria-label="Cuộn danh mục sang phải"
           onClick={() => scroll('right')}
           className="absolute right-0 z-10 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-slate-50 transition-colors"
           style={{ color: theme.primaryAccent }}
         >
-          <span className="material-symbols-outlined text-[20px]">chevron_right</span>
+          <MaterialIcon name="chevron_right" className="text-[20px]" />
         </button>
       )}
 
@@ -384,7 +392,7 @@ function EventCard({ holiday, theme, isPast = false }: EventCardProps) {
   };
 
   return (
-    <Link href={`/day/${format(holiday.startDate, "yyyy-MM-dd")}`}>
+    <Link href={`/day/${format(holiday.startDate, "yyyy-MM-dd")}`} prefetch={false}>
       <article
         className={`group relative flex gap-4 items-start ${
           isPast ? "opacity-70" : ""
@@ -403,9 +411,7 @@ function EventCard({ holiday, theme, isPast = false }: EventCardProps) {
               color: isPast ? "#64748b" : theme.primaryAccent,
             }}
           >
-            <span className="material-symbols-outlined text-sm">
-              {getIconByCategory()}
-            </span>
+            <MaterialIcon name={getIconByCategory()} className="text-sm" />
           </div>
         </div>
 

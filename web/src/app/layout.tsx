@@ -1,10 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
-import { Suspense } from "react";
 import "./globals.css";
 import { WebsiteJsonLd, OrganizationJsonLd } from "@/components/seo";
 import { AnalyticsProvider } from "@/components/providers";
-import { MaterialSymbolsLoader } from "@/components/common/MaterialSymbolsLoader";
 
 const manrope = Manrope({
   subsets: ["latin", "vietnamese"],
@@ -47,7 +45,7 @@ export const metadata: Metadata = {
     "28 sao",
     "12 trực",
   ],
-  authors: [{ name: "Lịch Việt Team", url: "https://lichviet.vn" }],
+  authors: [{ name: "Lịch Việt Team", url: "https://lichviet.online" }],
   creator: "Lịch Việt Team",
   publisher: "Lịch Việt - Vạn Sự An Lành",
   
@@ -156,10 +154,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
       </head>
       <body className={`${manrope.variable} font-[Manrope] antialiased`}>
-        <MaterialSymbolsLoader />
-        <Suspense fallback={null}>
-          <AnalyticsProvider>{children}</AnalyticsProvider>
-        </Suspense>
+        <AnalyticsProvider>{children}</AnalyticsProvider>
       </body>
     </html>
   );

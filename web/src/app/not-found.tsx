@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "404 - Không tìm thấy trang | Lịch Việt",
+  title: "404 - Không tìm thấy trang",
   description: "Trang bạn đang tìm kiếm không tồn tại. Quay lại trang chủ Lịch Việt để xem lịch âm dương và phong thủy.",
   robots: {
     index: false,
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1a2e2b] to-[#0f1f1c] flex items-center justify-center px-4">
+    <div className="min-h-dvh bg-gradient-to-br from-[#1a2e2b] to-[#0f1f1c] flex items-center justify-center px-4">
       <div className="text-center max-w-md">
         {/* 404 Icon */}
         <div className="mb-8">

@@ -3,13 +3,13 @@
 import { useMemo, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { format, isToday } from "date-fns";
-import { LunarCalculator, WEEKDAY_NAMES } from "@/lib/lunar";
+import { LunarCalculator } from "@/lib/lunar";
 import { DayScore } from "@/lib/fengshui";
 import type { DayFengShuiData } from "@/lib/fengshui/types";
 import { HolidayRepository, getHolidayColor } from "@/lib/holidays";
 import { getMonthTheme } from "@/lib/theme";
+import { parseDateString } from "@/lib/date-utils";
 import { TopHeader, Footer } from "@/components/layout";
-// Import CalendarHeader directly to avoid tree-shaking issues with barrel exports
 import { CalendarHeader } from "@/components/calendar/CalendarHeader";
 import { DayHeaderCard } from "./DayHeaderCard";
 import { GoodHoursSection } from "./GoodHoursSection";
@@ -30,8 +30,19 @@ export function DayDetailContentClient({
   initialFengShuiData,
   initialMonthData,
 }: DayDetailContentClientProps) {
-  const date = useMemo(() => new Date(dateString), [dateString]);
-  const [currentMonth, setCurrentMonth] = useState(new Date(date));
+  const date = useMemo(
+    () => parseDateString(dateString) || new Date(),
+    [dateString]
+  );
+  const [currentMonth, setCurrentMonth] = useState(
+    () => new Date(date.getFullYear(), date.getMonth(), 1, 12, 0, 0)
+  );
+  const [, setCacheVersion] = useState(0);
+
+  // Sync currentMonth when route dateString changes
+  useEffect(() => {
+    setCurrentMonth(new Date(date.getFullYear(), date.getMonth(), 1, 12, 0, 0));
+  }, [date]);
 
   // Cache for feng shui data
   const fengShuiCache = useMemo(() => {
@@ -49,7 +60,6 @@ export function DayDetailContentClient({
       const year = monthDate.getFullYear();
       const month = monthDate.getMonth() + 1;
 
-      // Check if we already have data for this month
       const firstDayStr = `${year}-${String(month).padStart(2, "0")}-01`;
       if (fengShuiCache.has(firstDayStr)) {
         return;
@@ -58,6 +68,7 @@ export function DayDetailContentClient({
       try {
         const data = await fetchFengShuiByMonth(year, month);
         fengShuiCache.setMany(data);
+        setCacheVersion((v) => v + 1);
       } catch (error) {
         console.error("Error fetching month data:", error);
       }
@@ -84,8 +95,16 @@ export function DayDetailContentClient({
   }, [fengShuiData]);
 
   const monthTheme = getMonthTheme(date.getMonth() + 1);
-  const weekday = WEEKDAY_NAMES[date.getDay()];
   const isTodayDate = isToday(date);
+
+  const prevDate = useMemo(
+    () => new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1, 12, 0, 0),
+    [date]
+  );
+  const nextDate = useMemo(
+    () => new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 12, 0, 0),
+    [date]
+  );
 
   // Get upcoming holidays from the selected date (next 5)
   const upcomingHolidays = useMemo(() => {
@@ -94,18 +113,19 @@ export function DayDetailContentClient({
 
   const handlePrevMonth = () => {
     setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1, 12, 0, 0)
     );
   };
 
   const handleNextMonth = () => {
     setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1, 12, 0, 0)
     );
   };
 
   const handleToday = () => {
-    setCurrentMonth(new Date());
+    const now = new Date();
+    setCurrentMonth(new Date(now.getFullYear(), now.getMonth(), 1, 12, 0, 0));
   };
 
   // Helper to get cached data for calendar
@@ -116,7 +136,7 @@ export function DayDetailContentClient({
 
   return (
     <div
-      className="relative flex flex-col min-h-screen w-full overflow-hidden font-[Manrope] antialiased"
+      className="relative flex flex-col min-h-dvh w-full overflow-hidden font-[Manrope] antialiased"
       style={{ backgroundColor: monthTheme.background }}
     >
       {/* Decorative blur circles */}
@@ -160,8 +180,8 @@ export function DayDetailContentClient({
 
               {/* Upcoming Holidays Section - Below calendar (Desktop) */}
               {upcomingHolidays.length > 0 && (
-                <div className="mt-4 glass-panel-light dark:glass-panel-dark rounded-xl lg:rounded-2xl p-4 lg:p-5 shadow-sm">
-                  <h3 className="text-[10px] font-black text-slate-500 dark:text-[#9cbab2] mb-4 uppercase tracking-widest">
+                <div className="mt-4 glass-panel-light rounded-xl lg:rounded-2xl p-4 lg:p-5 shadow-sm">
+                  <h3 className="text-[10px] font-black text-slate-500 mb-4 uppercase tracking-widest">
                     Sắp tới
                   </h3>
                   <div className="flex flex-col gap-3">
@@ -175,6 +195,7 @@ export function DayDetailContentClient({
                         <Link
                           key={holiday.id}
                           href={`/day/${format(holiday.startDate, "yyyy-MM-dd")}`}
+                          prefetch={false}
                           className="flex items-center gap-3 hover:bg-white/50 rounded-lg p-2 -mx-2 transition-colors"
                         >
                           <div
@@ -270,19 +291,15 @@ export function DayDetailContentClient({
               {/* Navigation to prev/next day */}
               <div className="flex justify-between mt-8">
                 <Link
-                  href={`/day/${format(
-                    new Date(date.getTime() - 86400000),
-                    "yyyy-MM-dd"
-                  )}`}
+                  href={`/day/${format(prevDate, "yyyy-MM-dd")}`}
+                  prefetch={false}
                   className="px-4 py-2 bg-white/80 rounded-xl hover:bg-white transition-colors text-slate-700 font-medium shadow-sm"
                 >
                   ← Ngày trước
                 </Link>
                 <Link
-                  href={`/day/${format(
-                    new Date(date.getTime() + 86400000),
-                    "yyyy-MM-dd"
-                  )}`}
+                  href={`/day/${format(nextDate, "yyyy-MM-dd")}`}
+                  prefetch={false}
                   className="px-4 py-2 bg-white/80 rounded-xl hover:bg-white transition-colors text-slate-700 font-medium shadow-sm"
                 >
                   Ngày sau →
@@ -327,6 +344,7 @@ export function DayDetailContentClient({
                               holiday.startDate,
                               "yyyy-MM-dd"
                             )}`}
+                            prefetch={false}
                             className="flex items-center gap-3 hover:bg-white/50 rounded-lg p-2 -mx-2 transition-colors"
                           >
                             <div

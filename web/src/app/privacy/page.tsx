@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { getMonthTheme } from "@/lib/theme";
 import { TopHeader, Footer } from "@/components/layout";
+import { MaterialIcon } from "@/components/common";
 
 export default function PrivacyPolicyPage() {
   const today = new Date();
@@ -11,7 +12,7 @@ export default function PrivacyPolicyPage() {
 
   return (
     <div
-      className="relative flex flex-col min-h-screen w-full overflow-hidden font-[Manrope] antialiased"
+      className="relative flex flex-col min-h-dvh w-full overflow-hidden font-[Manrope] antialiased"
       style={{ backgroundColor: theme.background }}
     >
       {/* Decorative blur circles */}
@@ -36,7 +37,7 @@ export default function PrivacyPolicyPage() {
               href="/"
               className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-700 mb-6 transition-colors"
             >
-              <span className="material-symbols-outlined text-sm">arrow_back</span>
+              <MaterialIcon name="arrow_back" className="text-sm" />
               <span className="text-sm font-medium">Quay lại</span>
             </Link>
 

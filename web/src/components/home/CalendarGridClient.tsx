@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   startOfMonth,
   endOfMonth,
@@ -26,7 +26,48 @@ interface CalendarGridClientProps {
   getCachedData: (date: Date) => DayFengShuiData | undefined;
 }
 
-const WEEKDAYS = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+type ActivityFilter = "all" | "hoangdao" | "cuoihoi" | "khaitruong" | "xaydung" | "xuathanh";
+
+const ACTIVITY_FILTERS: { id: ActivityFilter; label: string }[] = [
+  { id: "all", label: "Tất cả" },
+  { id: "hoangdao", label: "★ Hoàng Đạo" },
+  { id: "cuoihoi", label: "Cưới hỏi" },
+  { id: "khaitruong", label: "Khai trương" },
+  { id: "xaydung", label: "Xây dựng" },
+  { id: "xuathanh", label: "Xuất hành" },
+];
+
+function matchesActivityFilter(
+  filter: ActivityFilter,
+  data?: DayFengShuiData
+): boolean {
+  if (filter === "all") return true;
+  if (!data) return false;
+  const isHoangDao = data.t12g === 1;
+  if (filter === "hoangdao") return isHoangDao;
+
+  const gaText = (data.ga || []).join(" ");
+  const baText = (data.ba || []).join(" ");
+
+  switch (filter) {
+    case "cuoihoi":
+      return isHoangDao && /cưới|hôn|gả/i.test(gaText) && !/cưới|hôn|gả/i.test(baText);
+    case "khaitruong":
+      return isHoangDao && /khai trương|giao dịch|mở|cầu tài|ký kết/i.test(gaText);
+    case "xaydung":
+      return (
+        isHoangDao &&
+        /xây|sửa|động thổ|nhập trạch|dựng|khởi tạo/i.test(gaText) &&
+        !/xây|động thổ|dựng/i.test(baText)
+      );
+    case "xuathanh":
+      return isHoangDao && /xuất hành|di chuyển/i.test(gaText) && !/xuất hành/i.test(baText);
+    default:
+      return true;
+  }
+}
+
+const WEEKDAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
 export function CalendarGridClient({
   currentDate,
@@ -35,29 +76,31 @@ export function CalendarGridClient({
   onSelectDate,
   getCachedData,
 }: CalendarGridClientProps) {
+  const [activeFilter, setActiveFilter] = useState<ActivityFilter>("all");
+
   // Generate calendar days
   const calendarDays = useMemo(() => {
     const monthStart = startOfMonth(currentDate);
     const monthEnd = endOfMonth(currentDate);
-    const calendarStart = startOfWeek(monthStart, { weekStartsOn: 0 });
-    const calendarEnd = endOfWeek(monthEnd, { weekStartsOn: 0 });
+    const calendarStart = startOfWeek(monthStart, { weekStartsOn: 1 });
+    const calendarEnd = endOfWeek(monthEnd, { weekStartsOn: 1 });
 
     return eachDayOfInterval({ start: calendarStart, end: calendarEnd });
   }, [currentDate]);
 
   return (
-    <div className="glass-panel-light dark:glass-panel-dark rounded-2xl lg:rounded-3xl flex flex-col p-4 lg:p-6 overflow-hidden shadow-xl">
+    <div className="glass-panel-light rounded-2xl lg:rounded-3xl flex flex-col p-4 lg:p-6 overflow-hidden shadow-xl">
       {/* Weekday headers */}
       <div className="grid grid-cols-7 mb-2 lg:mb-4">
         {WEEKDAYS.map((day, index) => (
           <div
             key={day}
             className={`text-center text-[10px] lg:text-xs font-black uppercase tracking-widest ${
-              index === 0
-                ? "text-red-400"
-                : index === 6
-                ? "text-emerald-500"
-                : "text-slate-400 dark:text-[#9cbab2]"
+              index === 6
+                ? "text-red-500"
+                : index === 5
+                ? "text-emerald-600"
+                : "text-slate-500"
             }`}
           >
             {day}
@@ -67,17 +110,48 @@ export function CalendarGridClient({
 
       {/* Calendar grid */}
       <div className="grid grid-cols-7 gap-1 lg:gap-1.5">
-        {calendarDays.map((day) => (
-          <CalendarDayCellClient
-            key={day.toISOString()}
-            date={day}
-            currentMonth={currentDate}
-            selectedDate={selectedDate}
-            theme={theme}
-            onSelect={onSelectDate}
-            fengShuiData={getCachedData(day)}
-          />
-        ))}
+        {calendarDays.map((day) => {
+          const dayData = getCachedData(day);
+          const isMatched = matchesActivityFilter(activeFilter, dayData);
+          return (
+            <CalendarDayCellClient
+              key={day.toISOString()}
+              date={day}
+              currentMonth={currentDate}
+              selectedDate={selectedDate}
+              theme={theme}
+              onSelect={onSelectDate}
+              fengShuiData={dayData}
+              filterActive={activeFilter !== "all"}
+              isFilterMatch={isMatched}
+            />
+          );
+        })}
+      </div>
+
+      {/* Auspicious Activity Filter Bar */}
+      <div className="mt-3 pt-3 border-t border-slate-200/50 flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider shrink-0 mr-1">
+          Lọc ngày tốt:
+        </span>
+        {ACTIVITY_FILTERS.map((item) => {
+          const isActive = activeFilter === item.id;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setActiveFilter(item.id)}
+              className={`px-2.5 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition-all shrink-0 ${
+                isActive
+                  ? "text-white shadow-sm"
+                  : "bg-white/70 text-slate-600 hover:bg-white"
+              }`}
+              style={isActive ? { backgroundColor: theme.primaryAccent } : {}}
+            >
+              {item.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -90,6 +164,8 @@ interface CalendarDayCellClientProps {
   theme: MonthTheme;
   onSelect?: (date: Date) => void;
   fengShuiData?: DayFengShuiData;
+  filterActive?: boolean;
+  isFilterMatch?: boolean;
 }
 
 function CalendarDayCellClient({
@@ -98,7 +174,8 @@ function CalendarDayCellClient({
   selectedDate,
   theme,
   onSelect,
-  fengShuiData,
+  filterActive = false,
+  isFilterMatch = true,
 }: CalendarDayCellClientProps) {
   const isCurrentMonth = isSameMonth(date, currentMonth);
   const isSelected = selectedDate && isSameDay(date, selectedDate);
@@ -145,21 +222,39 @@ function CalendarDayCellClient({
         },
       };
     }
+    if (filterActive && isCurrentMonth) {
+      if (isFilterMatch) {
+        return {
+          className: "rounded-lg ring-1 ring-emerald-500/60 bg-emerald-50/70",
+          style: {},
+        };
+      }
+      return {
+        className: "rounded-lg opacity-35",
+        style: {},
+      };
+    }
     return {
-      className: "hover:bg-white/80 dark:hover:bg-white/5 rounded-lg",
+      className: "hover:bg-white/80 rounded-lg",
       style: {},
     };
   };
 
   const { className: cellClassName, style: cellStyle } = getCellStyles();
+  const dateHref = `/day/${format(date, "yyyy-MM-dd")}`;
 
   return (
-    <Link href={`/day/${format(date, "yyyy-MM-dd")}`}>
-      <div
-        className={`calendar-cell ${cellClassName}`}
-        style={cellStyle}
-        onClick={() => onSelect?.(date)}
-      >
+    <Link
+      href={dateHref}
+      prefetch={false}
+      onClick={(e) => {
+        if (onSelect && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+          e.preventDefault();
+          onSelect(date);
+        }
+      }}
+    >
+      <div className={`calendar-cell ${cellClassName}`} style={cellStyle}>
         {/* Solar date */}
         <span
           className={`text-sm lg:text-lg font-bold ${

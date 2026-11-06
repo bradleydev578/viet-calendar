@@ -1,18 +1,35 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Ngày Lễ & Sự Kiện Việt Nam 2026 | Lịch Việt',
-  description: 'Danh sách đầy đủ các ngày lễ, sự kiện quan trọng tại Việt Nam năm 2026. Bao gồm ngày lễ chính thức, lễ hội văn hóa, ngày kỷ niệm cách mạng và các sự kiện truyền thống.',
-  keywords: ['ngày lễ việt nam', 'sự kiện 2026', 'lễ hội văn hóa', 'ngày nghỉ lễ', 'tết nguyên đán', 'lịch nghỉ lễ'],
+  title: 'Ngày Lễ & Sự Kiện Việt Nam 2026',
+  description:
+    'Danh sách đầy đủ các ngày lễ, sự kiện quan trọng tại Việt Nam năm 2026. Bao gồm ngày lễ chính thức, lễ hội văn hóa, ngày kỷ niệm cách mạng và các sự kiện truyền thống.',
+  keywords: [
+    'ngày lễ việt nam',
+    'sự kiện 2026',
+    'lễ hội văn hóa',
+    'ngày nghỉ lễ',
+    'tết nguyên đán',
+    'lịch nghỉ lễ',
+  ],
   alternates: {
     canonical: 'https://lichviet.online/holidays',
   },
   openGraph: {
-    title: 'Ngày Lễ & Sự Kiện Việt Nam 2026',
-    description: 'Tra cứu ngày lễ, sự kiện quan trọng tại Việt Nam',
+    title: 'Ngày Lễ & Sự Kiện Việt Nam 2026 | Lịch Việt',
+    description: 'Tra cứu ngày lễ, sự kiện quan trọng tại Việt Nam năm 2026',
     type: 'website',
     locale: 'vi_VN',
     url: 'https://lichviet.online/holidays',
+    siteName: 'Lịch Việt - Vạn Sự An Lành',
+    images: [
+      {
+        url: '/og-image.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Ngày Lễ & Sự Kiện Việt Nam 2026 - Lịch Việt',
+      },
+    ],
   },
 };
 
