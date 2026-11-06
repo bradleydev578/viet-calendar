@@ -149,13 +149,43 @@ flowchart LR
 - [x] **6.1. Bộ máy tính toán độc lập `UniversalDayCalculator` (1900–2100)**:
   - Tạo [UniversalDayCalculator.ts](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/lib/fengshui/UniversalDayCalculator.ts) tính toán đầy đủ Âm lịch (kể cả Tháng Nhuận), Can Chi Ngày/Tháng/Năm, Nhị Thập Bát Tú (28 Sao), Thập Nhị Trực (12 Trực), 24 Tiết Khí, 6 Giờ Hoàng Đạo, Hướng Xuất Hành (Hỷ Thần, Tài Thần), Tuổi Xung Khắc và Việc Nên Làm / Kiêng Kỵ cho **mọi ngày từ năm 1900 đến 2100** không phụ thuộc vào file JSON tĩnh.
   - Tích hợp làm fallback tức thì (`0ms`) trong [FengShuiServerRepository.ts](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/lib/fengshui/FengShuiServerRepository.ts), `/api/fengshui`, `/api/fengshui/month` và [HomeClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/home/HomeClient.tsx).
-- [x] **6.2. Lớp 1 — Nút bấm trực diện trên Lịch ([CalendarHeader.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/calendar/CalendarHeader.tsx) & [HomeClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/home/HomeClient.tsx))**:
-  - Đặt nút **`⇄ Đổi ngày Âm ↔ Dương`** nổi bật ngay trên `CalendarHeader` và cạnh nút `Hôm nay` trên Trang chủ.
+- [x] **6.2. Lớp 1 — Popover Đổi Ngày trên Lịch ([CalendarHeader.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/calendar/CalendarHeader.tsx))**:
+  - Tích hợp tab chuyển đổi Âm ↔ Dương nhanh ngay trong Popover khi bấm vào tiêu đề tháng (`Tháng X, YYYY`), đồng thời tinh gọn giao diện (ẩn 2 nút CTA phụ bên dưới lịch vì đã có mục **Đổi Ngày** trực diện trên thanh menu chính `TopHeader`).
 - [x] **6.3. Lớp 2 — Mở rộng Thanh Menu Chính ([TopHeader.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/layout/TopHeader.tsx))**:
   - Nâng cấp thanh điều hướng chính lên 4 mục cốt lõi: **Lịch** (`/`), **Đổi Ngày** (`/doi-ngay-am-duong`), **Ngày Tốt** (`/xem-ngay-tot`), **Sự Kiện** (`/holidays`).
 - [x] **6.4. Lớp 3 — Trang Đích SEO `/doi-ngay-am-duong` & `/xem-ngay-tot`**:
   - Tạo trang [doi-ngay-am-duong/page.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/app/doi-ngay-am-duong/page.tsx) ([DateConverterClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/converter/DateConverterClient.tsx)) hỗ trợ đổi lịch 2 chiều `1900–2100`, tự động nhận diện **Tháng Nhuận**, kèm bảng tra nhanh **Mùng 1 & Ngày Rằm** cả năm.
   - Tạo trang [xem-ngay-tot/page.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/app/xem-ngay-tot/page.tsx) ([AuspiciousDaysClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/auspicious/AuspiciousDaysClient.tsx)) lọc ngày tốt theo công việc (*Cưới hỏi, Khai trương, Động thổ, Xuất hành, Nhập trạch*) và **lọc tránh ngày xung tuổi gia chủ** (lưu `localStorage`).
+
+---
+
+## 🧭 PHASE 7: Kiểm Chứng & Chuẩn Hóa Dữ Liệu Phong Thủy Ngọc Hạp Thông Thư (2025 – 2027)
+
+- [x] **7.1. Xây dựng bộ quy tắc chuẩn Ngọc Hạp Thông Thư ([ngocHapRules.ts](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/lib/fengshui/ngocHapRules.ts))**:
+  - Bảng **12 Thần Hoàng Đạo / Hắc Đạo** theo tháng Âm lịch + Chi ngày (`Thanh Long`, `Minh Đường`, `Thiên Hình`, `Chu Tước`, `Kim Quỹ`, `Thiên Đức`, `Bạch Hổ`, `Ngọc Đường`, `Thiên Lao`, `Huyền Vũ`, `Tư Mệnh`, `Câu Trần`).
+  - Bảng **6 Giờ Hoàng Đạo** chuẩn theo 12 Địa Chi ngày.
+  - Bảng **56 Cát Tinh (Sao Tốt)** và **60 Hung Tinh (Sao Xấu)** theo Tháng Âm lịch + Can ngày / Chi ngày / Nạp Âm, kèm quy tắc **Tam Nương** (`3, 7, 13, 18, 22, 27 Âm lịch`), **Nguyệt Kỵ** (`5, 14, 23 Âm lịch`), và **13 ngày Dương Công Kỵ Nhật**.
+  - Bảng **12 Trực Nên làm / Kiêng kỵ** và **bảng 60 Hoa Giáp hướng Hắc Thần (Hạc Thần)**.
+- [x] **7.2. Sửa triệt để 8 lỗi dữ liệu gốc trên 1,095 ngày (`fengshui_2025.json`, `fengshui_2026.json`, `fengshui_2027.json`) & Parser ([lichngaytot_parser.py](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/scraper/src/parsers/lichngaytot_parser.py))**:
+  - Sửa **Can Chi Tháng (`mgz`)** bị lệch 1 tháng trên 320/1,095 ngày (do quy đổi theo Tiết khí thay vì Tháng Âm lịch chuẩn Ngũ Hổ Độn Việt Nam).
+  - Bổ sung đầy đủ **Sao Tốt (`gs`) & Sao Xấu (`bs`)** cho 100% số ngày (trước đó trống 100% ở cả 3 năm).
+  - Sửa lỗi `t12g` (Hoàng Đạo/Hắc Đạo) bị gán theo Trực thay vì 12 Thần Hoàng Đạo (lệch 355/1,095 ngày).
+  - Sửa 6 lỗi cắt chuỗi regex trong `lichngaytot_parser.py`: không còn chữ thừa `"Nên..."`, `"Cần..."`, `"Hợp..."` ở cuối dòng `ga`/`ba`, không còn mảnh cắt `"động"` cụt do dấu chấm trong `"v.v."`, không còn nhãn `"Hắc Thần"` bị lưu nhầm thành tên hướng (`dir.bg`), và tách sạch tên Tiết khí (`st`).
+  - Cập nhật [DayScore.ts](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/lib/fengshui/DayScore.ts), [AuspiciousDaysClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/auspicious/AuspiciousDaysClient.tsx) và [CalendarGridClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/home/CalendarGridClient.tsx) để loại bỏ nghiêm ngặt các ngày Đại Kỵ (`Tam Nương`, `Nguyệt Kỵ`, `Dương Công Kỵ`, `Thụ tử`, `Sát chủ`, `Nguyệt phá`) khi gợi ý ngày tốt.
+
+---
+
+## 🎉 PHASE 8: Cập Nhật Ngày Lễ Mới (24/11) & Lịch Nghỉ Tết / Nghỉ Lễ Chính Thức 2026 – 2027
+
+- [x] **8.1. Bổ sung Ngày Văn hóa Việt Nam (`24/11` Dương lịch)**:
+  - Thêm vào nhóm **Ngày Lễ Chính Thức (`PUBLIC_HOLIDAYS`)** trong [constants.ts](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/lib/holidays/constants.ts) và đồng bộ sang [mobile/src/data/constants/holidays.ts](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/mobile/src/data/constants/holidays.ts) — người lao động được nghỉ 1 ngày và hưởng nguyên lương theo Nghị quyết 80-NQ/TW & Nghị quyết 28/2026/QH16.
+- [x] **8.2. Cập nhật Lịch nghỉ Tết Nguyên Đán & Nghỉ lễ chính thức 2026 – 2027**:
+  - **Tết Nguyên Đán 2026 (Bính Ngọ)**: Nghỉ 9 ngày liên tục từ `14/02/2026 – 22/02/2026` (27 tháng Chạp Ất Tỵ đến mùng 6 tháng Giêng Bính Ngọ; Mùng 1 Tết: `17/02/2026`).
+  - **Tết Nguyên Đán 2027 (Đinh Mùi)**: Nghỉ 7 ngày liên tục từ `04/02/2027 – 10/02/2027` (28 tháng Chạp Bính Ngọ đến mùng 5 tháng Giêng Đinh Mùi; Mùng 1 Tết: `06/02/2027`).
+  - Cập nhật lịch nghỉ nhiều ngày cho **Tết Dương lịch**, **Giỗ Tổ Hùng Vương (10/3 Âm)**, **30/4 & 1/5**, **Quốc khánh 2/9** và bổ sung các sự kiện văn hóa quan trọng (`Ngày hội Đại đoàn kết toàn dân tộc 18/11`, `Lễ Giáng Sinh 25/12`, `Lễ Tất Niên & Đêm Giao Thừa`, `Ngày Vía Thần Tài 10/1 Âm`, `Đại lễ Phật Đản 15/4 Âm`, `Quốc tế Phụ nữ 8/3`, `Quốc tế Thiếu nhi 1/6`, `Ngày Chuyển đổi số Quốc gia 10/10`).
+- [x] **8.3. Sửa lỗi quy đổi sự kiện Âm lịch tháng Chạp & Nâng cấp giao diện `/holidays`**:
+  - Sửa [HolidayRepository.ts](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/lib/holidays/HolidayRepository.ts) và [LunarCalculator.ts](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/lib/lunar/LunarCalculator.ts) để các ngày lễ tháng Chạp (`Ông Công Ông Táo 23/12`, `Đêm Giao Thừa 29/30 Tết` kể cả tháng thiếu 29 ngày) hiển thị đúng vào tháng 1–2 Dương lịch của năm kế tiếp.
+  - Thêm khối nổi bật **"Lịch Nghỉ Lễ & Tết Chính Thức Sắp Tới"** trên trang [holidays/page.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/app/holidays/page.tsx) và hiển thị nhãn sự kiện trực tiếp trên thẻ ngày ([DayDetailPanelClient.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/home/DayDetailPanelClient.tsx) & [DayHeaderCard.tsx](file:///Users/bangca/bangca/personal/lich-viet-van-su-an-lanh/web/src/components/day-detail/DayHeaderCard.tsx)).
 
 ---
 
