@@ -80,7 +80,7 @@ export default function DownloadPage() {
                 </p>
 
                 <a
-                  href="https://apps.apple.com/app/lich-viet"
+                  href="https://apps.apple.com/vn/app/l%E1%BB%8Bch-vi%E1%BB%87t-v%E1%BA%A1n-s%E1%BB%B1-an-l%C3%A0nh/id6758169645"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-white font-bold transition-all hover:opacity-90 active:scale-98"
