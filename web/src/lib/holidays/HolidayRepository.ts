@@ -271,15 +271,37 @@ export class HolidayRepository {
   }
 
   /**
-   * Get holidays for a specific date
+   * Get holidays for a specific date, sorted with official PUBLIC_HOLIDAYS and exact start-date matches first
    */
   static getByDate(date: Date): ProcessedHoliday[] {
     const targetDate = startOfDay(date);
+    const targetTime = targetDate.getTime();
     const yearHolidays = this.getHolidaysForYear(date.getFullYear());
-    return yearHolidays.filter((h) => {
-      const start = startOfDay(h.startDate);
-      const end = startOfDay(h.endDate);
-      return targetDate >= start && targetDate <= end;
+
+    const matched = yearHolidays.filter((h) => {
+      const start = startOfDay(h.startDate).getTime();
+      const end = startOfDay(h.endDate).getTime();
+      // Exact start date match for all holidays; multi-day range match only for official PUBLIC_HOLIDAYS
+      if (targetTime === start) return true;
+      if (h.category === 'PUBLIC_HOLIDAYS' && targetTime >= start && targetTime <= end) {
+        return true;
+      }
+      return false;
+    });
+
+    return matched.sort((a, b) => {
+      const aExact = startOfDay(a.startDate).getTime() === targetTime ? 1 : 0;
+      const bExact = startOfDay(b.startDate).getTime() === targetTime ? 1 : 0;
+      const aPublic = a.category === 'PUBLIC_HOLIDAYS' ? 1 : 0;
+      const bPublic = b.category === 'PUBLIC_HOLIDAYS' ? 1 : 0;
+
+      // 1. Official Public Holiday takes top priority
+      if (aPublic !== bPublic) return bPublic - aPublic;
+      // 2. Exact day match takes priority over multi-day range
+      if (aExact !== bExact) return bExact - aExact;
+      // 3. Important flag
+      if (a.isImportant !== b.isImportant) return a.isImportant ? -1 : 1;
+      return 0;
     });
   }
 
