@@ -126,6 +126,7 @@ export function CalendarGridClient({
   showHeader = true,
 }: CalendarGridClientProps) {
   const [activeFilter, setActiveFilter] = useState<ActivityFilter>("all");
+  const [showDayChi, setShowDayChi] = useState(false);
 
   // Generate calendar days
   const calendarDays = useMemo(() => {
@@ -227,6 +228,20 @@ export function CalendarGridClient({
                 </button>
               )}
 
+              <button
+                type="button"
+                onClick={() => setShowDayChi((prev) => !prev)}
+                className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-colors cursor-pointer ${
+                  showDayChi
+                    ? "text-white border-transparent shadow-2xs"
+                    : "border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
+                }`}
+                style={showDayChi ? { backgroundColor: theme.primaryAccent } : {}}
+                title="Hiện/ẩn Can Chi (Tý, Sửu, Dần, Mão...) trên từng ô lịch"
+              >
+                <span>{showDayChi ? "✓ Can Chi" : "Can Chi"}</span>
+              </button>
+
               {onToggleFullView && (
                 <button
                   type="button"
@@ -308,6 +323,7 @@ export function CalendarGridClient({
               filterActive={activeFilter !== "all"}
               isFilterMatch={isMatched}
               isFullView={isFullView}
+              showDayChi={showDayChi}
             />
           );
         })}
@@ -379,6 +395,7 @@ interface CalendarDayCellClientProps {
   filterActive?: boolean;
   isFilterMatch?: boolean;
   isFullView?: boolean;
+  showDayChi?: boolean;
 }
 
 function CalendarDayCellClient({
@@ -391,6 +408,7 @@ function CalendarDayCellClient({
   filterActive = false,
   isFilterMatch = true,
   isFullView = false,
+  showDayChi = false,
 }: CalendarDayCellClientProps) {
   const isCurrentMonth = isSameMonth(date, currentMonth);
   const isSelected = selectedDate && isSameDay(date, selectedDate);
@@ -491,9 +509,9 @@ function CalendarDayCellClient({
           >
             {date.getDate()}
           </span>
-          {isCurrentMonth && dayChiShort && (
+          {showDayChi && isCurrentMonth && dayChiShort && (
             <span
-              className={`text-[9px] font-bold hidden sm:inline truncate max-w-[55%] ${
+              className={`text-[9px] font-bold truncate max-w-[55%] ${
                 isHighlighted ? "text-white/80" : "text-slate-400"
               }`}
             >
