@@ -960,12 +960,12 @@ export const YEARLY_FESTIVALS: YearlyFestival[] = [
     name: 'Lễ hội Ok Om Bok',
     category: 'CULTURAL_ETHNIC_FESTIVALS',
     location: 'Sóc Trăng/Trà Vinh',
-    description: 'Lễ cúng trăng và đua ghe Ngo của người Khmer',
+    description: 'Lễ cúng trăng và đua ghe Ngo của người Khmer (Rằm tháng 10 Âm lịch)',
     isImportant: true,
     dates: {
-      2025: { startDate: '2025-11-04', endDate: '2025-11-05' },
-      2026: { startDate: '2026-11-23', endDate: '2026-11-24' },
-      2027: { startDate: '2027-11-12', endDate: '2027-11-13' },
+      2025: { startDate: '2025-11-04', endDate: '2025-11-04' },
+      2026: { startDate: '2026-11-23', endDate: '2026-11-23' },
+      2027: { startDate: '2027-11-13', endDate: '2027-11-13' },
     },
   },
 ];
