@@ -35,7 +35,9 @@ export function OrganizationJsonLd() {
       contactType: 'customer service',
       availableLanguage: ['Vietnamese', 'English'],
     },
-    sameAs: ['https://apps.apple.com/app/lich-viet'],
+    sameAs: [
+      'https://apps.apple.com/vn/app/l%E1%BB%8Bch-vi%E1%BB%87t-v%E1%BA%A1n-s%E1%BB%B1-an-l%C3%A0nh/id6758169645',
+    ],
   };
 
   return (
@@ -54,7 +56,10 @@ export function SoftwareApplicationJsonLd() {
     operatingSystem: 'iOS',
     applicationCategory: 'UtilitiesApplication',
     url: 'https://lichviet.online/download',
-    downloadUrl: 'https://apps.apple.com/app/lich-viet',
+    downloadUrl:
+      'https://apps.apple.com/vn/app/l%E1%BB%8Bch-vi%E1%BB%87t-v%E1%BA%A1n-s%E1%BB%B1-an-l%C3%A0nh/id6758169645',
+    installUrl:
+      'https://apps.apple.com/vn/app/l%E1%BB%8Bch-vi%E1%BB%87t-v%E1%BA%A1n-s%E1%BB%B1-an-l%C3%A0nh/id6758169645',
     offers: {
       '@type': 'Offer',
       price: '0',
