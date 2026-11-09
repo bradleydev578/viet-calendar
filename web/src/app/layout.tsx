@@ -133,7 +133,20 @@ export const metadata: Metadata = {
   //   google: 'your-google-verification-code',
   // },
 
-  // App Links
+  // App Links & Apple Smart App Banner (iOS Safari)
+  itunes: {
+    appId: "6758169645",
+  },
+  appLinks: {
+    ios: {
+      url: "https://apps.apple.com/vn/app/l%E1%BB%8Bch-vi%E1%BB%87t-v%E1%BA%A1n-s%E1%BB%B1-an-l%C3%A0nh/id6758169645",
+      app_store_id: "6758169645",
+    },
+    web: {
+      url: "https://lichviet.online",
+      should_fallback: true,
+    },
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

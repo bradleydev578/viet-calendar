@@ -8,13 +8,17 @@ Tài liệu này chứa tất cả nội dung cần thiết để điền vào A
 
 | Field | Giá Trị |
 |-------|---------|
-| **App Name** | Lịch Việt - Vạn Sự An Lành |
-| **Subtitle** | Lịch âm, phong thủy, giờ hoàng đạo |
-| **Bundle ID** | com.bangca.lichviet |
-| **SKU** | lichviet2024 |
-| **Primary Language** | Vietnamese |
-| **Category (Primary)** | Lifestyle |
-| **Category (Secondary)** | Utilities |
+| **App Store ID** | `6758169645` |
+| **App Store URL** | `https://apps.apple.com/vn/app/l%E1%BB%8Bch-vi%E1%BB%87t-v%E1%BA%A1n-s%E1%BB%B1-an-l%C3%A0nh/id6758169645` |
+| **App Name (Tối ưu ASO - 29/30 ký tự)** | `Lịch Việt: Lịch Âm & Vạn Sự` *(hoặc `Lịch Việt - Lịch Âm Vạn Sự`)* |
+| **Subtitle (Tối ưu ASO - 29/30 ký tự)** | `Lịch Vạn Niên, Xem Ngày Tốt` |
+| **App Name (Cũ)** | `Lịch Việt - Vạn Sự An Lành` |
+| **Subtitle (Cũ)** | `Lịch âm, phong thủy, giờ hoàng đạo` |
+| **Bundle ID** | `com.bangca.lichviet` |
+| **SKU** | `lichviet2024` |
+| **Primary Language** | Vietnamese (`vi`) + Bật thêm `English (U.K.)` (`en-GB`) |
+| **Category (Primary)** | Utilities *(Khuyên dùng để khớp cụm từ khóa Lịch Việt / Lịch Vạn Niên)* |
+| **Category (Secondary)** | Lifestyle |
 | **Age Rating** | 4+ |
 | **Price** | Free |
 
@@ -126,33 +130,32 @@ Download now for good fortune every day!
 
 ---
 
-## 3. Keywords (100 ký tự)
+## 3. Keywords (100 ký tự x 2 Ngôn Ngữ = 200 ký tự ASO)
 
-**Quy tắc**:
-- Tối đa 100 ký tự (kể cả dấu phẩy và khoảng trắng)
-- Phân cách bằng dấu phẩy, KHÔNG có khoảng trắng sau dấu phẩy
-- KHÔNG lặp lại từ đã có trong App Name
-- Ưu tiên từ khóa người dùng hay tìm kiếm
+**Quy tắc tối ưu ASO trên App Store Việt Nam (`vn`)**:
+- Tối đa 100 ký tự mỗi ngôn ngữ (kể cả dấu phẩy, **KHÔNG** có khoảng trắng sau dấu phẩy).
+- **KHÔNG** lặp lại từ đã có trong App Name (`Lịch Việt: Lịch Âm & Vạn Sự`) và Subtitle (`Lịch Vạn Niên, Xem Ngày Tốt`).
+- App Store Việt Nam (`vn`) lập chỉ mục đồng thời cả **`Vietnamese (vi)`**, **`English (U.K. - en-GB)`** và **`English (Australia - en-AU)`**. Hãy bật thêm ngôn ngữ **`English (U.K.)`** trong App Store Connect để nhân đôi dung lượng từ khóa và phủ toàn bộ từ khóa **không dấu** (`lich viet,lich am,...`).
 
-### Option 1 - Tiếng Việt ⭐ KHUYÊN DÙNG (99 ký tự):
+### 3.1 Localization 1: `Vietnamese` ⭐ BẮT BUỘC (99 ký tự — Từ khóa có dấu mở rộng):
 ```
-lịch âm,phong thủy,ngày tốt xấu,giờ hoàng đạo,can chi,xem ngày,la bàn,28 sao,12 trực,ngày cưới,ngày lễ
-```
-
-### Option 2 - Tiếng Việt Mix (98 ký tự):
-```
-âm lịch,xem ngày tốt,giờ hoàng đạo,la bàn phong thủy,bát quái,ngũ hành,ngày cưới,khai trương,động thổ
+phong thủy,giờ hoàng đạo,can chi,la bàn,28 sao,12 trực,cưới hỏi,khai trương,xuất hành,tử vi,ngày lễ
 ```
 
-### Option 3 - Tiếng Anh (cho App Store quốc tế - 95 ký tự):
+### 3.2 Localization 2: `English (U.K.)` ⭐ BẮT BUỘC (98 ký tự — Từ khóa không dấu & cụm tìm kiếm phổ biến):
 ```
-lunar calendar,feng shui,auspicious day,chinese zodiac,lich am,horoscope,vietnamese,compass
+lich viet,lich am,lich van nien,van su an lanh,xem ngay tot,gio hoang dao,phong thuy,am lich,tu vi
 ```
 
-### Từ khóa bổ sung (để thay thế nếu cần):
-- `tử vi`, `tuổi`, `tam tai`, `xông đất`, `xuất hành`
-- `cúng`, `giỗ`, `rằm`, `mùng một`, `tết`
-- `hướng nhà`, `hướng bàn thờ`, `hướng tốt`
+### 3.3 Localization 3: `English (U.S.)` / `English (Australia)` (95 ký tự — Cho người dùng để máy tiếng Anh / Quốc tế):
+```
+lunar calendar,feng shui,auspicious day,chinese zodiac,lich viet,lich am,vietnamese,compass
+```
+
+### Từ khóa bổ sung (để luân chuyển theo mùa Tết / Cưới hỏi):
+- `tử vi,tuổi,tam tai,xông đất,xuất hành`
+- `cúng,giỗ,rằm,mùng một,tết,đổi ngày`
+- `hướng nhà,hướng bàn thờ,hướng tốt,động thổ`
 
 ---
 
