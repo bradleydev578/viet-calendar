@@ -76,7 +76,9 @@ export class FengShuiRepository {
       }
 
       this.dataMap = map;
-      console.log(`Loaded ${map.size} days of feng shui data for years: ${loadedYears.join(', ')}`);
+      if (__DEV__) {
+        console.log(`Loaded ${map.size} days of feng shui data for years: ${loadedYears.join(', ')}`);
+      }
 
       return map;
     } catch (error) {

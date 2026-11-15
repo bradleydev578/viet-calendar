@@ -179,8 +179,11 @@ export function CalendarScreen() {
   }, [screenWidth, handlePrevMonth, translateX, animationDuration]);
 
   // Swipe gesture (respects reduce motion preference)
+  // failOffsetY ensures vertical movements (e.g. scrolling or tapping tab bar)
+  // quickly cancel the pan, preventing touch interception on Android tablets.
   const panGesture = Gesture.Pan()
     .activeOffsetX([-20, 20])
+    .failOffsetY([-15, 15])
     .onUpdate((event) => {
       // Follow finger while swiping (only if animations enabled)
       if (!reduceMotionEnabled) {
@@ -217,8 +220,8 @@ export function CalendarScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: monthTheme.background }]} edges={['top']}>
       {/* Decorative blur circles - dynamic based on month */}
-      <View style={[styles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
-      <View style={[styles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
+      <View pointerEvents="none" style={[styles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
+      <View pointerEvents="none" style={[styles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
 
       <ScrollView
         style={styles.scrollView}

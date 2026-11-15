@@ -11,6 +11,8 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   StyleSheet,
+  Platform,
+  StatusBar,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
@@ -153,7 +155,11 @@ export function DayDetailModalScreen({ route, navigation }: DayDetailModalScreen
   }, [navigation]);
 
   // Pan gesture for pull-to-dismiss
+  // activeOffsetY ensures ScrollView gets priority for normal scrolling;
+  // the dismiss gesture only activates after a deliberate 30px downward pull.
   const panGesture = Gesture.Pan()
+    .activeOffsetY(30)
+    .failOffsetX([-20, 20])
     .onUpdate((event) => {
       if (event.translationY > 0 && !reduceMotionEnabled) {
         translateY.value = event.translationY;
@@ -184,9 +190,9 @@ export function DayDetailModalScreen({ route, navigation }: DayDetailModalScreen
     return (
       <View style={[detailStyles.container, { backgroundColor: monthTheme.background }]}>
         {/* Dynamic blur circles based on month theme */}
-        <View style={[detailStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
-        <View style={[detailStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
-        <View style={[detailStyles.header, { marginTop: 8 }]}>
+        <View pointerEvents="none" style={[detailStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
+        <View pointerEvents="none" style={[detailStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
+        <View style={[detailStyles.header, { marginTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 8 : 8 }]}>
           <TouchableOpacity style={detailStyles.backButton} onPress={handleClose}>
             <Icon name="arrow-left" size={24} color={colors.neutral[700]} />
           </TouchableOpacity>
@@ -205,9 +211,9 @@ export function DayDetailModalScreen({ route, navigation }: DayDetailModalScreen
     return (
       <View style={[detailStyles.container, { backgroundColor: monthTheme.background }]}>
         {/* Dynamic blur circles based on month theme */}
-        <View style={[detailStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
-        <View style={[detailStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
-        <View style={[detailStyles.header, { marginTop: 8 }]}>
+        <View pointerEvents="none" style={[detailStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
+        <View pointerEvents="none" style={[detailStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
+        <View style={[detailStyles.header, { marginTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 8 : 8 }]}>
           <TouchableOpacity style={detailStyles.backButton} onPress={handleClose}>
             <Icon name="arrow-left" size={24} color={colors.neutral[700]} />
           </TouchableOpacity>
@@ -250,12 +256,12 @@ export function DayDetailModalScreen({ route, navigation }: DayDetailModalScreen
     <GestureDetector gesture={panGesture}>
       <Animated.View style={[{ flex: 1, backgroundColor: monthTheme.background }, animatedStyle]}>
         {/* Dynamic blur circle decorations based on month theme */}
-        <View style={[detailStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
-        <View style={[detailStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
+        <View pointerEvents="none" style={[detailStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
+        <View pointerEvents="none" style={[detailStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
 
         <SafeAreaView style={detailStyles.container} edges={['bottom']}>
           {/* Header with back button - positioned right below status bar */}
-          <View style={[detailStyles.header, { marginTop: 8 }]}>
+          <View style={[detailStyles.header, { marginTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 8 : insets.top + 8 }]}>
             <TouchableOpacity
               style={detailStyles.backButton}
               onPress={handleClose}
@@ -583,6 +589,11 @@ export function DayDetailModalScreen({ route, navigation }: DayDetailModalScreen
                         <Text style={detailStyles.holidayCountdown}>
                           {HolidayService.formatDaysUntil(holiday.daysUntil)}
                         </Text>
+                        {holiday.vacationBadge && (
+                          <Text style={detailStyles.holidayVacation} numberOfLines={1}>
+                            {holiday.vacationBadge}
+                          </Text>
+                        )}
                       </View>
                     </TouchableOpacity>
                   ))}
@@ -724,12 +735,14 @@ const detailStyles = StyleSheet.create({
 
   // Lunar Badge
   lunarBadge: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: Platform.OS === 'ios' ? 'rgba(255, 255, 255, 0.8)' : '#FFFFFF',
     borderRadius: 16,
     padding: 16,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.neutral[100],
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: colors.neutral[100],
+    } : {}),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.05,
@@ -820,8 +833,10 @@ const detailStyles = StyleSheet.create({
     backgroundColor: colors.neutral[0],
     padding: 12,
     borderRadius: 16,
-    borderWidth: 1,
-    borderColor: colors.neutral[100],
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: colors.neutral[100],
+    } : {}),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
@@ -932,14 +947,18 @@ const detailStyles = StyleSheet.create({
     elevation: 1,
   },
   activityCardGood: {
-    backgroundColor: 'rgba(5, 150, 105, 0.05)',
-    borderWidth: 1,
-    borderColor: 'rgba(5, 150, 105, 0.1)',
+    backgroundColor: Platform.OS === 'ios' ? 'rgba(5, 150, 105, 0.05)' : '#F0FDF9',
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: 'rgba(5, 150, 105, 0.1)',
+    } : {}),
   },
   activityCardBad: {
-    backgroundColor: 'rgba(220, 38, 38, 0.05)',
-    borderWidth: 1,
-    borderColor: 'rgba(220, 38, 38, 0.1)',
+    backgroundColor: Platform.OS === 'ios' ? 'rgba(220, 38, 38, 0.05)' : '#FEF2F2',
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: 'rgba(220, 38, 38, 0.1)',
+    } : {}),
   },
   activityHeader: {
     flexDirection: 'row',
@@ -1102,14 +1121,16 @@ const detailStyles = StyleSheet.create({
   compassCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.neutral[100],
+    backgroundColor: Platform.OS === 'ios' ? colors.neutral[100] : '#F5F5F5',
     marginHorizontal: 16,
     borderRadius: 24,
     padding: 24,
     gap: 24,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: colors.neutral[0],
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: colors.neutral[0],
+    } : {}),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
@@ -1216,8 +1237,10 @@ const detailStyles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 1,
-    borderWidth: 1,
-    borderColor: colors.neutral[100],
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: colors.neutral[100],
+    } : {}),
   },
   holidayDateBadge: {
     width: 48,
@@ -1245,6 +1268,12 @@ const detailStyles = StyleSheet.create({
   holidayCountdown: {
     fontSize: 10,
     color: colors.neutral[500],
+    marginTop: 2,
+  },
+  holidayVacation: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#C62828',
     marginTop: 2,
   },
 

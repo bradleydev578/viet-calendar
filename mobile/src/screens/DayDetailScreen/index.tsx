@@ -9,6 +9,7 @@ import {
   Text,
   ScrollView,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -118,8 +119,8 @@ export function DayDetailScreen({ route }: DayDetailScreenProps) {
   if (isLoading) {
     return (
       <View style={[screenStyles.container, { backgroundColor: monthTheme.background }]}>
-        <View style={[screenStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
-        <View style={[screenStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
+        <View pointerEvents="none" style={[screenStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
+        <View pointerEvents="none" style={[screenStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
         <SafeAreaView style={screenStyles.safeArea} edges={['top']}>
           <View style={screenStyles.emptyState}>
             <Text style={screenStyles.emptyText}>Đang tải dữ liệu...</Text>
@@ -133,8 +134,8 @@ export function DayDetailScreen({ route }: DayDetailScreenProps) {
   if (!dayData || !score) {
     return (
       <View style={[screenStyles.container, { backgroundColor: monthTheme.background }]}>
-        <View style={[screenStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
-        <View style={[screenStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
+        <View pointerEvents="none" style={[screenStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
+        <View pointerEvents="none" style={[screenStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
         <SafeAreaView style={screenStyles.safeArea} edges={['top']}>
           <View style={screenStyles.emptyState}>
             <Text style={screenStyles.emptyText}>
@@ -167,8 +168,8 @@ export function DayDetailScreen({ route }: DayDetailScreenProps) {
   return (
     <View style={[screenStyles.container, { backgroundColor: monthTheme.background }]}>
       {/* Dynamic blur circle decorations based on month theme */}
-      <View style={[screenStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
-      <View style={[screenStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
+      <View pointerEvents="none" style={[screenStyles.blurCircle1, { backgroundColor: monthTheme.blurCircle1 }]} />
+      <View pointerEvents="none" style={[screenStyles.blurCircle2, { backgroundColor: monthTheme.blurCircle2 }]} />
 
       <SafeAreaView style={screenStyles.safeArea} edges={['top', 'bottom']}>
         <ScrollView
@@ -467,6 +468,11 @@ export function DayDetailScreen({ route }: DayDetailScreenProps) {
                       <Text style={screenStyles.holidayCountdown}>
                         {HolidayService.formatDaysUntil(holiday.daysUntil)}
                       </Text>
+                      {holiday.vacationBadge && (
+                        <Text style={screenStyles.holidayVacation} numberOfLines={1}>
+                          {holiday.vacationBadge}
+                        </Text>
+                      )}
                     </View>
                   </View>
                 ))}
@@ -555,12 +561,14 @@ const screenStyles = StyleSheet.create({
 
   // Lunar Badge
   lunarBadge: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: Platform.OS === 'ios' ? 'rgba(255, 255, 255, 0.8)' : '#FFFFFF',
     borderRadius: 16,
     padding: 16,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.neutral[100],
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: colors.neutral[100],
+    } : {}),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.05,
@@ -648,8 +656,10 @@ const screenStyles = StyleSheet.create({
     backgroundColor: colors.neutral[0],
     padding: 12,
     borderRadius: 16,
-    borderWidth: 1,
-    borderColor: colors.neutral[100],
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: colors.neutral[100],
+    } : {}),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
@@ -751,14 +761,18 @@ const screenStyles = StyleSheet.create({
     elevation: 1,
   },
   activityCardGood: {
-    backgroundColor: 'rgba(5, 150, 105, 0.05)',
-    borderWidth: 1,
-    borderColor: 'rgba(5, 150, 105, 0.1)',
+    backgroundColor: Platform.OS === 'ios' ? 'rgba(5, 150, 105, 0.05)' : '#F0FDF9',
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: 'rgba(5, 150, 105, 0.1)',
+    } : {}),
   },
   activityCardBad: {
-    backgroundColor: 'rgba(220, 38, 38, 0.05)',
-    borderWidth: 1,
-    borderColor: 'rgba(220, 38, 38, 0.1)',
+    backgroundColor: Platform.OS === 'ios' ? 'rgba(220, 38, 38, 0.05)' : '#FEF2F2',
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: 'rgba(220, 38, 38, 0.1)',
+    } : {}),
   },
   activityHeader: {
     flexDirection: 'row',
@@ -915,14 +929,16 @@ const screenStyles = StyleSheet.create({
   compassCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.neutral[100],
+    backgroundColor: Platform.OS === 'ios' ? colors.neutral[100] : '#F5F5F5',
     marginHorizontal: 16,
     borderRadius: 24,
     padding: 24,
     gap: 24,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: colors.neutral[0],
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: colors.neutral[0],
+    } : {}),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
@@ -1026,8 +1042,10 @@ const screenStyles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 1,
-    borderWidth: 1,
-    borderColor: colors.neutral[100],
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: colors.neutral[100],
+    } : {}),
   },
   holidayDateBadge: {
     width: 48,
@@ -1055,6 +1073,12 @@ const screenStyles = StyleSheet.create({
   holidayCountdown: {
     fontSize: 10,
     color: colors.neutral[500],
+    marginTop: 2,
+  },
+  holidayVacation: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#C62828',
     marginTop: 2,
   },
 

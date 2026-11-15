@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { format, isSameMonth } from 'date-fns';
 import { vi } from 'date-fns/locale';
@@ -127,7 +127,7 @@ const headerStyles = StyleSheet.create({
   monthSelector: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    backgroundColor: 'rgba(240, 240, 240, 0.8)',
     paddingVertical: 6,
     paddingHorizontal: 6,
     borderRadius: 24,
@@ -136,8 +136,10 @@ const headerStyles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 1,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: 'rgba(255, 255, 255, 0.2)',
+    } : {}),
   },
   navButton: {
     width: 36,

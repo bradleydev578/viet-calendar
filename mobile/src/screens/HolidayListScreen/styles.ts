@@ -69,6 +69,22 @@ export const styles = StyleSheet.create({
     ...typography.bodySmall,
     color: colors.neutral[600],
   },
+  vacationBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    gap: 4,
+    marginTop: spacing[1],
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 10,
+    backgroundColor: '#FDECEA',
+  },
+  vacationBadgeText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#C62828',
+  },
   holidayDescription: {
     ...typography.bodySmall,
     color: colors.neutral[500],

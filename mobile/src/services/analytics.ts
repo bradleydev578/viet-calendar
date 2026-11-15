@@ -27,15 +27,21 @@ const safeLogEvent = (
 ): void => {
   if (!analyticsEnabled) return;
 
-  // Fire and forget - no await, non-blocking
-  analytics()
-    .logEvent(eventName, params)
-    .catch((error: Error) => {
-      if (__DEV__) {
-        console.warn(`[Analytics] Failed to log ${eventName}:`, error.message);
-      }
-      // Silent fail in production - app continues normally
-    });
+  try {
+    // Fire and forget - no await, non-blocking
+    analytics()
+      .logEvent(eventName, params)
+      .catch((error: Error) => {
+        if (__DEV__) {
+          console.log(`[Analytics] Failed to log ${eventName}:`, error.message);
+        }
+        // Silent fail in production - app continues normally
+      });
+  } catch (error) {
+    if (__DEV__) {
+      console.log(`[Analytics] Firebase not initialized, skipping ${eventName}`);
+    }
+  }
 };
 
 /**
@@ -44,13 +50,19 @@ const safeLogEvent = (
 const safeSetUserProperty = (name: string, value: string | null): void => {
   if (!analyticsEnabled) return;
 
-  analytics()
-    .setUserProperty(name, value)
-    .catch((error: Error) => {
-      if (__DEV__) {
-        console.warn(`[Analytics] Failed to set user property ${name}:`, error.message);
-      }
-    });
+  try {
+    analytics()
+      .setUserProperty(name, value)
+      .catch((error: Error) => {
+        if (__DEV__) {
+          console.log(`[Analytics] Failed to set user property ${name}:`, error.message);
+        }
+      });
+  } catch (error) {
+    if (__DEV__) {
+      console.log(`[Analytics] Firebase not initialized, skipping property ${name}`);
+    }
+  }
 };
 
 // ============ Initialization ============
@@ -66,7 +78,7 @@ export const initAnalytics = (): void => {
       .setAnalyticsCollectionEnabled(true)
       .catch((error: Error) => {
         if (__DEV__) {
-          console.warn('[Analytics] Failed to enable collection:', error.message);
+          console.log('[Analytics] Failed to enable collection:', error.message);
         }
       });
 
@@ -74,10 +86,11 @@ export const initAnalytics = (): void => {
       console.log('[Analytics] Initialized');
     }
   } catch (error) {
+    // Firebase not configured (missing google-services.json) - disable analytics
+    analyticsEnabled = false;
     if (__DEV__) {
-      console.warn('[Analytics] Init failed:', error);
+      console.log('[Analytics] Firebase not configured, analytics disabled');
     }
-    // Silent fail - app continues
   }
 };
 
@@ -86,11 +99,13 @@ export const initAnalytics = (): void => {
  */
 export const disableAnalytics = (): void => {
   analyticsEnabled = false;
-  analytics()
-    .setAnalyticsCollectionEnabled(false)
-    .catch(() => {
-      // Silent fail
-    });
+  try {
+    analytics()
+      .setAnalyticsCollectionEnabled(false)
+      .catch(() => {});
+  } catch {
+    // Firebase not initialized
+  }
 };
 
 /**
@@ -98,11 +113,13 @@ export const disableAnalytics = (): void => {
  */
 export const enableAnalytics = (): void => {
   analyticsEnabled = true;
-  analytics()
-    .setAnalyticsCollectionEnabled(true)
-    .catch(() => {
-      // Silent fail
-    });
+  try {
+    analytics()
+      .setAnalyticsCollectionEnabled(true)
+      .catch(() => {});
+  } catch {
+    // Firebase not initialized
+  }
 };
 
 // ============ Screen View Tracking ============

@@ -13,7 +13,7 @@ import { SettingLink } from './SettingLink';
 import { InfoModal, type InfoModalType } from './InfoModal';
 import { styles } from './styles';
 
-const APP_VERSION = '1.2';
+const APP_VERSION = '1.3.0';
 
 export function SettingsScreen() {
   const { settings, loadSettings, toggleLunarDates, toggleHolidays } = useSettingsStore();

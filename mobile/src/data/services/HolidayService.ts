@@ -42,32 +42,70 @@ export class HolidayService {
    * Convert lunar holidays to solar dates for the given year
    */
   static convertLunarHolidays(year: number): Holiday[] {
-    return LUNAR_HOLIDAYS.map((template) => {
+    const holidays: Holiday[] = [];
+
+    for (const template of LUNAR_HOLIDAYS) {
       if (!template.lunarDate) {
         throw new Error(`Lunar date missing for holiday: ${template.id}`);
       }
 
-      // Convert lunar date to solar date
-      const solarDate = LunarCalculator.toSolar({
-        year,
-        month: template.lunarDate.month,
-        day: template.lunarDate.day,
+      // Month 12 of lunar year (year - 1) falls in Jan/Feb of solar `year`,
+      // so check both lunar years and keep only dates inside solar `year`.
+      for (const lunarYear of [year - 1, year]) {
+        const solarDate = this.lunarHolidayToSolar(template, lunarYear);
+        if (solarDate.getFullYear() !== year) continue;
+
+        holidays.push(this.buildHoliday(template, year, solarDate));
+      }
+    }
+
+    return holidays;
+  }
+
+  /**
+   * Resolve the solar date of a lunar holiday template in a given lunar year.
+   * `isLunarYearEnd` (Giao thừa) = day before Tết of the next lunar year,
+   * since month 12 can have 29 or 30 days.
+   */
+  private static lunarHolidayToSolar(template: HolidayTemplate, lunarYear: number): Date {
+    if (template.isLunarYearEnd) {
+      const nextTet = LunarCalculator.toSolar({
+        year: lunarYear + 1,
+        month: 1,
+        day: 1,
         isLeapMonth: false,
       });
+      return new Date(nextTet.getFullYear(), nextTet.getMonth(), nextTet.getDate() - 1);
+    }
 
-      return {
-        id: `${template.id}-${year}`,
-        name: template.name,
-        type: 'lunar',
-        category: template.category,
-        date: format(solarDate, 'yyyy-MM-dd'),
-        lunarDate: template.lunarDate,
-        description: template.description,
-        isImportant: template.isImportant,
-        totalDays: template.totalDays,
-        location: template.location,
-      };
+    return LunarCalculator.toSolar({
+      year: lunarYear,
+      month: template.lunarDate!.month,
+      day: template.lunarDate!.day,
+      isLeapMonth: false,
     });
+  }
+
+  /**
+   * Build a Holiday from a template, applying the per-year official schedule
+   * (vacation badge, description, total days) when one exists.
+   */
+  private static buildHoliday(template: HolidayTemplate, year: number, date: Date): Holiday {
+    const schedule = template.yearlySchedules?.[year];
+
+    return {
+      id: `${template.id}-${year}`,
+      name: template.name,
+      type: template.type,
+      category: template.category,
+      date: format(date, 'yyyy-MM-dd'),
+      lunarDate: template.lunarDate,
+      description: schedule?.description ?? template.description,
+      isImportant: template.isImportant,
+      totalDays: schedule?.totalDays ?? template.totalDays,
+      location: template.location,
+      vacationBadge: schedule?.vacationBadge ?? template.vacationBadge,
+    };
   }
 
   /**
@@ -81,17 +119,7 @@ export class HolidayService {
 
       const date = new Date(year, template.solarDate.month - 1, template.solarDate.day);
 
-      return {
-        id: `${template.id}-${year}`,
-        name: template.name,
-        type: 'solar',
-        category: template.category,
-        date: format(date, 'yyyy-MM-dd'),
-        description: template.description,
-        isImportant: template.isImportant,
-        totalDays: template.totalDays,
-        location: template.location,
-      };
+      return this.buildHoliday(template, year, date);
     });
   }
 
@@ -111,9 +139,10 @@ export class HolidayService {
           category: festival.category,
           date: yearDates.startDate,
           endDate: yearDates.endDate,
-          description: festival.description,
+          description: yearDates.description ?? festival.description,
           isImportant: festival.isImportant,
           location: festival.location,
+          vacationBadge: yearDates.vacationBadge ?? festival.vacationBadge,
         });
       }
     }

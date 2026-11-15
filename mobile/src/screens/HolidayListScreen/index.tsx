@@ -3,8 +3,8 @@
  * Displays Vietnamese holidays and solar terms
  */
 
-import React, { useMemo, useRef, useEffect } from 'react';
-import { SectionList, View, Text, ActivityIndicator } from 'react-native';
+import React, { useMemo, useRef, useEffect, useCallback } from 'react';
+import { ScrollView, View, Text, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -23,17 +23,14 @@ interface SectionData {
 
 export function HolidayListScreen() {
   const navigation = useNavigation<any>();
-  const sectionListRef = useRef<SectionList<Holiday, SectionData>>(null);
+  const scrollRef = useRef<ScrollView>(null);
   const today = new Date();
-  const currentMonth = today.getMonth() + 1; // 1-12
   const year = today.getFullYear();
   const { holidaysByMonth, isLoading } = useHolidays(year);
 
-  // Convert holidaysByMonth to SectionList format
+  // Convert holidaysByMonth to sections
   const sections = useMemo(() => {
     const sectionArray: SectionData[] = [];
-
-    // Sort months (1-12)
     const months = Object.keys(holidaysByMonth)
       .map(Number)
       .sort((a, b) => a - b);
@@ -41,52 +38,73 @@ export function HolidayListScreen() {
     months.forEach((month) => {
       const holidays = holidaysByMonth[month];
       if (holidays && holidays.length > 0) {
-        sectionArray.push({
-          month,
-          data: holidays,
-        });
+        sectionArray.push({ month, data: holidays });
       }
     });
 
     return sectionArray;
   }, [holidaysByMonth]);
 
-  // Track screen view on mount
+  // Find target month to scroll to (nearest upcoming holiday)
+  const targetMonth = useMemo(() => {
+    if (sections.length === 0) return null;
+    const todayStr = today.toISOString().split('T')[0];
+
+    // Find the nearest upcoming holiday across ALL sections (not just first match)
+    let best: { date: string; month: number } | null = null;
+
+    for (const section of sections) {
+      for (const holiday of section.data) {
+        if (holiday.date >= todayStr) {
+          if (!best || holiday.date < best.date) {
+            best = { date: holiday.date, month: section.month };
+          }
+        }
+      }
+    }
+
+    return best ? best.month : sections[sections.length - 1].month;
+  }, [sections]);
+
+  // Track screen view
   useEffect(() => {
     trackScreenView('HolidayListScreen');
     trackViewHolidays({ year });
   }, [year]);
 
-  // Scroll to current month on initial load
+  // Scroll to target month after render
   useEffect(() => {
-    if (!isLoading && sections.length > 0 && sectionListRef.current) {
-      // Find section index for current month
-      const sectionIndex = sections.findIndex((s) => s.month === currentMonth);
-      if (sectionIndex >= 0) {
-        // Small delay to ensure list is rendered
-        setTimeout(() => {
-          sectionListRef.current?.scrollToLocation({
-            sectionIndex,
-            itemIndex: 0,
-            viewPosition: 0,
-            animated: false,
-          });
-        }, 100);
-      }
-    }
-  }, [isLoading, sections, currentMonth]);
+    if (sections.length === 0 || !targetMonth) return;
 
-  const handleHolidayPress = (holiday: Holiday) => {
-    // Track holiday tap
+    // Count elements before target month section
+    let elementsBefore = 0;
+    for (const section of sections) {
+      if (section.month === targetMonth) break;
+      elementsBefore += 1 + section.data.length; // 1 header + N items
+    }
+
+    if (elementsBefore === 0) return; // Target is first section, no scroll needed
+
+    // Estimate offset: ~90px average per element (headers ~48px, items ~100px)
+    const estimatedOffset = elementsBefore * 90;
+
+
+    const timer = setTimeout(() => {
+      scrollRef.current?.scrollTo({ y: estimatedOffset, animated: false });
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [sections, targetMonth]);
+
+  const handleHolidayPress = useCallback((holiday: Holiday) => {
     trackHolidayTap({
       holidayName: holiday.name,
       holidayDate: holiday.date,
     });
-    // Navigate to DayDetailModal screen for this date
     navigation.navigate('DayDetailModal', {
       date: new Date(holiday.date).toISOString(),
     });
-  };
+  }, [navigation]);
 
   if (isLoading) {
     return (
@@ -112,17 +130,16 @@ export function HolidayListScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-      <SectionList
-        ref={sectionListRef}
-        sections={sections}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <HolidayItem holiday={item} onPress={handleHolidayPress} />}
-        renderSectionHeader={({ section }) => <MonthHeader month={section.month} year={year} />}
-        stickySectionHeadersEnabled
-        onScrollToIndexFailed={() => {
-          // Handle scroll failure silently - can happen if list not fully rendered
-        }}
-      />
+      <ScrollView ref={scrollRef}>
+        {sections.map((section) => (
+          <View key={section.month}>
+            <MonthHeader month={section.month} year={year} />
+            {section.data.map((item) => (
+              <HolidayItem key={item.id} holiday={item} onPress={handleHolidayPress} />
+            ))}
+          </View>
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 }
