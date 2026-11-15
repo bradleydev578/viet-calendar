@@ -10,8 +10,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { format } from 'date-fns';
 import { vi } from 'date-fns/locale';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -33,7 +33,6 @@ interface UpcomingHoliday extends Holiday {
 }
 
 export function TodayWidget({ onPress, onHolidayPress }: TodayWidgetProps) {
-  const insets = useSafeAreaInsets();
   const today = useMemo(() => new Date(), []);
   const { data: fengShuiData } = useFengShuiStore();
 
@@ -91,17 +90,17 @@ export function TodayWidget({ onPress, onHolidayPress }: TodayWidgetProps) {
   }, [capitalizedWeekday, dateStr, todayInfo, hoangDaoStr]);
 
   return (
-    <TouchableOpacity
-      style={[styles.container, { paddingBottom: insets.bottom + 8 }]}
-      onPress={onPress}
-      activeOpacity={0.9}
-      accessible={true}
-      accessibilityRole="button"
-      accessibilityLabel={accessibilityLabel}
-      accessibilityHint="Nhấn đúp để xem chi tiết ngày hôm nay"
-    >
-      {/* Glass Panel */}
-      <View style={styles.glassPanel}>
+    <View style={styles.container}>
+      {/* Glass Panel - wrapped in Pressable for tap handling */}
+      <TouchableOpacity
+        style={styles.glassPanel}
+        onPress={onPress}
+        activeOpacity={0.9}
+        accessible={true}
+        accessibilityRole="button"
+        accessibilityLabel={accessibilityLabel}
+        accessibilityHint="Nhấn đúp để xem chi tiết ngày hôm nay"
+      >
         {/* Header Row: Weekday + Lunar Badge */}
         <View style={styles.headerRow}>
           {/* Left: Weekday and Date */}
@@ -213,8 +212,8 @@ export function TodayWidget({ onPress, onHolidayPress }: TodayWidgetProps) {
             </View>
           </View>
         )}
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -226,16 +225,18 @@ const styles = StyleSheet.create({
 
   // Glass Panel Effect
   glassPanel: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: Platform.OS === 'ios' ? 'rgba(255, 255, 255, 0.7)' : '#FFFFFF',
     borderRadius: 24,
     padding: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.4)',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 20,
-    elevation: 8,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 4,
+    ...(Platform.OS === 'ios' ? {
+      borderWidth: 1,
+      borderColor: 'rgba(255, 255, 255, 0.5)',
+    } : {}),
   },
 
   // Header Row
@@ -376,44 +377,45 @@ const styles = StyleSheet.create({
   },
   holidaysRow: {
     flexDirection: 'column',
-    gap: 8,
   },
   holidayCard: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.neutral[0],
-    borderRadius: 12,
-    padding: 10,
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
     gap: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 2,
     borderWidth: 1,
     borderColor: colors.neutral[100],
+    marginBottom: 8,
   },
   holidayDateBadge: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
+    width: 44,
+    height: 44,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
   },
   holidayDateText: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '700',
   },
   holidayInfo: {
     flex: 1,
   },
   holidayName: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '700',
     color: colors.neutral[900],
   },
   holidayCountdown: {
-    fontSize: 10,
+    fontSize: 11,
     color: colors.neutral[500],
     marginTop: 2,
   },

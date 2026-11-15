@@ -1131,7 +1131,7 @@ PODS:
   - RNFBApp (23.7.0):
     - Firebase/CoreOnly (= 12.6.0)
     - React-Core
-  - RNGestureHandler (2.29.1):
+  - RNGestureHandler (2.14.1):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1140,11 +1140,10 @@ PODS:
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
     - ReactCommon/turbomodule/core
-  - RNScreens (3.37.0):
+  - RNScreens (3.29.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
-    - React-RCTImage
   - RNSensors (7.3.6):
     - React-Core
   - RNSVG (14.2.0):
@@ -1424,9 +1423,9 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b44e8a4e798c3e1f56bffccd0f591f674fb9198f
   RNFBAnalytics: 7bdccdc2b978d06f9be3ff92298f6b11cf9c9be0
   RNFBApp: 6e0c3ee6cfbc76b5d1237ebf37240cd48a55c6e2
-  RNGestureHandler: f486293adb7105372945d26a356960096c0a47e1
+  RNGestureHandler: dd5543af5c344cb2bdd8de81a8ec85adb5ec4b4b
   RNReanimated: ad6fbfef871ca6c05a4892961ae3fb272aff0c1d
-  RNScreens: 3ce54903891fd6281865ad3e7cfe4c2bb438c70c
+  RNScreens: 59f615aa0782077560c8eea46c2daec3a716dba9
   RNSensors: 111159597ac51505df10413c61b28bcd28e88983
   RNSVG: 043f603fc70d48d289bc3f2ceedbb05ce2636f5c
   RNVectorIcons: 24c506ef3aab67787a85607b8d4a312ce8f6f3b0

@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { StatusBar, DevSettings } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
 import { RootNavigator } from './navigation';
 import { useFengShuiStore } from '../stores/useFengShuiStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
@@ -39,7 +38,7 @@ function App(): React.JSX.Element {
     trackAppOpen();
     setUserProperties({
       userType: 'free',
-      appVersion: '1.0.0',
+      appVersion: '1.3.0',
     });
 
     // Log debug instructions in dev mode

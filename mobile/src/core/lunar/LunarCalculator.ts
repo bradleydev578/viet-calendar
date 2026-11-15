@@ -1,4 +1,4 @@
-import { Solar, Lunar } from 'lunar-javascript';
+import { Solar, Lunar, LunarMonth, LunarYear } from 'lunar-javascript';
 import type { LunarDate, YearInfo, CanChiResult } from './types';
 import { CON_GIAP, THIEN_CAN, DIA_CHI, CAN_NGU_HANH } from './constants';
 
@@ -76,18 +76,17 @@ export class LunarCalculator {
    * Lấy số ngày trong tháng âm lịch
    */
   static getDaysInLunarMonth(year: number, month: number, isLeapMonth: boolean = false): number {
-    const lunar = Lunar.fromYmd(year, isLeapMonth ? -month : month, 1);
-    return lunar.getMonthDayCount();
+    // fromYm returns null for a leap month that doesn't exist in that year
+    const lunarMonth = LunarMonth.fromYm(year, isLeapMonth ? -month : month);
+    return lunarMonth ? lunarMonth.getDayCount() : 30;
   }
 
   /**
    * Kiểm tra năm có tháng nhuận không
    */
   static getLeapMonth(year: number): number {
-    // lunar-javascript sử dụng Lunar.fromYmd
-    const lunar = Lunar.fromYmd(year, 1, 1);
-    const leapMonth = lunar.getLeapMonth();
-    return leapMonth;
+    // 0 = năm không có tháng nhuận
+    return LunarYear.fromYear(year).getLeapMonth();
   }
 
   /**

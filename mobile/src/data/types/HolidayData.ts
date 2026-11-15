@@ -26,6 +26,7 @@ export interface Holiday {
   isImportant: boolean;            // Highlight important holidays
   totalDays?: number;              // For PUBLIC_HOLIDAYS - duration
   location?: string;               // For CULTURAL_ETHNIC_FESTIVALS
+  vacationBadge?: string;          // Official day-off label, e.g. "Nghỉ 7 ngày (04/02 – 10/02)"
 }
 
 export interface HolidaysByMonth {

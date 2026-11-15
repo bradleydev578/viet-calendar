@@ -8,3 +8,30 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+
+# React Native / Hermes
+-keep class com.facebook.hermes.unicode.** { *; }
+-keep class com.facebook.jni.** { *; }
+
+# React Native Reanimated
+-keep class com.swmansion.reanimated.** { *; }
+-keep class com.facebook.react.turbomodule.** { *; }
+
+# React Native Gesture Handler
+-keep class com.swmansion.gesturehandler.** { *; }
+
+# React Native Screens
+-keep class com.swmansion.rnscreens.** { *; }
+
+# Firebase
+-keep class com.google.firebase.** { *; }
+-keep class io.invertase.firebase.** { *; }
+
+# React Native SVG
+-keep public class com.horcrux.svg.** { *; }
+
+# React Native Sensors
+-keep class com.sensors.** { *; }
+
+# Keep Vietnamese text encoding
+-keep class java.nio.charset.** { *; }

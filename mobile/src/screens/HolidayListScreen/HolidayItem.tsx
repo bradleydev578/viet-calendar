@@ -43,6 +43,12 @@ export function HolidayItem({ holiday, onPress }: HolidayItemProps) {
           {holiday.isImportant && ' ⭐'}
         </Text>
         <Text style={styles.holidayDate}>{dateText}</Text>
+        {holiday.vacationBadge && (
+          <View style={styles.vacationBadge}>
+            <Icon name="briefcase-off-outline" size={12} color="#C62828" />
+            <Text style={styles.vacationBadgeText}>{holiday.vacationBadge}</Text>
+          </View>
+        )}
         {holiday.description && (
           <Text style={styles.holidayDescription}>{holiday.description}</Text>
         )}

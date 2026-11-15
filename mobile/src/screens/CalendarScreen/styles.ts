@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { colors } from '../../theme';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const SCREEN_WIDTH = Dimensions.get('window').width;
 const CELL_SIZE = Math.floor((SCREEN_WIDTH - 32) / 7); // 7 days, 16px padding each side
 const DAY_CELL_HEIGHT = 56; // Fixed height for day cells
 
@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
   // ScrollView
   scrollView: {
     flex: 1,
+    overflow: 'hidden',
   },
   scrollContent: {
     flexGrow: 1,
