@@ -9,6 +9,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DayDetailContentClient } from "@/components/day-detail/DayDetailContentClient";
 import { FengShuiServerRepository } from "@/lib/fengshui/FengShuiServerRepository";
+import { QuoteServerRepository } from "@/lib/quotes/QuoteServerRepository";
 import { LunarCalculator, WEEKDAY_NAMES } from "@/lib/lunar";
 import { parseDateString } from "@/lib/date-utils";
 import { BreadcrumbJsonLd, DayPageJsonLd } from "@/components/seo";
@@ -98,6 +99,9 @@ export default async function DayDetailPage({ params }: PageProps) {
     dateObj.getMonth() + 1
   );
 
+  // Pre-fetch quote of the day on server
+  const initialQuote = QuoteServerRepository.getQuoteOfTheDay(dateObj).text;
+
   const lunarDate = LunarCalculator.toLunar(dateObj);
   const weekday = WEEKDAY_NAMES[dateObj.getDay()];
   const solarFormatted = `${weekday}, ${dateObj.getDate()}/${
@@ -137,6 +141,7 @@ export default async function DayDetailPage({ params }: PageProps) {
         dateString={date}
         initialFengShuiData={fengShuiData}
         initialMonthData={monthData}
+        initialQuote={initialQuote}
       />
     </>
   );

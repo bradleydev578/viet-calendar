@@ -18,6 +18,7 @@ interface WallCalendarBlocProps {
   fengShuiData: DayFengShuiData | null;
   quote?: string;
   onSelectDate?: (date: Date) => void;
+  onOpenDetail?: () => void;
   showDetailLink?: boolean;
   isMainHeading?: boolean;
 }
@@ -35,6 +36,7 @@ export function WallCalendarBloc({
   fengShuiData,
   quote,
   onSelectDate,
+  onOpenDetail,
   showDetailLink = true,
   isMainHeading = false,
 }: WallCalendarBlocProps) {
@@ -42,6 +44,14 @@ export function WallCalendarBloc({
   const [dynamicQuote, setDynamicQuote] = useState<string | undefined>(quote);
 
   const dateKey = format(selectedDate, "yyyy-MM-dd");
+
+  // Seed quote cache once for the initial SSR date if quote prop is provided
+  useEffect(() => {
+    if (quote && !quoteCache.has(dateKey)) {
+      quoteCache.set(dateKey, quote);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Trigger subtle paper-tear animation and fetch quote for selectedDate whenever it changes
   useEffect(() => {
@@ -377,14 +387,26 @@ export function WallCalendarBloc({
           <Link
             href={`/day/${dateKey}`}
             prefetch={false}
-            className="text-[11px] font-extrabold hover:underline truncate text-center"
+            onClick={(e) => {
+              if (
+                onOpenDetail &&
+                !e.metaKey &&
+                !e.ctrlKey &&
+                !e.shiftKey &&
+                !e.altKey
+              ) {
+                e.preventDefault();
+                onOpenDetail();
+              }
+            }}
+            className="text-[11px] font-extrabold px-2.5 py-1.5 rounded-xl transition-colors truncate text-center hover:bg-slate-100"
             style={{ color: theme.primaryAccent }}
           >
             Xem chi tiết ngày →
           </Link>
         ) : (
-          <span className="text-[11px] text-slate-400 truncate text-center">
-            Bấm lịch tháng để lật →
+          <span className="text-[11px] font-bold text-slate-400 truncate text-center">
+            {format(selectedDate, "dd/MM/yyyy")}
           </span>
         )}
 

@@ -19,6 +19,7 @@ import {
 
 import { CalendarGridClient } from "./CalendarGridClient";
 import { WallCalendarBloc } from "./WallCalendarBloc";
+import { DayDetailDrawer } from "./DayDetailDrawer";
 
 interface HomeClientProps {
   initialFengShuiData: DayFengShuiData | null;
@@ -41,7 +42,14 @@ export function HomeClient({
   const [currentDate, setCurrentDate] = useState<Date>(initialParsedDate);
   const [selectedDate, setSelectedDate] = useState<Date>(initialParsedDate);
   const [isFullMonthView, setIsFullMonthView] = useState(false);
+  const [isDetailDrawerOpen, setIsDetailDrawerOpen] = useState(false);
+  const [drawerScrollTarget, setDrawerScrollTarget] = useState<"top" | "hours">("top");
   const [, setCacheVersion] = useState(0);
+
+  const openDetailDrawer = useCallback((target: "top" | "hours" = "top") => {
+    setDrawerScrollTarget(target);
+    setIsDetailDrawerOpen(true);
+  }, []);
 
   // Cache for feng shui data
   const fengShuiCache = useMemo(() => {
@@ -269,6 +277,7 @@ export function HomeClient({
                 fengShuiData={fengShuiData}
                 quote={initialQuote}
                 onSelectDate={handleSelectDate}
+                onOpenDetail={() => openDetailDrawer("top")}
                 showDetailLink
                 isMainHeading
               />
@@ -321,6 +330,13 @@ export function HomeClient({
               <div className="flex items-center gap-2">
                 <Link
                   href={`/day/${format(selectedDate, "yyyy-MM-dd")}`}
+                  prefetch={false}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                      e.preventDefault();
+                      openDetailDrawer("top");
+                    }
+                  }}
                   className="px-3 py-1.5 rounded-xl text-xs font-bold text-white shadow-xs"
                   style={{ backgroundColor: theme.primaryAccent }}
                 >
@@ -399,8 +415,14 @@ export function HomeClient({
             <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
               <span>Chọn giờ tốt hợp tuổi để khởi sự hanh thông</span>
               <Link
-                href={`/day/${format(selectedDate, "yyyy-MM-dd")}`}
+                href={`/day/${format(selectedDate, "yyyy-MM-dd")}#gio-hoang-dao`}
                 prefetch={false}
+                onClick={(e) => {
+                  if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                    e.preventDefault();
+                    openDetailDrawer("hours");
+                  }
+                }}
                 className="font-bold hover:underline"
                 style={{ color: theme.primaryAccent }}
               >
@@ -570,6 +592,17 @@ export function HomeClient({
 
       {/* Global V2 Footer */}
       <Footer />
+
+      {/* Zero-latency Day Detail Drawer */}
+      <DayDetailDrawer
+        isOpen={isDetailDrawerOpen}
+        onClose={() => setIsDetailDrawerOpen(false)}
+        selectedDate={selectedDate}
+        theme={theme}
+        fengShuiData={fengShuiData}
+        onSelectDate={handleSelectDate}
+        scrollTarget={drawerScrollTarget}
+      />
     </div>
   );
 }
