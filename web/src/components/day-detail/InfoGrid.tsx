@@ -8,7 +8,7 @@ interface InfoGridProps {
   theme?: MonthTheme;
 }
 
-export function InfoGrid({ fengShuiData, theme }: InfoGridProps) {
+export function InfoGrid({ fengShuiData }: InfoGridProps) {
   const infoItems = [
     {
       icon: "🌿",
@@ -19,46 +19,53 @@ export function InfoGrid({ fengShuiData, theme }: InfoGridProps) {
       icon: "📅",
       label: "12 Trực",
       value: fengShuiData.t12,
-      badge: fengShuiData.t12g === 1 ? "Tốt" : "Xấu",
-      badgeColor: fengShuiData.t12g === 1 ? "bg-emerald-500" : "bg-orange-500",
+      badge: fengShuiData.t12g === 1 ? "Hoàng Đạo" : "Hắc Đạo",
+      badgeColor: fengShuiData.t12g === 1 ? "bg-emerald-600" : "bg-amber-600",
     },
     {
-      icon: "💫",
-      label: "Ngũ Hành",
-      value: fengShuiData.nh,
+      icon: "💧",
+      label: "Ngũ Hành Nạp Âm",
+      value: fengShuiData.nh || "—",
     },
     {
       icon: "⭐",
-      label: "28 Sao",
+      label: "Nhị Thập Bát Tú (28 Sao)",
       value: fengShuiData.s28,
-      badge: fengShuiData.s28g === 1 ? "Tốt" : "Xấu",
-      badgeColor: fengShuiData.s28g === 1 ? "bg-emerald-500" : "bg-orange-500",
+      badge: fengShuiData.s28g === 1 ? "Cát Tú" : "Hung Tú",
+      badgeColor: fengShuiData.s28g === 1 ? "bg-emerald-600" : "bg-rose-600",
     },
   ];
 
   return (
-    <div className="mt-6">
-      <h2 className="text-lg font-bold text-neutral-800 mb-3">
-        📊 Thông Tin Chi Tiết
-      </h2>
+    <section className="bg-white/90 backdrop-blur-xl rounded-3xl p-5 sm:p-6 border border-white/80 shadow-lg space-y-4">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+        <h2 className="text-sm sm:text-base font-extrabold text-slate-900">
+          📊 Thần Sát & Thông Số Chi Tiết
+        </h2>
+        <span className="text-[11px] font-semibold text-slate-400">
+          Ngọc Hạp Thông Thư
+        </span>
+      </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {infoItems.map((item, index) => (
           <div
             key={index}
-            className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg"
+            className="bg-slate-50/90 rounded-2xl p-3.5 border border-slate-200/60"
           >
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-xl">{item.icon}</span>
-              <span className="text-xs text-neutral-500 uppercase tracking-wide">
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <span className="text-base">{item.icon}</span>
+              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                 {item.label}
               </span>
             </div>
-            <div className="flex items-center gap-2">
-              <p className="text-lg font-bold text-neutral-800">{item.value}</p>
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <p className="text-sm sm:text-base font-extrabold text-slate-900">
+                {item.value}
+              </p>
               {item.badge && (
                 <span
-                  className={`text-xs text-white px-2 py-0.5 rounded-full ${item.badgeColor}`}
+                  className={`text-[10px] font-extrabold text-white px-2.5 py-0.5 rounded-full ${item.badgeColor}`}
                 >
                   {item.badge}
                 </span>
@@ -68,50 +75,67 @@ export function InfoGrid({ fengShuiData, theme }: InfoGridProps) {
         ))}
       </div>
 
-      {/* Good/Bad Stars */}
-      <div className="grid grid-cols-2 gap-3 mt-3">
-        {/* Good Stars */}
-        <div className="bg-emerald-50 rounded-xl p-4">
-          <p className="text-xs text-emerald-600 uppercase tracking-wide mb-2">
-            ✨ Sao Tốt
+      {/* Conflicting Ages (Tuổi xung khắc) */}
+      {fengShuiData.age && fengShuiData.age.length > 0 && (
+        <div className="bg-amber-50/80 rounded-2xl p-3.5 border border-amber-200/60 flex flex-wrap items-center justify-between gap-2">
+          <div className="text-xs font-extrabold text-amber-900 uppercase tracking-wider">
+            ⚡ Tuổi Xung Khắc Trong Ngày
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {fengShuiData.age.map((a, idx) => (
+              <span
+                key={idx}
+                className="text-xs font-bold bg-white text-amber-900 px-2.5 py-1 rounded-xl border border-amber-200/70"
+              >
+                {a}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Full Good/Bad Stars (Never truncated) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="bg-emerald-50/80 rounded-2xl p-4 border border-emerald-200/60">
+          <p className="text-[11px] font-extrabold text-emerald-700 uppercase tracking-wider mb-2">
+            ✨ Sao Tốt ({fengShuiData.gs?.length || 0})
           </p>
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1.5">
             {fengShuiData.gs && fengShuiData.gs.length > 0 ? (
               fengShuiData.gs.map((star, index) => (
                 <span
                   key={index}
-                  className="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full"
+                  className="text-xs font-semibold bg-white text-emerald-800 px-2.5 py-1 rounded-xl border border-emerald-200/60"
                 >
                   {star}
                 </span>
               ))
             ) : (
-              <span className="text-xs text-neutral-400">Không có</span>
+              <span className="text-xs text-slate-400">Không có cát tinh nổi bật</span>
             )}
           </div>
         </div>
 
-        {/* Bad Stars */}
-        <div className="bg-red-50 rounded-xl p-4">
-          <p className="text-xs text-red-600 uppercase tracking-wide mb-2">
-            💀 Sao Xấu
+        <div className="bg-rose-50/80 rounded-2xl p-4 border border-rose-200/60">
+          <p className="text-[11px] font-extrabold text-rose-700 uppercase tracking-wider mb-2">
+            💀 Sao Xấu ({fengShuiData.bs?.length || 0})
           </p>
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1.5">
             {fengShuiData.bs && fengShuiData.bs.length > 0 ? (
               fengShuiData.bs.map((star, index) => (
                 <span
                   key={index}
-                  className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full"
+                  className="text-xs font-semibold bg-white text-rose-800 px-2.5 py-1 rounded-xl border border-rose-200/60"
                 >
                   {star}
                 </span>
               ))
             ) : (
-              <span className="text-xs text-neutral-400">Không có</span>
+              <span className="text-xs text-slate-400">Không có hung tinh đáng ngại</span>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
